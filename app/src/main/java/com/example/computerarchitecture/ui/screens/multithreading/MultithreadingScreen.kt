@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -24,10 +25,12 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -72,9 +75,6 @@ fun MultithreadingScreen(
             )
         },
     ) { paddingValues ->
-        if (openDialog) {
-            /*TODO: Add dialog*/
-        }
         var state by rememberSaveable { mutableIntStateOf(0) }
         val titles = listOf("CGMT", "FGMT", "CGMT")
         Column {
@@ -108,7 +108,10 @@ fun DisplayThreads(
     units: MutableList<ProcessingUnit>,
     modifier: Modifier = Modifier
 ) {
-    Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(12.dp)
+    ) {
         threads.forEach {
             DisplayThread(it, units, modifier)
         }
@@ -124,11 +127,12 @@ fun DisplayThreads(
  */
 @Composable
 fun DisplayThread(thread: Thread, units: MutableList<ProcessingUnit>, modifier: Modifier) {
-    Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-        Text("\nTime \nv")
-        Column {
-            Text("Processing Units >")
-            Row(Modifier.border(BorderStroke(1.dp, MaterialTheme.colorScheme.primary))) {
+    Column(Modifier.fillMaxWidth()) {
+        Text(
+            text = "Thread ${thread.name}(Priority: ${thread.priority})",
+            fontWeight = FontWeight.Bold
+        )
+        Row(Modifier.border(BorderStroke(2.dp, MaterialTheme.colorScheme.primary))) {
                 units.forEach { unit ->
                     val operationsSortedByStart: List<Operation> =
                         thread.operations.sortedBy { it.start }
@@ -168,8 +172,6 @@ fun DisplayThread(thread: Thread, units: MutableList<ProcessingUnit>, modifier: 
                     }
                 }
             }
-            Text("Thread ${thread.name} (Priority: ${thread.priority})")
-        }
     }
 }
 
