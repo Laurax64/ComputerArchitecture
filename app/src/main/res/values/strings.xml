@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">ComputerArchitecture</string>
+    <string name="multithreading">Multithreading</string>
+    <string name="computer_architecture">Computer Architecture</string>
+    <string name="static_scheduling_name">Static Scheduling</string>
+    <string name="static_scheduling_description">The Compiler can attempt to schedule instructions. </string>
+    <string name="dynamic_scheduling_name">Dynamic scheduling</string>
+    <string name="dynamic_scheduling_description">The Hardware rearranges the instruction execution to reduce the stalls.</string>
+    <string name="as_soon_as_possible_name">As soon as possible (ASAP)</string>
+    <string name="as_soon_as_possible_description">Executes instructions as soon as possible.</string>
+    <string name="as_late_as_possible_name">As late as possible(ALAP)</string>
+    <string name="as_late_as_possible_description">Executes instructions as late as possible.</string>
+</resources>
