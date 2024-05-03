@@ -4,24 +4,27 @@ package com.example.computerarchitecture.data
 /**
  *  A data class that represents a thread
  *
+ * @param id The id of the thread
  *  @param name The name of the thread
  *  @param priority The priority of the thread
  *  @param operations The list of operations
  */
-data class Thread(
+data class CAThread(
+    val id: Int,
     val name: String,
-    val priority: Int,
-    val operations: List<Operation>,
+    var priority: Int,
+    val operations: MutableList<Operation>,
 )
 
 /**
- * A list of [Thread]s that can be used as an example in the multithreading screen
+ * A list of [CAThread]s that can be used as an example in the multithreading screen
  */
-val exampleThreads: List<Thread> = listOf(
-    Thread(
+val exampleThreads: MutableList<CAThread> = mutableListOf(
+    CAThread(
+        0,
         "A",
         0,
-        listOf(
+        mutableListOf(
             Operation(0, 0, 1),
             Operation(2, 0, 4),
             Operation(0, 4, 5),
@@ -32,10 +35,11 @@ val exampleThreads: List<Thread> = listOf(
             Operation(3, 5, 6),
         )
     ),
-    Thread(
+    CAThread(
+        1,
         "B",
         1,
-        listOf(
+        mutableListOf(
             Operation(0, 0, 1),
             Operation(1, 0, 1),
             Operation(2, 0, 1),
@@ -50,10 +54,11 @@ val exampleThreads: List<Thread> = listOf(
             Operation(3, 5, 6),
         )
     ),
-    Thread(
+    CAThread(
+        2,
         "C",
         2,
-        listOf(
+        mutableListOf(
             Operation(3, 0, 1),
             Operation(3, 1, 2),
             Operation(3, 2, 3),

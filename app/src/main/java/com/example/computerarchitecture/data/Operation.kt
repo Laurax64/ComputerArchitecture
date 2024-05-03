@@ -9,6 +9,6 @@ package com.example.computerarchitecture.data
  */
 data class Operation(
     val unitId: Int,
-    val start: Int,
-    val end: Int,
+    var start: Int,
+    var end: Int,
 )
