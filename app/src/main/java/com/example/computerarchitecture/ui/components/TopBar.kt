@@ -4,6 +4,7 @@ package com.example.computerarchitecture.ui.components
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.rounded.AccountCircle
+import androidx.compose.material.icons.rounded.Settings
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -19,7 +20,7 @@ import androidx.compose.ui.Modifier
  * Displays a [CenterAlignedTopAppBar] including a button to open a [MultithreadingLoginDialog] and a back button
  *
  * @param title The title of the top bar
- * @param onAccountButtonClick The action to perform when the account button is clicked
+ * @param onSettingsButtonClick The action to perform when the account button is clicked
  * @param navigateBack The function to navigate back
  * @param modifier The modifier for the layout
  */
@@ -27,7 +28,7 @@ import androidx.compose.ui.Modifier
 @Composable
 fun ComputerArchitectureTopBar(
     title: String,
-    onAccountButtonClick: () -> Unit,
+    onSettingsButtonClick: () -> Unit,
     navigateBack: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -44,9 +45,9 @@ fun ComputerArchitectureTopBar(
             }
         },
         actions = {
-            IconButton(onClick = { onAccountButtonClick() }) {
+            IconButton(onClick = { onSettingsButtonClick() }) {
                 Icon(
-                    imageVector = Icons.Rounded.AccountCircle,
+                    imageVector = Icons.Rounded.Settings,
                     contentDescription = "Localized description",
                     tint = MaterialTheme.colorScheme.onPrimary,
                 )
