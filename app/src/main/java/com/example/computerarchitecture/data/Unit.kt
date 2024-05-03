@@ -19,7 +19,7 @@ data class ProcessingUnit(
 val units = listOf("Integer Unit", "Floating Point Unit", "Load/Store Unit")
 
 /**
- * The list of [Unit]s for the [exampleThreads]
+ * The list of [CAUnit]s for the [exampleThreads]
  */
 val exampleUnits = mutableListOf(
     ProcessingUnit(0, "Integer Unit", 1..1),

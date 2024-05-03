@@ -1,11 +1,11 @@
 package com.example.computerarchitecture.viewmodels
 
 import androidx.lifecycle.ViewModel
+import com.example.computerarchitecture.data.CAThread
 import com.example.computerarchitecture.data.Cache
 import com.example.computerarchitecture.data.ProcessingUnit
 import com.example.computerarchitecture.data.SchedulerType
 import com.example.computerarchitecture.data.SchedulingAlgorithm
-import com.example.computerarchitecture.data.Thread
 import com.example.computerarchitecture.data.exampleCaches
 import com.example.computerarchitecture.data.exampleThreads
 import com.example.computerarchitecture.data.exampleUnits
@@ -73,5 +73,5 @@ data class MultithreadingUiState(
     val fgmtContextSwitchOverhead: Int = 0,
     val smtContextSwitchOverhead: Int = 0,
     val cacheInterference: Boolean = false,
-    val threads: List<Thread> = listOf()
+    val threads: List<CAThread> = listOf()
 )
