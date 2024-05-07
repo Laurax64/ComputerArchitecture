@@ -13,7 +13,7 @@ data class CAThread(
     val id: Int,
     val name: String,
     var priority: Int,
-    val operations: MutableList<Operation>,
+    val operations: MutableList<Operation>
 )
 
 /**
@@ -25,14 +25,14 @@ val exampleThreads: MutableList<CAThread> = mutableListOf(
         "A",
         0,
         mutableListOf(
-            Operation(0, 0, 1),
-            Operation(2, 0, 4),
-            Operation(0, 4, 5),
-            Operation(0, 5, 6),
-            Operation(1, 4, 5),
-            Operation(1, 5, 6),
-            Operation(3, 4, 5),
-            Operation(3, 5, 6),
+            Operation(0, 0, 0, 1),
+            Operation(2, 0, 0, 4),
+            Operation(0, 0, 4, 5),
+            Operation(0, 0, 5, 6),
+            Operation(1, 0, 4, 5),
+            Operation(1, 0, 5, 6),
+            Operation(3, 0, 4, 5),
+            Operation(3, 0, 5, 6)
         )
     ),
     CAThread(
@@ -40,18 +40,18 @@ val exampleThreads: MutableList<CAThread> = mutableListOf(
         "B",
         1,
         mutableListOf(
-            Operation(0, 0, 1),
-            Operation(1, 0, 1),
-            Operation(2, 0, 1),
-            Operation(3, 0, 1),
-            Operation(0, 1, 2),
-            Operation(2, 1, 2),
-            Operation(2, 2, 4),
-            Operation(0, 4, 5),
-            Operation(1, 4, 5),
-            Operation(0, 5, 6),
-            Operation(1, 5, 6),
-            Operation(3, 5, 6),
+            Operation(0, 1, 0, 1),
+            Operation(1, 1, 0, 1),
+            Operation(2, 1, 0, 1),
+            Operation(3, 1, 0, 1),
+            Operation(0, 1, 1, 2),
+            Operation(2, 1, 1, 2),
+            Operation(2, 1, 2, 4),
+            Operation(0, 1, 4, 5),
+            Operation(1, 1, 4, 5),
+            Operation(0, 1, 5, 6),
+            Operation(1, 1, 5, 6),
+            Operation(3, 1, 5, 6)
         )
     ),
     CAThread(
@@ -59,10 +59,10 @@ val exampleThreads: MutableList<CAThread> = mutableListOf(
         "C",
         2,
         mutableListOf(
-            Operation(3, 0, 1),
-            Operation(3, 1, 2),
-            Operation(3, 2, 3),
-            Operation(3, 3, 4),
+            Operation(3, 2, 0, 1),
+            Operation(3, 2, 1, 2),
+            Operation(3, 2, 2, 3),
+            Operation(3, 2, 3, 4)
         )
     )
 )

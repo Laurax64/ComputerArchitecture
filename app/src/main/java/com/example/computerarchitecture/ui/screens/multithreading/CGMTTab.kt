@@ -1,5 +1,6 @@
 package com.example.computerarchitecture.ui.screens.multithreading
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -48,20 +49,29 @@ fun CGMTTab(
         horizontalAlignment = Alignment.Start,
         verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
-        var threads: MutableList<CAThread> = exampleThreads
+        val threads: MutableList<CAThread> = exampleThreads
         var threadId by remember { mutableStateOf("") }
         var threadName by rememberSaveable { mutableStateOf("") }
         var threadPriority by rememberSaveable { mutableStateOf("") }
         val threadOperations: MutableList<Operation> = mutableListOf()
-        var units: MutableList<ProcessingUnit> = exampleUnits
+        val units: MutableList<ProcessingUnit> = exampleUnits
         var unitId by remember { mutableStateOf("") }
         var unitType by remember { mutableStateOf("") }
         var unitLatency by remember { mutableStateOf("") }
-        var caches = exampleCaches
+        val caches = exampleCaches
         var cacheType by rememberSaveable { mutableStateOf("") }
         var cacheHitLatency by rememberSaveable { mutableStateOf("0") }
         var cacheMissLatency by rememberSaveable { mutableStateOf("0") }
-        var resultThread: CAThread = CAThread(0, "", 0, mutableListOf())
+        var resultThread: CAThread by remember {
+            mutableStateOf(
+                CAThread(
+                    0,
+                    "",
+                    0,
+                    mutableListOf()
+                )
+            )
+        }
 
         TextField(
             value = cacheType,
@@ -151,6 +161,7 @@ fun CGMTTab(
         }
         if (configureNewOperation) {
             ConfigureOperationDialog(
+                threadId = threadId.toInt(),
                 onDismissRequest = { configureNewOperation = false },
                 addOperation = { operation: Operation ->
                     threadOperations.add(operation)
@@ -197,15 +208,27 @@ fun CGMTTab(
             }
         }
         DisplayThreads(threads = threads, units = units)
+
+        //  Execute the Coarse Grain Multithreading algorithm if the user has added an L2 cache
         Button(
             {
-                resultThread = coarseGrainMultiTreading(threads, units, caches)
+                val l2Cache = caches.find { it.type == "L2 Cache" }
+                if (l2Cache == null) {
+                    Toast.makeText(
+                        null,
+                        "Please add an L2 cache to continue",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else {
+                    resultThread =
+                        coarseGrainMultiTreading(threads, units, caches, l2Cache.missLatency)
+                }
             },
             Modifier.fillMaxWidth()
         ) {
             Text("Execute CGMT")
         }
-        //  DisplayThread(resultThread, units, calculateMaxEndTime(listOf(resultThread)))
+        DisplayThread(resultThread, units, calculateMaxEndTime(listOf(resultThread)))
     }
 }
 
@@ -215,52 +238,42 @@ fun CGMTTab(
  * @param threads The threads to apply the algorithm to
  * @param units The processing units to use
  * @param caches The caches
+ * @param l2CacheMiss The latency of an L2 cache miss
  * @return The threads after applying the algorithm
  */
 fun coarseGrainMultiTreading(
-    threads: MutableList<CAThread>,
-    units: MutableList<ProcessingUnit>,
-    caches: MutableList<Cache>
+    threads: List<CAThread>,  // Change parameter type to List to ensure immutability
+    units: List<ProcessingUnit>,
+    caches: List<Cache>,
+    l2CacheMiss: Int,
 ): CAThread {
-    // Initialize resultThread to an empty thread
-    var resultThread = CAThread(0, "", 0, mutableListOf())
+    val resultThread = CAThread(0, "", 0, mutableListOf())
+    var totalOperations = threads.sumOf { it.operations.size }
+    var threadIndex = 0
+    var recentEndTime = 0
+    val copiedThreads = threads.map { thread ->
+        thread.copy(operations = thread.operations.toMutableList())
+    }
 
-    // Iterate through each thread
-    threads.forEach { thread ->
-        // Iterate through each operation of the thread
-        thread.operations.forEach { operation ->
-            // Find the unit with the least workload
-            val minWorkloadUnit = units.minByOrNull { it.numberOfLatencyCycles.last }!!
+    while (totalOperations > 0) {
+        val currentThread = copiedThreads[threadIndex]
+        val nextOperation = currentThread.operations.firstOrNull()
 
-            // Calculate the latency cycles based on the cache hit or miss
-            val latencyCycles = if (isCacheHit(operation, caches)) {
-                caches.first { it.type == operation.unitId.toString() }.hitLatency
+        if (nextOperation != null) {
+            if (nextOperation.start <= recentEndTime) {
+                resultThread.operations.add(nextOperation)
+                currentThread.operations.removeAt(0)
+                totalOperations--
+                recentEndTime = nextOperation.end
+                if (nextOperation.start < l2CacheMiss) {
+                    threadIndex = (threadIndex + 1) % copiedThreads.size
+                }
             } else {
-                caches.first { it.type == operation.unitId.toString() }.missLatency +
-                        minWorkloadUnit.numberOfLatencyCycles.first
+                threadIndex = (threadIndex + 1) % copiedThreads.size
             }
-
-            // Assign the operation to the unit with the least workload
-            resultThread.operations.add(
-                Operation(
-                    minWorkloadUnit.id,
-                    operation.start + latencyCycles,
-                    operation.end + latencyCycles
-                )
-            )
+        } else {
+            threadIndex = (threadIndex + 1) % copiedThreads.size
         }
     }
     return resultThread
 }
-
-/**
- * Checks if the operation causes a cache hit or miss
- *
- * @param operation The operation to check
- * @param caches The list of caches
- * @return True if it's a cache hit, false otherwise
- */
-private fun isCacheHit(operation: Operation, caches: MutableList<Cache>): Boolean {
-    return caches.any { it.type == operation.unitId.toString() }
-}
-
