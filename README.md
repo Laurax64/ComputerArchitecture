@@ -4,4 +4,4 @@ An Android app for practicing basic computer architecture concepts.
 
 ## Features (Under Development)
 
-- Visualization of computer architecture concepts
+- Visualization of basic computer architecture concepts
