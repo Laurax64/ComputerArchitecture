@@ -12,7 +12,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -20,7 +19,6 @@ import androidx.compose.ui.unit.dp
 import com.example.computerarchitecture.data.CAThread
 import com.example.computerarchitecture.data.Operation
 import com.example.computerarchitecture.data.ProcessingUnit
-import com.example.computerarchitecture.data.exampleCaches
 import com.example.computerarchitecture.data.exampleThreads
 import com.example.computerarchitecture.data.exampleUnits
 
@@ -44,18 +42,7 @@ fun FGMTTab(
         verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
         val threads: MutableList<CAThread> = exampleThreads
-        var threadId by remember { mutableStateOf("") }
-        var threadName by rememberSaveable { mutableStateOf("") }
-        var threadPriority by rememberSaveable { mutableStateOf("") }
-        val threadOperations: MutableList<Operation> = mutableListOf()
         val units: MutableList<ProcessingUnit> = exampleUnits
-        var unitId by remember { mutableStateOf("") }
-        var unitType by remember { mutableStateOf("") }
-        var unitLatency by remember { mutableStateOf("") }
-        val caches = exampleCaches
-        var cacheType by rememberSaveable { mutableStateOf("") }
-        var cacheHitLatency by rememberSaveable { mutableStateOf("0") }
-        var cacheMissLatency by rememberSaveable { mutableStateOf("0") }
         var resultThread: CAThread by remember {
             mutableStateOf(
                 CAThread(

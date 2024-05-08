@@ -20,3 +20,13 @@ fun generateColor(index: Int): Color {
     return colors[index % colors.size]
 }
 
+
+/**
+ * Converts a string to a range
+ *
+ * @return The range
+ */
+fun String.toRange(): IntRange {
+    val (start, end) = this.split("..").map { it.toInt() }
+    return start..end
+}

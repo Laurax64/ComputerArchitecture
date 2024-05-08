@@ -26,6 +26,7 @@ class MultithreadingViewModel : ViewModel() {
     private val _uiState = MutableStateFlow(MultithreadingUiState())
     val uiState: StateFlow<MultithreadingUiState> = _uiState.asStateFlow()
 
+
     /**
      * Updates the _uiState with the given values
      *
@@ -66,12 +67,12 @@ data class MultithreadingUiState(
     val schedulerType: SchedulerType = schedulerTypes[0],
     val schedulingAlgorithm: SchedulingAlgorithm = schedulingAlgorithms[0],
     val numberOfProcessors: Int = 1,
-    val units: MutableList<ProcessingUnit> = mutableListOf(),
-    val caches: MutableList<Cache> = mutableListOf(),
+    val units: MutableList<ProcessingUnit> = exampleUnits,
+    val caches: MutableList<Cache> = exampleCaches,
     val hitUnderNMiss: Int = 1,
     val cgmtContextSwitchOverhead: Int = 1,
     val fgmtContextSwitchOverhead: Int = 0,
     val smtContextSwitchOverhead: Int = 0,
     val cacheInterference: Boolean = false,
-    val threads: List<CAThread> = listOf()
+    val threads: List<CAThread> = exampleThreads
 )

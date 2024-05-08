@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material3.Button
@@ -30,6 +31,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Tab
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -49,9 +51,11 @@ import androidx.compose.ui.window.Dialog
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.computerarchitecture.R
 import com.example.computerarchitecture.data.CAThread
+import com.example.computerarchitecture.data.Cache
 import com.example.computerarchitecture.data.Operation
 import com.example.computerarchitecture.data.ProcessingUnit
 import com.example.computerarchitecture.generateColor
+import com.example.computerarchitecture.toRange
 import com.example.computerarchitecture.ui.components.ComputerArchitectureTopBar
 import com.example.computerarchitecture.ui.navigation.NavigationDestination
 import com.example.computerarchitecture.ui.theme.ComputerArchitectureTheme
@@ -91,8 +95,9 @@ fun MultithreadingScreen(
         },
     ) { paddingValues ->
         var state by rememberSaveable { mutableIntStateOf(0) }
-        val titles = listOf("CGMT", "FGMT", "CGMT")
-        Column {
+        val titles = listOf("CGMT", "FGMT", "SMT")
+
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
             PrimaryTabRow(selectedTabIndex = state, modifier = Modifier.padding(paddingValues)) {
                 titles.forEachIndexed { index, title ->
                     Tab(
@@ -107,6 +112,13 @@ fun MultithreadingScreen(
                 2 -> CGMTTab()
             }
         }
+    }
+    if (openDialog) {
+        MultithreadingSettingsDialog(
+            mutableListOf(),
+            mutableListOf(),
+            mutableListOf(),
+            { openDialog = false })
     }
 }
 
@@ -316,6 +328,248 @@ fun ConfigureOperationDialog(
         }
     }
 }
+
+
+/**
+ * Displays a dialog to add and delete new threads or units or caches
+ *
+ * @param caches The list of caches to configure
+ * @param units The list of units to configure
+ * @param threads The list of threads to configure
+ * @param onDismissRequest The function to call when the dialog is dismissed
+ * @param modifier The modifier for the layout
+ */
+@Composable
+fun MultithreadingSettingsDialog(
+    caches: MutableList<Cache>,
+    units: MutableList<ProcessingUnit>,
+    threads: MutableList<CAThread>,
+    onDismissRequest: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    val openDialog = remember { mutableStateOf(true) }
+
+    if (openDialog.value) {
+        Dialog(onDismissRequest = { openDialog.value = false }) {
+            Card(modifier = modifier.verticalScroll(rememberScrollState())) {
+                Column(modifier = Modifier.padding(16.dp)) {
+                    var configureCaches by remember { mutableStateOf(false) }
+                    var configureUnits by remember { mutableStateOf(false) }
+                    var configureThreads by remember { mutableStateOf(false) }
+                    Button(
+                        onClick = { configureCaches = !configureCaches },
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Text("Cache Settings")
+                    }
+                    if (configureCaches) {
+                        ConfigureCacheDialog(caches)
+                    }
+                    Button(
+                        onClick = { configureUnits = !configureUnits },
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Text("Unit Settings")
+                    }
+                    if (configureUnits) {
+                        ConfigureUnitsDialog(units)
+                    }
+                    Button(
+                        onClick = { configureThreads = !configureThreads },
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Text("Thread Settings")
+                    }
+                    if (configureThreads) {
+                        ConfigureThreadsDialog(threads)
+                    }
+                }
+            }
+        }
+    }
+}
+
+/**
+ * Displays a dialog to add or delete threads
+ *
+ * @param threads The list of threads to configure
+ * @param modifier The modifier for the layout
+ */
+@Composable
+fun ConfigureThreadsDialog(threads: MutableList<CAThread>, modifier: Modifier = Modifier) {
+    var threadId by remember { mutableStateOf("") }
+    var threadName by rememberSaveable { mutableStateOf("") }
+    var threadPriority by rememberSaveable { mutableStateOf("") }
+    val threadOperations: MutableList<Operation> = mutableListOf()
+    var configureNewOperation by remember { mutableStateOf(false) }
+    TextField(
+        value = threadId,
+        onValueChange = { threadId = it },
+        Modifier.fillMaxWidth(),
+        label = { Text("Thread Id") },
+    )
+    TextField(
+        value = threadName,
+        onValueChange = { threadName = it },
+        Modifier.fillMaxWidth(),
+        label = { Text("Thread Name") },
+    )
+    TextField(
+        value = threadPriority,
+        onValueChange = { threadPriority = it },
+        modifier = Modifier.fillMaxWidth(),
+        label = { Text("Thread Priority") },
+        supportingText = { Text("Lower numbers imply higher priorities.") },
+    )
+
+    Button(
+        onClick = { configureNewOperation = true },
+        Modifier
+            .fillMaxWidth()
+    ) {
+        Text("Add operation")
+    }
+    Button(
+        onClick = { threadOperations.clear() },
+        Modifier
+            .fillMaxWidth()
+    ) {
+        Text("Clear operations")
+    }
+    if (configureNewOperation) {
+        ConfigureOperationDialog(
+            threadId = threadId.toInt(),
+            onDismissRequest = { configureNewOperation = false },
+            addOperation = { operation: Operation ->
+                threadOperations.add(operation)
+                configureNewOperation = false
+            },
+        )
+    }
+    Row(
+        horizontalArrangement = Arrangement.spacedBy(12.dp),
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        Button(
+            {
+                threads.add(
+                    CAThread(
+                        threadId.toInt(),
+                        threadName,
+                        threadPriority.toInt(),
+                        threadOperations
+                    )
+                )
+                threadName = ""
+                threadPriority = ""
+                threadOperations.clear()
+            },
+            Modifier
+                .fillMaxWidth()
+                .weight(1f)
+        ) {
+            Text("Add Thread")
+        }
+        Button(
+            { threads.clear() },
+            Modifier
+                .fillMaxWidth()
+                .weight(1f)
+        ) {
+            Text("ClearThreads ")
+        }
+    }
+}
+
+
+/**
+ * Displays a dialog to add or delete units
+ *
+ * @param units The list of units to configure
+ * @param modifier The modifier for the layout
+ */
+@Composable
+fun ConfigureUnitsDialog(units: MutableList<ProcessingUnit>, modifier: Modifier = Modifier) {
+    var unitId by remember { mutableStateOf("") }
+    var unitType by remember { mutableStateOf("") }
+    var unitLatency by remember { mutableStateOf("") }
+
+    TextField(
+        value = unitId,
+        onValueChange = { unitId = it },
+        modifier = Modifier.fillMaxWidth(),
+        label = { Text("Unit Id") },
+    )
+    TextField(
+        value = unitType,
+        onValueChange = { unitType = it },
+        modifier = Modifier.fillMaxWidth(),
+        label = { Text("Unit Type") },
+    )
+    TextField(
+        value = unitLatency,
+        onValueChange = { unitLatency = it },
+        modifier = Modifier.fillMaxWidth(),
+        label = { Text("Unit Latency") },
+    )
+
+    Row {
+        Button(
+            { units.add(ProcessingUnit(unitId.toInt(), unitType, unitLatency.toRange())) },
+            Modifier
+                .fillMaxWidth()
+                .weight(1f)
+        ) {
+            Text("Add Unit")
+        }
+        Button(
+            onClick = { units.clear() },
+            Modifier
+                .fillMaxWidth()
+                .weight(1f)
+        ) {
+            Text("Clear Units")
+        }
+    }
+}
+
+/**
+ * Displays a dialog to add or delete caches
+ *
+ * @param caches The list of caches to configure
+ * @param modifier The modifier for the layout
+ */
+@Composable
+fun ConfigureCacheDialog(caches: MutableList<Cache>, modifier: Modifier = Modifier) {
+    var cacheType by rememberSaveable { mutableStateOf("") }
+    var cacheHitLatency by rememberSaveable { mutableStateOf("0") }
+    var cacheMissLatency by rememberSaveable { mutableStateOf("0") }
+    TextField(
+        value = cacheType,
+        onValueChange = { cacheType = it },
+        modifier = Modifier.fillMaxWidth(),
+        label = { Text("Cache Type") },
+    )
+    TextField(
+        value = cacheHitLatency,
+        onValueChange = { cacheHitLatency = it },
+        modifier = Modifier.fillMaxWidth(),
+        label = { Text("Cache Hit Latency") },
+    )
+    TextField(
+        value = cacheMissLatency,
+        onValueChange = { cacheMissLatency = it },
+        modifier = Modifier.fillMaxWidth(),
+        label = { Text("Cache Miss Latency") },
+    )
+    Button(
+        { caches.add(Cache(cacheType, cacheHitLatency.toInt(), cacheMissLatency.toInt())) },
+        Modifier.fillMaxWidth()
+    ) {
+        Text("Add Cache")
+    }
+}
+
 
 /**
  * Displays a preview for the multithreading screen in light mode
