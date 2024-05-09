@@ -35,8 +35,6 @@ import com.example.computerarchitecture.data.exampleUnits
 fun CGMTTab(
     modifier: Modifier = Modifier,
 ) {
-    var configureNewOperation by remember { mutableStateOf(false) }
-
     Column(
         modifier
             .fillMaxWidth()
@@ -61,6 +59,8 @@ fun CGMTTab(
             )
         }
 
+        Text("Hit under N Miss:", style = MaterialTheme.typography.titleMedium)
+        Text("1")
         Text("Context Switch Overhead:", style = MaterialTheme.typography.titleMedium)
         Text("1 cycle")
         Text("Processing Units:", style = MaterialTheme.typography.titleMedium)
@@ -88,7 +88,7 @@ fun CGMTTab(
                     ).show()
                 } else {
                     resultThread =
-                        coarseGrainMultiTreading(threads, units, caches, l2Cache.missLatency, 1)
+                        coarseGrainMultiTreading(threads, units, caches, l2Cache.missLatency, 1, 1)
                 }
             },
             Modifier.fillMaxWidth()
@@ -106,6 +106,7 @@ fun CGMTTab(
  * @param units The processing units to use
  * @param caches The caches
  * @param l2CacheMiss The latency of an L2 cache miss
+ * @param hitUnderNMiss The value n for hit under n miss
  * @param contextSwitchOverhead The context switch overhead
  * @return The threads after applying the algorithm
  */
@@ -114,34 +115,19 @@ fun coarseGrainMultiTreading(
     units: List<ProcessingUnit>,
     caches: List<Cache>,
     l2CacheMiss: Int,
+    hitUnderNMiss: Int,
     contextSwitchOverhead: Int
 ): CAThread {
     val resultThread = CAThread(0, "", 0, mutableListOf())
-    var totalOperations = threads.sumOf { it.operations.size }
-    var threadIndex = 0
-    var recentEndTime = 0
-    val copiedThreads = threads.map { thread ->
-        thread.copy(operations = thread.operations.toMutableList())
-    }
+    // Threads with operations sorted by unit id
+    val sortedThreads = threads.map { thread ->
+        val sortedOperations = thread.operations.sortedBy { it.unitId }.toMutableList()
+        CAThread(thread.id, thread.name, thread.priority, sortedOperations)
+    }.sortedBy { it.operations.first().unitId }
 
-    while (totalOperations > 0) {
-        val currentThread = copiedThreads[threadIndex]
-        val nextOperation = currentThread.operations.firstOrNull()
-
-        if (nextOperation != null) {
-            if (nextOperation.start <= recentEndTime) {
-                resultThread.operations.add(nextOperation)
-                currentThread.operations.removeAt(0)
-                totalOperations--
-                recentEndTime = nextOperation.end
-                if (nextOperation.start < l2CacheMiss) {
-                    threadIndex = (threadIndex + 1) % copiedThreads.size
-                }
-            } else {
-                threadIndex = (threadIndex + 1) % copiedThreads.size
-            }
-        } else {
-            threadIndex = (threadIndex + 1) % copiedThreads.size
+    for (thread in sortedThreads) {
+        for (operation in thread.operations) {
+            resultThread.operations.add(operation)
         }
     }
     return resultThread

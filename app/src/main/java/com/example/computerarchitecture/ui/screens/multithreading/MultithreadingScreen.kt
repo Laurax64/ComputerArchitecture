@@ -109,7 +109,7 @@ fun MultithreadingScreen(
             when (state) {
                 0 -> CGMTTab()
                 1 -> FGMTTab()
-                2 -> CGMTTab()
+                2 -> SMTTab()
             }
         }
     }

@@ -21,6 +21,7 @@ import com.example.computerarchitecture.data.Operation
 import com.example.computerarchitecture.data.ProcessingUnit
 import com.example.computerarchitecture.data.exampleThreads
 import com.example.computerarchitecture.data.exampleUnits
+import java.util.Collections.max
 
 /**
  * Displays the fine grain multithreading tab
@@ -75,21 +76,43 @@ fun FGMTTab(
  * @param threads The threads to apply the algorithm to
  * @return The threads after applying the algorithm
  */
-fun fineGrainMultithreading(threads: List<CAThread>): CAThread {
-    val resultThread = CAThread(0, "", 0, mutableListOf()) // Initialize totalCycles to 0
-    val currentStartTime = 0
-    threads.flatMap { it.operations }.forEach { operation ->
-        val operationStartTime = currentStartTime
-        val operationEndTime = currentStartTime + 1
-        resultThread.operations.add(
-            Operation(
-                operation.unitId,
-                operation.threadId,
-                operationStartTime,
-                operationEndTime
-            )
-        )
+fun fineGrainMultithreading(threads: MutableList<CAThread>): CAThread {
+    val resultThread = CAThread(0, "", 0, mutableListOf())
+    val threadsCopy: MutableList<CAThread> = mutableListOf()
+    threadsCopy.addAll(threads)
+    // Sort the threads by the number
+    var start = 0
+    var end = 1
+    val operations = mutableListOf<Operation>()
+
+    var maxOperationCount = max(threadsCopy.map { it.operations.size })
+    var unitIndex = 0
+    while (unitIndex < 4) {
+        var operationIndex = 0
+        while (operationIndex < maxOperationCount) {
+            var threadIndex = 0
+            while (threadIndex < threadsCopy.size) {
+                if (threads[threadIndex].operations.size > operationIndex) {
+                    if (threads[threadIndex].operations[operationIndex].unitId == unitIndex) {
+                        operations.add(
+                            Operation(
+                                threads[threadIndex].operations[operationIndex].unitId,
+                                threads[threadIndex].operations[operationIndex].threadId,
+                                start,
+                                end
+                            )
+                        )
+                    }
+                    operationIndex++
+                }
+                threadIndex++
+            }
+        }
+        start++
+        end++
+        unitIndex++
     }
+    resultThread.operations.addAll(operations.sortedBy { it.start })
     return resultThread
 }
 
