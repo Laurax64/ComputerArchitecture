@@ -5,6 +5,8 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.computerarchitecture.ui.screens.MultiprocessorSystemsDestination
+import com.example.computerarchitecture.ui.screens.MultiprocessorSystemsScreen
 import com.example.computerarchitecture.ui.screens.MultithreadingDestination
 import com.example.computerarchitecture.ui.screens.MultithreadingScreen
 import com.example.computerarchitecture.ui.screens.TopicsDestination
@@ -29,6 +31,11 @@ fun ComputerArchitectureNavHost(
         }
         composable(route = MultithreadingDestination.route) {
             MultithreadingScreen(
+                { navController.popBackStack() },
+            )
+        }
+        composable(route = MultiprocessorSystemsDestination.route) {
+            MultiprocessorSystemsScreen(
                 { navController.popBackStack() },
             )
         }

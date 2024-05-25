@@ -19,16 +19,25 @@
         the issuing thread is changed on every clock cycle, longer latency operations can be hidden. Because
         instruction issue and execution are connected, a thread can only issue as many instructions as are ready.
         With a narrow issue width this is not a problem (a cycle is either occupied or not), which is why fine-grained
-        multithreading works perfectly for a single issue processor, and SMT would make no sense</string>
+        multithreading works perfectly for a single issue processor, and SMT would make no sense.</string>
     <string name="smt_description">If one implements fine-grained threading on top of a multiple-issue dynamically
         schedule processor, the result is SMT. In all existing SMT implementations, all issues come from one thread,
         although instructions from different threads can initiate execution in the same cycle, using the dynamic
         scheduling hardware to determine what instructions are ready. Simultaneous multithreading uses the insight
         that a dynamically scheduled processor already has many of the hardware mechanisms needed to support the
-        mechanism, including a large virtual register set</string>
+        mechanism, including a large virtual register set.</string>
     <string name="simultanious_multithreading">Simultaneous Multithreading</string>
     <string name="fine_grained_multithreading">Fine-grained multithreading</string>
     <string name="coarse_grained_multithreading">Coarse-grained Multithreading</string>
     <string name="hardware_layer">Hardware Layer</string>
     <string name="software_layer">Software Layer</string>
+    <string name="speedup">Speedup</string>
+    <string name="speedup_exercise_description">
+        A sequential program can be divided into 5 parts A to E, which must be
+    executed in this order due to their dependencies. The table lists the amount of run-time each part contributes to
+    the run-time of the program. Parts A, C and E cannot be parallelized. Part B can be transformed in max. 16
+        sub-parts that can be executed in parallel. For the parallel execution of part D, no restrictions exist.</string>
+
+    <string name="part">Part</string>
+    <string name="multiprocessor_systems">Multiprocessor Systems</string>
 </resources>
