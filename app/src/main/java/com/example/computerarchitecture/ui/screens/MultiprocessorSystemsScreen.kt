@@ -84,11 +84,9 @@ fun MultiprocessorSystemsScreen(
  */
 @Composable
 fun SpeedupTab(modifier: Modifier = Modifier) {
-
     var parallelizedCode by rememberSaveable { mutableStateOf("0.96") }
     var processors by rememberSaveable { mutableStateOf("16.0") }
     var speedup by rememberSaveable { mutableStateOf("") }
-
     Column(
         modifier
             .fillMaxWidth()
