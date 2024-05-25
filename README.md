@@ -1,4 +1,4 @@
 # Computer Architecture App (Under Development)
 
-An Android app for visualizing basic concepts of computer architecture.
+An Android app for visualising and describing computer architecture concepts
 

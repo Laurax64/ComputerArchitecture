@@ -24,7 +24,7 @@ fun ComputerArchitectureNavHost(
     NavHost(navController, TopicsDestination.route, modifier) {
         composable(route = TopicsDestination.route) {
             TopicsScreen(
-                { navController.navigate(getUnitsRoute(it)) },
+                { navController.navigate(it) },
             )
         }
         composable(route = MultithreadingDestination.route) {
@@ -35,14 +35,3 @@ fun ComputerArchitectureNavHost(
     }
 }
 
-/**
- * Gets the route for the given screen name
- *
- * @param name The name of the screen
- * @return The corresponding route for the screen
- * @throws IllegalArgumentException if the screen name is unknown
- */
-private fun getUnitsRoute(name: String): String = when (name) {
-    "Multithreading" -> "multithreading"
-    else -> throw IllegalArgumentException("Unknown unit name: $name")
-}

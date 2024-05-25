@@ -9,3 +9,4 @@ interface NavigationDestination {
      */
     val route: String
 }
+
