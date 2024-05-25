@@ -5,10 +5,10 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.computerarchitecture.ui.screens.MultithreadingDestination
+import com.example.computerarchitecture.ui.screens.MultithreadingScreen
 import com.example.computerarchitecture.ui.screens.TopicsDestination
 import com.example.computerarchitecture.ui.screens.TopicsScreen
-import com.example.computerarchitecture.ui.screens.multithreading.MultithreadingDestination
-import com.example.computerarchitecture.ui.screens.multithreading.MultithreadingScreen
 
 /**
  * Provides a navigation graph for the application
