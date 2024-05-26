@@ -155,7 +155,7 @@ private fun GustavsonLaw(n: Double, p: Double): Int {
 }
 
 /**
- * Displays the speedup formula
+ * Displays the speedup formula image
  */
 @Composable
 private fun SpeedupFormula() {
