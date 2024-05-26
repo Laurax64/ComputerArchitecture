@@ -1,11 +1,11 @@
 package com.example.computerarchitecture.ui.screens
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.PrimaryTabRow
 import androidx.compose.material3.Scaffold
@@ -19,9 +19,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.computerarchitecture.R
@@ -86,7 +87,12 @@ fun MultiprocessorSystemsScreen(
 fun SpeedupTab(modifier: Modifier = Modifier) {
     var parallelizedCode by rememberSaveable { mutableStateOf("0.96") }
     var processors by rememberSaveable { mutableStateOf("16.0") }
-    var speedup by rememberSaveable { mutableStateOf("") }
+    var speedupAmdahl by rememberSaveable {
+        mutableStateOf(AmdahlsLaw(processors.toDouble(), parallelizedCode.toDouble()).toString())
+    }
+    var speedupGustavson by rememberSaveable {
+        mutableStateOf(GustavsonLaw(processors.toDouble(), parallelizedCode.toDouble()).toString())
+    }
     Column(
         modifier
             .fillMaxWidth()
@@ -107,30 +113,58 @@ fun SpeedupTab(modifier: Modifier = Modifier) {
             modifier = Modifier.fillMaxWidth(),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
         )
-        Button(
-            onClick = {
-                speedup = AmdahlsLaw(processors.toDouble(), parallelizedCode.toDouble()).toString()
-            },
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Text("Calculate Speedup with Amdahl's Law")
-        }
-        Text(
-            text = "Speedup S_tot = 1 / ((1 - P) + P / n) = $speedup",
-            textAlign = TextAlign.Center
+        TextField(
+            value = speedupAmdahl,
+            onValueChange = { speedupAmdahl = it },
+            label = { Text("Speedup Amdahl's Law") },
+            modifier = Modifier.fillMaxWidth(),
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+
+            )
+        TextField(
+            value = speedupGustavson,
+            onValueChange = { speedupGustavson = it },
+            label = { Text("Speedup Gustavson's Law") },
+            modifier = Modifier.fillMaxWidth(),
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
         )
+        SpeedupFormula()
     }
 }
 
 /**
  * Calculates the speedup of a program given the number of cores and the percentage of the program
- * that can be parallelized
+ * that can be parallelized using Amdahl's Law
  *
  * @param n The number of processors
  * @param p The percentage of the program that can be parallelized
  */
 private fun AmdahlsLaw(n: Double, p: Double): Int {
     return (1 / ((1 - p) + (p / n))).roundToInt()
+}
+
+/**
+ * Calculates the speedup of a program given the number of cores and the percentage of the program
+ * that can be parallelized using Gustavson's Law
+ *
+ * @param n The number of processors
+ * @param p The percentage of the program that can be parallelized
+ */
+private fun GustavsonLaw(n: Double, p: Double): Int {
+    return (1 - p + p * n).roundToInt()
+}
+
+/**
+ * Displays the speedup formula
+ */
+@Composable
+private fun SpeedupFormula() {
+    Image(
+        painter = painterResource(R.drawable.speedup),
+        contentDescription = "Speedup Formulas",
+        modifier = Modifier.fillMaxWidth(),
+        contentScale = ContentScale.FillWidth
+    )
 }
 
 /**
