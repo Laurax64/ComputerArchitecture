@@ -36,7 +36,7 @@ object TopicsDestination : NavigationDestination {
 
 /**
  * Displays a scrollable list of rows from which the user can navigate to other screens,
- * each of which represents a computer architecture topic
+ * each of which represents a computer architecture topic.
  *
  * @param navigateToTopic The function to navigate to other screens
  * @param modifier The modifier for the layout
