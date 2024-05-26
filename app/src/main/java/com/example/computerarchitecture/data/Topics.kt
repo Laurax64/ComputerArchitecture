@@ -7,7 +7,7 @@ package com.example.computerarchitecture.data
 val topics = listOf(
     "Multithreading",
     "Multiprocessor Systems",
-    "GPU",
+    "Graphics Processing Units",
     "OpenMP",
     "MPI",
     "Networks",

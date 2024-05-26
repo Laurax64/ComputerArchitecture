@@ -40,4 +40,9 @@
 
     <string name="part">Part</string>
     <string name="multiprocessor_systems">Multiprocessor Systems</string>
+    <string name="numa_title_short">NUMA</string>
+    <string name="numa_title_long">Non-Uniform-Memory-Access</string>
+    <string name="numa_runtime_description">"Memory access time depends on the memory location relative to the processor. Memory may be local, one hop away, or two hops away. "</string>
+    <string name="gpus">Graphics Processing Units</string>
+    <string name="open_cl">OpenCL</string>
 </resources>
