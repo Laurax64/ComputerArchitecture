@@ -28,7 +28,7 @@ import com.example.computerarchitecture.ui.theme.ComputerArchitectureTheme
 
 
 /**
- * Represents a navigation destination for the topics screen
+ * Represents a navigation destination for the topics screen.
  */
 object TopicsDestination : NavigationDestination {
     override val route = "topics"
