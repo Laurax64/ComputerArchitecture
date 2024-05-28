@@ -80,6 +80,8 @@ fun MultithreadingScreen(
 /**
  * Displays the hardware layer tab, including descriptions for coarse grain
  * multithreading, fine grain multithreading, and simultaneous multithreading.
+ *
+ * @param modifier The modifier for the layout
  */
 @Composable
 fun HardwareLayerTab(modifier: Modifier = Modifier) {
@@ -113,7 +115,7 @@ fun HardwareLayerTab(modifier: Modifier = Modifier) {
 }
 
 /**
- * Displays the software layer tab, including //TODO add descriptions
+ * Displays the software layer tab, including
  */
 @Composable
 fun SoftwareLayerTab(modifier: Modifier = Modifier) {
@@ -125,17 +127,53 @@ fun SoftwareLayerTab(modifier: Modifier = Modifier) {
         horizontalAlignment = Alignment.Start,
         verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
-
+        Text(
+            text = stringResource(R.string.posix_threads),
+            style = MaterialTheme.typography.titleLarge,
+            fontWeight = FontWeight.Bold
+        )
+        PThreadIncludes()
+        PThreadCreation()
     }
-
 }
 
 /**
- * Displays a preview for the multithreading screen in light mode
+ * Displays the includes section for POSIX treads in the software layer tab.
+ */
+@Composable
+fun PThreadIncludes(modifier: Modifier = Modifier) {
+    Column(modifier) {
+        Text(
+            text = stringResource(R.string.includes),
+            style = MaterialTheme.typography.titleMedium,
+            fontWeight = FontWeight.Bold
+        )
+        Text(stringResource(R.string.pthread_include))
+    }
+}
+
+/**
+ * Displays the pthread_create section for POSIX treads in the software layer tab.
+ * TODO describe arguments
+ */
+@Composable
+fun PThreadCreation(modifier: Modifier = Modifier) {
+    Column(modifier) {
+        Text(
+            text = stringResource(R.string.thread_creation),
+            style = MaterialTheme.typography.titleMedium,
+            fontWeight = FontWeight.Bold
+        )
+        Text(stringResource(R.string.pthread_create))
+    }
+}
+
+/**
+ * Displays a preview for the multithreading screen in light mode.
  */
 @Preview
 @Composable
-private fun MultithreadingLightPreview() {
+private fun MultithreadingScreenLightPreview() {
     ComputerArchitectureTheme {
         MultithreadingScreen(
             navigateBack = {},
@@ -144,11 +182,11 @@ private fun MultithreadingLightPreview() {
 }
 
 /**
- * Displays a preview for the poi intent screen in dark mode
+ * Displays a preview for the poi intent screen in dark mode.
  */
 @Preview
 @Composable
-private fun MultithreadingDarkPreview() {
+private fun MultithreadingScreenDarkPreview() {
     ComputerArchitectureTheme(true) {
         MultithreadingScreen(
             navigateBack = {},

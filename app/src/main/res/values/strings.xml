@@ -45,4 +45,9 @@
     <string name="numa_runtime_description">"Memory access time depends on the memory location relative to the processor. Memory may be local, one hop away, or two hops away. "</string>
     <string name="gpus">Graphics Processing Units</string>
     <string name="open_cl">OpenCL</string>
+    <string name="posix_threads">POSIX Threads</string>
+    <string name="includes">Includes</string>
+    <string name="pthread_include"><![CDATA[#include <pthread.h>]]></string>
+    <string name="thread_creation">Thread Creation</string>
+    <string name="pthread_create">pthread_create(thread, attr, start_routine, arg)</string>
 </resources>
