@@ -1,12 +1,17 @@
 package com.example.computerarchitecture.ui.screens
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.PrimaryTabRow
 import androidx.compose.material3.Scaffold
@@ -15,6 +20,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -23,6 +29,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.computerarchitecture.OpenWebView
 import com.example.computerarchitecture.R
 import com.example.computerarchitecture.ui.components.TopicTopBar
 import com.example.computerarchitecture.ui.navigation.NavigationDestination
@@ -115,7 +122,7 @@ fun HardwareLayerTab(modifier: Modifier = Modifier) {
 }
 
 /**
- * Displays the software layer tab, including
+ * Displays the software layer tab, including descriptions for POSIX threads.
  */
 @Composable
 fun SoftwareLayerTab(modifier: Modifier = Modifier) {
@@ -154,17 +161,38 @@ fun PThreadIncludes(modifier: Modifier = Modifier) {
 
 /**
  * Displays the pthread_create section for POSIX treads in the software layer tab.
- * TODO describe arguments
+ *
+ * @param modifier The modifier for the layout
  */
 @Composable
 fun PThreadCreation(modifier: Modifier = Modifier) {
-    Column(modifier) {
-        Text(
-            text = stringResource(R.string.thread_creation),
-            style = MaterialTheme.typography.titleMedium,
-            fontWeight = FontWeight.Bold
-        )
-        Text(stringResource(R.string.pthread_create))
+    var openWebView by rememberSaveable { mutableStateOf(false) }
+    if (openWebView) {
+        OpenWebView("https://hpc-tutorials.llnl.gov/posix/creating_and_terminating/#creating-threads")
+    } else {
+        Column(modifier) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable { openWebView = true },
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Column {
+                    Text(
+                        text = stringResource(R.string.thread_creation),
+                        style = MaterialTheme.typography.titleMedium,
+                        fontWeight = FontWeight.Bold
+                    )
+                    Text(stringResource(R.string.pthread_create))
+                }
+                Icon(
+                    imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
+                    contentDescription = "Navigate forward"
+                )
+            }
+
+
+        }
     }
 }
 

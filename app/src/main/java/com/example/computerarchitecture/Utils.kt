@@ -1,32 +1,21 @@
 package com.example.computerarchitecture
 
-import androidx.compose.ui.graphics.Color
+import android.webkit.WebView
+import android.webkit.WebViewClient
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.viewinterop.AndroidView
 
 /**
- * Generates a color based on the given index
+ * Opens a [WebView] with the given [url].
  *
- * @param index The index of the thread
- * @return The generated color
+ * @param url The URL to open in the [WebView]
  */
-fun generateColor(index: Int): Color {
-    val colors = listOf(
-        Color.Blue,
-        Color.Red,
-        Color.Green,
-        Color.Yellow,
-        Color.Magenta,
-        Color.Cyan,
-    )
-    return colors[index % colors.size]
-}
-
-
-/**
- * Converts a string to a range
- *
- * @return The range
- */
-fun String.toRange(): IntRange {
-    val (start, end) = this.split("..").map { it.toInt() }
-    return start..end
+@Composable
+fun OpenWebView(url: String) {
+    AndroidView(factory = { context ->
+        WebView(context).apply {
+            webViewClient = WebViewClient()
+            loadUrl("https://hpc-tutorials.llnl.gov/posix/creating_and_terminating/#creating-threads")
+        }
+    })
 }
