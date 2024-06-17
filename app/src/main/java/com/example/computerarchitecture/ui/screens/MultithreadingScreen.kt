@@ -44,12 +44,11 @@ object MultithreadingDestination : NavigationDestination {
 }
 
 /**
- * Displays the multithreading screen
+ * Displays the multithreading screen.
  *
  * @param navigateBack The function to navigate back
  * @param modifier The modifier for the layout
  */
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MultithreadingScreen(
     navigateBack: () -> Unit,
@@ -63,23 +62,34 @@ fun MultithreadingScreen(
                 navigateBack = navigateBack
             )
         },
-    ) { paddingValues ->
-        var state by rememberSaveable { mutableIntStateOf(0) }
-        val titles = listOf(R.string.hardware_layer, R.string.software_layer)
+    ) {
+        MultithreadingScreenContent(modifier.padding(it))
+    }
+}
 
-        Column(Modifier.fillMaxWidth()) {
-            PrimaryTabRow(selectedTabIndex = state, modifier = Modifier.padding(paddingValues)) {
-                titles.forEachIndexed { index, title ->
-                    Tab(
-                        selected = state == index,
-                        onClick = { state = index },
-                        text = { Text(text = stringResource(title)) })
-                }
+/**
+ * Displays the content for the multithreading screen.
+ *
+ * @param modifier The modifier for the layout
+ */
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun MultithreadingScreenContent(modifier: Modifier = Modifier) {
+    var state by rememberSaveable { mutableIntStateOf(0) }
+    val titles = listOf(R.string.hardware_layer, R.string.software_layer)
+
+    Column(modifier.fillMaxWidth()) {
+        PrimaryTabRow(selectedTabIndex = state) {
+            titles.forEachIndexed { index, title ->
+                Tab(
+                    selected = state == index,
+                    onClick = { state = index },
+                    text = { Text(text = stringResource(title)) })
             }
-            when (state) {
-                0 -> HardwareLayerTab()
-                1 -> SoftwareLayerTab()
-            }
+        }
+        when (state) {
+            0 -> HardwareLayerTab()
+            1 -> SoftwareLayerTab()
         }
     }
 }
