@@ -63,7 +63,7 @@ fun MultithreadingScreen(
             )
         },
     ) {
-        MultithreadingScreenContent(modifier.padding(it))
+        MultithreadingScreen(modifier.padding(it))
     }
 }
 
@@ -74,7 +74,7 @@ fun MultithreadingScreen(
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MultithreadingScreenContent(modifier: Modifier = Modifier) {
+fun MultithreadingScreen(modifier: Modifier = Modifier) {
     var state by rememberSaveable { mutableIntStateOf(0) }
     val titles = listOf(R.string.hardware_layer, R.string.software_layer)
 

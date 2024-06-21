@@ -1,5 +1,6 @@
 package com.example.computerarchitecture.ui.screens
 
+import android.content.res.Configuration
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -42,7 +43,7 @@ import com.example.computerarchitecture.ui.theme.ComputerArchitectureTheme
  * Represents a navigation destination for the topics screen.
  */
 object TopicsDestination : NavigationDestination {
-    override val route = "topics"
+    override val route = "Topics"
 }
 
 /**
@@ -79,7 +80,6 @@ fun TopicsScreen(
                     onUnitClick = navigateToTopic
                 )
             }
-
             else -> {
                 TopicsListAndDetail(modifier = modifier.padding(it))
             }
@@ -115,24 +115,35 @@ private fun TopicsList(modifier: Modifier = Modifier, onUnitClick: (String) -> U
     }
 }
 
+/**
+ * Displays the topics list and the detail screen for the selected topic.
+ *
+ * @param modifier The modifier for the layout
+ */
 @Composable
 private fun TopicsListAndDetail(modifier: Modifier) {
     var selectedTopic by rememberSaveable { mutableStateOf(topics[0]) }
 
     Row(modifier.fillMaxWidth()) {
         TopicsList(
-            modifier = modifier.weight(1f),
+            modifier = Modifier.weight(1f),
             onUnitClick = { selectedTopic = it }
         )
-        TopicDetailScreen(topic = selectedTopic, modifier = modifier.weight(1f))
+        TopicDetailScreen(topic = selectedTopic, modifier = Modifier.weight(1f))
     }
 }
 
+/**
+ * Displays the detail screen for the given topic.
+ *
+ * @param topic The topic to display
+ * @param modifier The modifier for the layout
+ */
 @Composable
 fun TopicDetailScreen(topic: String, modifier: Modifier = Modifier) {
     when (topic) {
         "Multithreading" -> {
-            MultithreadingScreenContent(modifier)
+            MultithreadingScreen(modifier)
         }
 
         "Multiprocessor Systems" -> {
@@ -191,12 +202,19 @@ fun TopicDetailScreen(topic: String, modifier: Modifier = Modifier) {
 }
 
 /**
- * Displays a preview for the topics screen in light mode for compact screens
+ * Displays a light and a dark preview for the topics screen for compact screens.
  */
+@Preview(
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
+    name = "Dark",
+)
+@Preview(
+    uiMode = Configuration.UI_MODE_NIGHT_NO,
+    name = "Light",
+)
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
-@Preview
 @Composable
-private fun TopicsScreenCompactPreviewLight() {
+private fun TopicsScreenCompactPreview() {
     ComputerArchitectureTheme {
         TopicsScreen(
             navigateToTopic = {},
@@ -206,27 +224,21 @@ private fun TopicsScreenCompactPreviewLight() {
 }
 
 /**
- * Displays a preview for the topics screen in dark mode for compact screens
+ * Displays a light and a dark preview for the topics screen for medium screens.
  */
+@Preview(
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
+    name = "Dark",
+    widthDp = 700
+)
+@Preview(
+    uiMode = Configuration.UI_MODE_NIGHT_NO,
+    name = "Light",
+    widthDp = 700
+)
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
-@Preview
 @Composable
-private fun TopicsScreenCompactPreviewDark() {
-    ComputerArchitectureTheme(darkTheme = true) {
-        TopicsScreen(
-            navigateToTopic = {},
-            windowSizeClass = WindowSizeClass.calculateFromSize(DpSize(400.dp, 400.dp))
-        )
-    }
-}
-
-/**
- * Displays a preview for the topics screen in light mode for medium screens
- */
-@OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
-@Preview(showBackground = true, widthDp = 700)
-@Composable
-private fun TopicsScreenMediumPreviewLight() {
+private fun TopicsScreenMediumPreview() {
     ComputerArchitectureTheme {
         TopicsScreen(
             navigateToTopic = {},
@@ -236,13 +248,22 @@ private fun TopicsScreenMediumPreviewLight() {
 }
 
 /**
- * Displays a preview for the topics screen in dark mode for expanded screens
+ * Displays a light and a dark preview for the topics screen for expanded screens.
  */
+@Preview(
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
+    name = "Dark",
+    widthDp = 1000
+)
+@Preview(
+    uiMode = Configuration.UI_MODE_NIGHT_NO,
+    name = "Light",
+    widthDp = 1000
+)
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
-@Preview(showBackground = true, widthDp = 1000)
 @Composable
-private fun TopicsScreenMediumPreviewDark() {
-    ComputerArchitectureTheme(darkTheme = true) {
+private fun TopicsScreenExpandedPreview() {
+    ComputerArchitectureTheme {
         TopicsScreen(
             navigateToTopic = {},
             windowSizeClass = WindowSizeClass.calculateFromSize(DpSize(1000.dp, 1000.dp))

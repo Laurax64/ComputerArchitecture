@@ -1,5 +1,6 @@
 package com.example.computerarchitecture.ui.screens
 
+import android.content.res.Configuration
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -22,9 +23,9 @@ import com.example.computerarchitecture.ui.navigation.NavigationDestination
 import com.example.computerarchitecture.ui.theme.ComputerArchitectureTheme
 
 /**
- * Represents a navigation destination for the multiprocessor systems screen
+ * Represents a navigation destination for the GPUs screen
  */
-object GPUDestination : NavigationDestination {
+object GPUsDestination : NavigationDestination {
     override val route = "GPU"
 }
 
@@ -82,23 +83,18 @@ fun OpenCLTab(modifier: Modifier = Modifier) {
 /**
  * Displays a preview for the GPUs screen in light mode
  */
+@Preview(
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
+    name = "GPUsScreenPreviewDark",
+)
+@Preview(
+    uiMode = Configuration.UI_MODE_NIGHT_NO,
+    name = "GPUsScreenPreviewLight",
+)
 @Preview
 @Composable
-private fun GPUsLightPreview() {
+private fun GPUsScreenPreview() {
     ComputerArchitectureTheme {
-        GPUsScreen(
-            navigateBack = {},
-        )
-    }
-}
-
-/**
- * Displays a preview for the GPUs screen in dark mode
- */
-@Preview
-@Composable
-private fun GPUsDarkPreview() {
-    ComputerArchitectureTheme(darkTheme = true) {
         GPUsScreen(
             navigateBack = {},
         )

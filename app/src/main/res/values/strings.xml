@@ -62,4 +62,15 @@
     <string name="start_routine_description">The C routine that the thread will execute once it is created.</string>
     <string name="arg_description">A single argument that may be passed to start_routine.
         It must be passed by reference as (void *).NULL may be used if no argument is to be passed.</string>
+    <string name="caching">Caching</string>
+    <string name="average_runtimes">Average Runtimes</string>
+    <string name="block_placement">Block Placement</string>
+    <string name="block_identification">Block Identification</string>
+    <string name="block_replacement">Block Replacement</string>
+    <string name="write_strategy">Write Strategy</string>
+    <string name="block_placement_question">Where can a memory block be stored in the cache?</string>
+    <string name="navigate_to">Navigate to</string>
+    <string name="block_identification_question">How is a memory block found?</string>
+    <string name="block_replacement_question">Which block should be replaced in the event of a failed access (cache miss)?</string>
+    <string name="write_strategy_question">What happens when data is written to the cache?</string>
 </resources>
