@@ -73,4 +73,13 @@
     <string name="block_identification_question">How is a memory block found?</string>
     <string name="block_replacement_question">Which block should be replaced in the event of a failed access (cache miss)?</string>
     <string name="write_strategy_question">What happens when data is written to the cache?</string>
+    <string name="direct_mapping_block_placement">Each block can be placed at exactly one location in the cache.</string>
+    <string name="direct_mapping">Direct Mapping</string>
+    <string name="set_associative_mapping">Set Associative Mapping</string>
+    <string name="set_associative_mapping_block_placement">Each block can be placed at a restricted set of locations in the cache.</string>
+    <string name="associative_mapping">Associative Mapping</string>
+    <string name="associative_mapping_block_placement">Each block can be placed at any location in the cache.</string>
+    <string name="tag">Tag</string>
+    <string name="index">Index</string>
+    <string name="offset">Offset</string>
 </resources>

@@ -1,6 +1,5 @@
 package com.example.computerarchitecture.ui.screens.caching
 
-import android.content.res.Configuration
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -15,7 +14,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewDynamicColors
+import androidx.compose.ui.tooling.preview.PreviewLightDark
+import androidx.compose.ui.tooling.preview.PreviewScreenSizes
 import com.example.computerarchitecture.R
 import com.example.computerarchitecture.ui.components.TopicTopBar
 import com.example.computerarchitecture.ui.navigation.NavigationDestination
@@ -203,15 +204,14 @@ private fun WriteStrategy(modifier: Modifier = Modifier, navigateTo: (String) ->
 }
 
 /**
- * Displays a preview for the caching screen.
+ * Displays previews for the caching screen for light and dark modes, different screen sizes and
+ * dynamic colors.
  */
-@Preview(
-    uiMode = Configuration.UI_MODE_NIGHT_YES,
-    name = "Dark",
-)
-@Preview
+@PreviewLightDark
+@PreviewScreenSizes
+@PreviewDynamicColors
 @Composable
-private fun CachingScreenPreview() {
+private fun CachingScreenPreviews() {
     ComputerArchitectureTheme {
         CachingScreen(
             navigateBack = {},
