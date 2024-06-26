@@ -80,6 +80,19 @@
     <string name="associative_mapping">Associative Mapping</string>
     <string name="associative_mapping_block_placement">Each block can be placed at any location in the cache.</string>
     <string name="tag">Tag</string>
+    <string name="tag_description">The tag contains the most significant bits of the address, which are checked against
+        all rows in the current set to see if this set contains the requested
+        address. </string>
+    <string name="tag_length"> tag_length = address_length - index_length - offset_length</string>
     <string name="index">Index</string>
+    <string name="index_description">The index describes which cache set that the data has been put in.</string>
+    <string name="index_length"> index_length = ceil(log_2(s)), for s cache sets </string>
     <string name="offset">Offset</string>
+    <string name="offset_description">The block offset specifies the desired data within the stored data block within
+        the cache row.</string>
+    <string name="offset_length">offset_length = ceil(log_2(b)), for b bytes per block </string>
+    <string name="direct_mapping_block_identification">Tag, index and offset</string>
+    <string name="set_associative_mapping_block_identification">Tag, index and offset  </string>
+    <string name="associative_mapping_block_identification">Tag and index</string>
+
 </resources>
