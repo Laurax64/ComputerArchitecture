@@ -33,6 +33,7 @@ object CachingDestination : NavigationDestination {
  * Displays the caching screen.
  *
  * @param navigateBack The function to navigate back
+ * @param navigateTo The function to navigate to another screen
  * @param modifier The modifier for the layout
  */
 @Composable

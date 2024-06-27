@@ -1,6 +1,5 @@
 package com.example.computerarchitecture.ui.screens
 
-import android.content.res.Configuration
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -8,10 +7,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
+import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -28,14 +25,16 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewDynamicColors
+import androidx.compose.ui.tooling.preview.PreviewLightDark
+import androidx.compose.ui.tooling.preview.PreviewScreenSizes
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import com.example.computerarchitecture.MainActivity
 import com.example.computerarchitecture.R
 import com.example.computerarchitecture.data.topics
 import com.example.computerarchitecture.ui.navigation.NavigationDestination
+import com.example.computerarchitecture.ui.screens.caching.CachingScreen
 import com.example.computerarchitecture.ui.theme.ComputerArchitectureTheme
 
 
@@ -76,12 +75,19 @@ fun TopicsScreen(
         when (windowSizeClass.widthSizeClass) {
             WindowWidthSizeClass.Compact -> {
                 TopicsList(
-                    modifier = modifier.padding(it),
+                    modifier = modifier
+                        .padding(it)
+                        .padding(16.dp),
                     onUnitClick = navigateToTopic
                 )
             }
             else -> {
-                TopicsListAndDetail(modifier = modifier.padding(it))
+                TopicsListAndDetail(
+                    modifier = modifier
+                        .padding(it)
+                        .padding(16.dp),
+                    navigateTo = navigateToTopic
+                )
             }
         }
     }
@@ -95,22 +101,22 @@ fun TopicsScreen(
  */
 @Composable
 private fun TopicsList(modifier: Modifier = Modifier, onUnitClick: (String) -> Unit) {
-    LazyColumn(modifier.fillMaxWidth()) {
+    LazyColumn(
+        modifier = modifier.fillMaxWidth(),
+        verticalArrangement = Arrangement.spacedBy(16.dp)
+    ) {
         items(topics) {
-            Row(
+            Card(
                 Modifier
-                    .fillMaxWidth()
                     .clickable { onUnitClick(it) }
-                    .padding(24.dp),
-                Arrangement.SpaceBetween
-            ) {
+                    .fillParentMaxWidth()) {
                 Text(
                     text = it,
-                    style = MaterialTheme.typography.titleLarge,
-                    fontWeight = FontWeight.Bold
+                    modifier = Modifier.padding(16.dp),
+                    style = MaterialTheme.typography.titleMedium,
                 )
-                Icon(Icons.AutoMirrored.Filled.KeyboardArrowRight, contentDescription = null) 
             }
+
         }
     }
 }
@@ -118,10 +124,14 @@ private fun TopicsList(modifier: Modifier = Modifier, onUnitClick: (String) -> U
 /**
  * Displays the topics list and the detail screen for the selected topic.
  *
+ * @param navigateTo The function to navigate to another screen
  * @param modifier The modifier for the layout
  */
 @Composable
-private fun TopicsListAndDetail(modifier: Modifier) {
+private fun TopicsListAndDetail(
+    navigateTo: (String) -> Unit,
+    modifier: Modifier = Modifier
+) {
     var selectedTopic by rememberSaveable { mutableStateOf(topics[0]) }
 
     Row(modifier.fillMaxWidth()) {
@@ -129,7 +139,11 @@ private fun TopicsListAndDetail(modifier: Modifier) {
             modifier = Modifier.weight(1f),
             onUnitClick = { selectedTopic = it }
         )
-        TopicDetailScreen(topic = selectedTopic, modifier = Modifier.weight(1f))
+        TopicDetailScreen(
+            topic = selectedTopic,
+            navigateTo = navigateTo,
+            modifier = Modifier.weight(1f)
+        )
     }
 }
 
@@ -137,10 +151,15 @@ private fun TopicsListAndDetail(modifier: Modifier) {
  * Displays the detail screen for the given topic.
  *
  * @param topic The topic to display
+ * @param navigateTo The function to navigate to another screen
  * @param modifier The modifier for the layout
  */
 @Composable
-fun TopicDetailScreen(topic: String, modifier: Modifier = Modifier) {
+fun TopicDetailScreen(
+    topic: String,
+    navigateTo: (String) -> Unit,
+    modifier: Modifier = Modifier
+) {
     when (topic) {
         "Multithreading" -> {
             MultithreadingScreen(modifier)
@@ -195,78 +214,26 @@ fun TopicDetailScreen(topic: String, modifier: Modifier = Modifier) {
         }
 
         "Caching" -> {
-            // CachingScreen({}, modifier)
+            CachingScreen({}, navigateTo, modifier)
         }
 
     }
 }
 
 /**
- * Displays a light and a dark preview for the topics screen for compact screens.
+ * Displays previews for the topics screen for light and dark modes, different screen sizes and
+ * dynamic colors.
  */
-@Preview(
-    uiMode = Configuration.UI_MODE_NIGHT_YES,
-    name = "Dark",
-)
-@Preview(
-    uiMode = Configuration.UI_MODE_NIGHT_NO,
-    name = "Light",
-)
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
+@PreviewLightDark
+@PreviewScreenSizes
+@PreviewDynamicColors
 @Composable
-private fun TopicsScreenCompactPreview() {
+private fun TopicsScreenPreview() {
     ComputerArchitectureTheme {
         TopicsScreen(
             navigateToTopic = {},
             windowSizeClass = WindowSizeClass.calculateFromSize(DpSize(400.dp, 400.dp))
-        )
-    }
-}
-
-/**
- * Displays a light and a dark preview for the topics screen for medium screens.
- */
-@Preview(
-    uiMode = Configuration.UI_MODE_NIGHT_YES,
-    name = "Dark",
-    widthDp = 700
-)
-@Preview(
-    uiMode = Configuration.UI_MODE_NIGHT_NO,
-    name = "Light",
-    widthDp = 700
-)
-@OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
-@Composable
-private fun TopicsScreenMediumPreview() {
-    ComputerArchitectureTheme {
-        TopicsScreen(
-            navigateToTopic = {},
-            windowSizeClass = WindowSizeClass.calculateFromSize(DpSize(700.dp, 700.dp))
-        )
-    }
-}
-
-/**
- * Displays a light and a dark preview for the topics screen for expanded screens.
- */
-@Preview(
-    uiMode = Configuration.UI_MODE_NIGHT_YES,
-    name = "Dark",
-    widthDp = 1000
-)
-@Preview(
-    uiMode = Configuration.UI_MODE_NIGHT_NO,
-    name = "Light",
-    widthDp = 1000
-)
-@OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
-@Composable
-private fun TopicsScreenExpandedPreview() {
-    ComputerArchitectureTheme {
-        TopicsScreen(
-            navigateToTopic = {},
-            windowSizeClass = WindowSizeClass.calculateFromSize(DpSize(1000.dp, 1000.dp))
         )
     }
 }
