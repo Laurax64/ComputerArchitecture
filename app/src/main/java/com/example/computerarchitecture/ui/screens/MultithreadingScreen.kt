@@ -28,6 +28,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.example.computerarchitecture.OpenWebView
 import com.example.computerarchitecture.R
@@ -47,6 +48,7 @@ object MultithreadingDestination : NavigationDestination {
  * Displays the multithreading screen.
  *
  * @param navigateBack The function to navigate back
+ * @param windowWidthSizeClass The window size class of the device
  * @param modifier The modifier for the layout
  */
 @Composable
@@ -207,11 +209,11 @@ fun PThreadCreation(modifier: Modifier = Modifier) {
 }
 
 /**
- * Displays a preview for the multithreading screen in light mode.
+ * Displays previews for the multithreading screen for compact screens.
  */
-@Preview
+@PreviewLightDark
 @Composable
-private fun MultithreadingScreenLightPreview() {
+private fun MultithreadingScreenCompactPreview() {
     ComputerArchitectureTheme {
         MultithreadingScreen(
             navigateBack = {},
@@ -220,12 +222,25 @@ private fun MultithreadingScreenLightPreview() {
 }
 
 /**
- * Displays a preview for the poi intent screen in dark mode.
+ * Displays previews for the multithreading screen for medium screens.
  */
-@Preview
+@Preview(widthDp = 800, heightDp = 800)
 @Composable
-private fun MultithreadingScreenDarkPreview() {
-    ComputerArchitectureTheme(true) {
+private fun MultithreadingScreenMediumPreview() {
+    ComputerArchitectureTheme {
+        MultithreadingScreen(
+            navigateBack = {},
+        )
+    }
+}
+
+/**
+ * Displays previews for the multithreading screen for expanded screens.
+ */
+@Preview(widthDp = 1100, heightDp = 1100)
+@Composable
+private fun MultithreadingScreenExpandedPreview() {
+    ComputerArchitectureTheme {
         MultithreadingScreen(
             navigateBack = {},
         )

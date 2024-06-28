@@ -1,5 +1,6 @@
 package com.example.computerarchitecture.ui.navigation
 
+import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
@@ -35,13 +36,12 @@ import com.example.computerarchitecture.ui.screens.caching.WriteStrategyScreen
 @Composable
 fun ComputerArchitectureNavHost(
     navController: NavHostController,
+    windowWidthSizeClass: WindowWidthSizeClass,
     modifier: Modifier = Modifier,
 ) {
     NavHost(navController, TopicsDestination.route, modifier) {
         composable(route = TopicsDestination.route) {
-            TopicsScreen(
-                { navController.navigate(it) },
-            )
+            TopicsScreen({ navController.navigate(it) }, windowWidthSizeClass)
         }
         composable(route = MultithreadingDestination.route) {
             MultithreadingScreen(
@@ -62,6 +62,7 @@ fun ComputerArchitectureNavHost(
             CachingScreen(
                 { navController.popBackStack() },
                 { navController.navigate(it) },
+                windowWidthSizeClass
             )
         }
         composable(route = AverageRuntimesDestination.route) {

@@ -10,13 +10,13 @@ import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.PreviewDynamicColors
 import androidx.compose.ui.tooling.preview.PreviewLightDark
-import androidx.compose.ui.tooling.preview.PreviewScreenSizes
 import com.example.computerarchitecture.R
 import com.example.computerarchitecture.ui.components.TopicTopBar
 import com.example.computerarchitecture.ui.navigation.NavigationDestination
@@ -33,12 +33,15 @@ object CachingDestination : NavigationDestination {
  * Displays the caching screen.
  *
  * @param navigateBack The function to navigate back
+ * @param navigateTo The function to navigate to a new screen
+ * @param windowWidthSizeClass The window size class of the device
  * @param modifier The modifier for the layout
  */
 @Composable
 fun CachingScreen(
     navigateBack: () -> Unit,
     navigateTo: (String) -> Unit,
+    windowWidthSizeClass: WindowWidthSizeClass,
     modifier: Modifier = Modifier,
 ) {
     Scaffold(
@@ -57,6 +60,25 @@ fun CachingScreen(
             BlockReplacement(Modifier.fillMaxWidth(), navigateTo)
             WriteStrategy(Modifier.fillMaxWidth(), navigateTo)
         }
+    }
+}
+
+/**
+ * Displays the caching screen.
+ *
+ * @param modifier The modifier for the layout
+ */
+@Composable
+fun CachingScreenAndDetail(
+    navigateTo: (String) -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    Column(modifier) {
+        AverageRuntimes(Modifier.fillMaxWidth(), navigateTo)
+        BlockPlacement(Modifier.fillMaxWidth(), navigateTo)
+        BlockIdentification(Modifier.fillMaxWidth(), navigateTo)
+        BlockReplacement(Modifier.fillMaxWidth(), navigateTo)
+        WriteStrategy(Modifier.fillMaxWidth(), navigateTo)
     }
 }
 
@@ -204,18 +226,49 @@ private fun WriteStrategy(modifier: Modifier = Modifier, navigateTo: (String) ->
 }
 
 /**
- * Displays previews for the caching screen for light and dark modes, different screen sizes and
- * dynamic colors.
+ * Displays previews for the caching screen for light and dark modes for compact screens.
  */
 @PreviewLightDark
-@PreviewScreenSizes
 @PreviewDynamicColors
 @Composable
-private fun CachingScreenPreviews() {
+private fun CachingScreenCompactPreviews() {
     ComputerArchitectureTheme {
         CachingScreen(
             navigateBack = {},
             navigateTo = {},
+            windowWidthSizeClass = WindowWidthSizeClass.Compact
+        )
+    }
+}
+
+/**
+ * Displays previews for the caching screen for light and dark modes for medium screens.
+ */
+@PreviewLightDark
+@PreviewDynamicColors
+@Composable
+private fun CachingScreenMediumPreviews() {
+    ComputerArchitectureTheme {
+        CachingScreen(
+            navigateBack = {},
+            navigateTo = {},
+            windowWidthSizeClass = WindowWidthSizeClass.Medium
+        )
+    }
+}
+
+/**
+ * Displays previews for the caching screen for light and dark modes for expanded screens.
+ */
+@PreviewLightDark
+@PreviewDynamicColors
+@Composable
+private fun CachingScreenExpandedPreviews() {
+    ComputerArchitectureTheme {
+        CachingScreen(
+            navigateBack = {},
+            navigateTo = {},
+            windowWidthSizeClass = WindowWidthSizeClass.Expanded
         )
     }
 }
