@@ -48,7 +48,6 @@ object MultithreadingDestination : NavigationDestination {
  * Displays the multithreading screen.
  *
  * @param navigateBack The function to navigate back
- * @param windowWidthSizeClass The window size class of the device
  * @param modifier The modifier for the layout
  */
 @Composable
@@ -80,7 +79,7 @@ fun MultithreadingScreen(modifier: Modifier = Modifier) {
     var state by rememberSaveable { mutableIntStateOf(0) }
     val titles = listOf(R.string.hardware_layer, R.string.software_layer)
 
-    Column(modifier.fillMaxWidth()) {
+    Column(modifier) {
         PrimaryTabRow(selectedTabIndex = state) {
             titles.forEachIndexed { index, title ->
                 Tab(
@@ -90,8 +89,8 @@ fun MultithreadingScreen(modifier: Modifier = Modifier) {
             }
         }
         when (state) {
-            0 -> HardwareLayerTab()
-            1 -> SoftwareLayerTab()
+            0 -> HardwareLayer()
+            1 -> SoftwareLayer()
         }
     }
 }
@@ -103,7 +102,7 @@ fun MultithreadingScreen(modifier: Modifier = Modifier) {
  * @param modifier The modifier for the layout
  */
 @Composable
-fun HardwareLayerTab(modifier: Modifier = Modifier) {
+fun HardwareLayer(modifier: Modifier = Modifier) {
     Column(
         modifier
             .fillMaxWidth()
@@ -137,7 +136,7 @@ fun HardwareLayerTab(modifier: Modifier = Modifier) {
  * Displays the software layer tab, including descriptions for POSIX threads.
  */
 @Composable
-fun SoftwareLayerTab(modifier: Modifier = Modifier) {
+fun SoftwareLayer(modifier: Modifier = Modifier) {
     Column(
         modifier
             .fillMaxWidth()
