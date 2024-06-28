@@ -5,12 +5,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 
 /**
- * Displays the write strategy screen.
+ * Displays the average runtimes content.
  *
  * @param modifier The modifier for the layout
  */
 @Composable
-fun WriteStrategyContent(modifier: Modifier = Modifier) {
+fun AverageRuntimesContent(modifier: Modifier = Modifier) {
         Column(modifier) {
+
         }
+
 }

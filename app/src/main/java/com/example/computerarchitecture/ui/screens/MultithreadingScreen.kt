@@ -28,6 +28,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.example.computerarchitecture.OpenWebView
 import com.example.computerarchitecture.R
@@ -78,7 +79,7 @@ fun MultithreadingScreen(modifier: Modifier = Modifier) {
     var state by rememberSaveable { mutableIntStateOf(0) }
     val titles = listOf(R.string.hardware_layer, R.string.software_layer)
 
-    Column(modifier.fillMaxWidth()) {
+    Column(modifier) {
         PrimaryTabRow(selectedTabIndex = state) {
             titles.forEachIndexed { index, title ->
                 Tab(
@@ -88,8 +89,8 @@ fun MultithreadingScreen(modifier: Modifier = Modifier) {
             }
         }
         when (state) {
-            0 -> HardwareLayerTab()
-            1 -> SoftwareLayerTab()
+            0 -> HardwareLayer()
+            1 -> SoftwareLayer()
         }
     }
 }
@@ -101,7 +102,7 @@ fun MultithreadingScreen(modifier: Modifier = Modifier) {
  * @param modifier The modifier for the layout
  */
 @Composable
-fun HardwareLayerTab(modifier: Modifier = Modifier) {
+fun HardwareLayer(modifier: Modifier = Modifier) {
     Column(
         modifier
             .fillMaxWidth()
@@ -135,7 +136,7 @@ fun HardwareLayerTab(modifier: Modifier = Modifier) {
  * Displays the software layer tab, including descriptions for POSIX threads.
  */
 @Composable
-fun SoftwareLayerTab(modifier: Modifier = Modifier) {
+fun SoftwareLayer(modifier: Modifier = Modifier) {
     Column(
         modifier
             .fillMaxWidth()
@@ -207,11 +208,11 @@ fun PThreadCreation(modifier: Modifier = Modifier) {
 }
 
 /**
- * Displays a preview for the multithreading screen in light mode.
+ * Displays previews for the multithreading screen for compact screens.
  */
-@Preview
+@PreviewLightDark
 @Composable
-private fun MultithreadingScreenLightPreview() {
+private fun MultithreadingScreenCompactPreview() {
     ComputerArchitectureTheme {
         MultithreadingScreen(
             navigateBack = {},
@@ -220,12 +221,25 @@ private fun MultithreadingScreenLightPreview() {
 }
 
 /**
- * Displays a preview for the poi intent screen in dark mode.
+ * Displays previews for the multithreading screen for medium screens.
  */
-@Preview
+@Preview(widthDp = 800, heightDp = 800)
 @Composable
-private fun MultithreadingScreenDarkPreview() {
-    ComputerArchitectureTheme(true) {
+private fun MultithreadingScreenMediumPreview() {
+    ComputerArchitectureTheme {
+        MultithreadingScreen(
+            navigateBack = {},
+        )
+    }
+}
+
+/**
+ * Displays previews for the multithreading screen for expanded screens.
+ */
+@Preview(widthDp = 1100, heightDp = 1100)
+@Composable
+private fun MultithreadingScreenExpandedPreview() {
+    ComputerArchitectureTheme {
         MultithreadingScreen(
             navigateBack = {},
         )

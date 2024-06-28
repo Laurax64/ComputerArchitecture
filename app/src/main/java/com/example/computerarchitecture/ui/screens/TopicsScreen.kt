@@ -3,7 +3,6 @@ package com.example.computerarchitecture.ui.screens
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -13,24 +12,17 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
-import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
-import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.PreviewDynamicColors
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewLightDark
-import androidx.compose.ui.tooling.preview.PreviewScreenSizes
-import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
-import com.example.computerarchitecture.MainActivity
 import com.example.computerarchitecture.R
 import com.example.computerarchitecture.data.topics
 import com.example.computerarchitecture.ui.navigation.NavigationDestination
@@ -48,16 +40,17 @@ object TopicsDestination : NavigationDestination {
 /**
  * Displays a scrollable list of rows from which the user can navigate to other screens,
  * each of which represents a computer architecture topic.
+ *
+ * @param navigateTo The function to navigate to other screens
+ * @param windowWidthSizeClass The window size class of the device
  * @param modifier The modifier for the layout
- * @param navigateToTopic The function to navigate to other screens
- * @param windowSizeClass The window size class of the device
  */
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3WindowSizeClassApi::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TopicsScreen(
-    navigateToTopic: (String) -> Unit,
+    navigateTo: (String) -> Unit,
+    windowWidthSizeClass: WindowWidthSizeClass,
     modifier: Modifier = Modifier,
-    windowSizeClass: WindowSizeClass = calculateWindowSizeClass(LocalContext.current as MainActivity),
 ) {
     Scaffold(
         modifier = modifier,
@@ -72,21 +65,21 @@ fun TopicsScreen(
             )
         },
     ) {
-        when (windowSizeClass.widthSizeClass) {
+        when (windowWidthSizeClass) {
             WindowWidthSizeClass.Compact -> {
                 TopicsList(
-                    modifier = modifier
+                    Modifier
                         .padding(it)
                         .padding(16.dp),
-                    onUnitClick = navigateToTopic
+                    navigateTo
                 )
             }
             else -> {
                 TopicsListAndDetail(
-                    modifier = modifier
+                    windowWidthSizeClass,
+                    Modifier
                         .padding(it)
-                        .padding(16.dp),
-                    navigateTo = navigateToTopic
+                        .padding(16.dp)
                 )
             }
         }
@@ -97,18 +90,18 @@ fun TopicsScreen(
  * Displays a scrollable list of topics that the user can click on to navigate to other screens
  *
  * @param modifier The modifier for the layout
- * @param onUnitClick The function to call when an intent is clicked
+ * @param navigateTo The function to navigate to other screens
  */
 @Composable
-private fun TopicsList(modifier: Modifier = Modifier, onUnitClick: (String) -> Unit) {
+private fun TopicsList(modifier: Modifier = Modifier, navigateTo: (String) -> Unit) {
     LazyColumn(
-        modifier = modifier.fillMaxWidth(),
+        modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         items(topics) {
             Card(
                 Modifier
-                    .clickable { onUnitClick(it) }
+                    .clickable { navigateTo(it) }
                     .fillParentMaxWidth()) {
                 Text(
                     text = it,
@@ -124,25 +117,23 @@ private fun TopicsList(modifier: Modifier = Modifier, onUnitClick: (String) -> U
 /**
  * Displays the topics list and the detail screen for the selected topic.
  *
- * @param navigateTo The function to navigate to another screen
+ * @param windowWidthSizeClass The window width size class
  * @param modifier The modifier for the layout
  */
 @Composable
 private fun TopicsListAndDetail(
-    navigateTo: (String) -> Unit,
+    windowWidthSizeClass: WindowWidthSizeClass,
     modifier: Modifier = Modifier
 ) {
     var selectedTopic by rememberSaveable { mutableStateOf(topics[0]) }
 
-    Row(modifier.fillMaxWidth()) {
-        TopicsList(
-            modifier = Modifier.weight(1f),
-            onUnitClick = { selectedTopic = it }
-        )
+    Row(modifier) {
+        TopicsList(Modifier.weight(0.5f)) { selectedTopic = it }
         TopicDetailScreen(
-            topic = selectedTopic,
-            navigateTo = navigateTo,
-            modifier = Modifier.weight(1f)
+            selectedTopic, windowWidthSizeClass,
+            Modifier
+                .weight(1f)
+                .padding(16.dp)
         )
     }
 }
@@ -151,13 +142,13 @@ private fun TopicsListAndDetail(
  * Displays the detail screen for the given topic.
  *
  * @param topic The topic to display
- * @param navigateTo The function to navigate to another screen
+ * @param windowWidthSizeClass The window width size class
  * @param modifier The modifier for the layout
  */
 @Composable
 fun TopicDetailScreen(
     topic: String,
-    navigateTo: (String) -> Unit,
+    windowWidthSizeClass: WindowWidthSizeClass,
     modifier: Modifier = Modifier
 ) {
     when (topic) {
@@ -214,26 +205,50 @@ fun TopicDetailScreen(
         }
 
         "Caching" -> {
-            CachingScreen({}, navigateTo, modifier)
+            CachingScreen(modifier)
         }
 
     }
 }
 
 /**
- * Displays previews for the topics screen for light and dark modes, different screen sizes and
- * dynamic colors.
+ * Displays previews for the topics screen for compact screens.
  */
-@OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 @PreviewLightDark
-@PreviewScreenSizes
-@PreviewDynamicColors
 @Composable
-private fun TopicsScreenPreview() {
+private fun TopicsScreenCompactPreview() {
     ComputerArchitectureTheme {
         TopicsScreen(
-            navigateToTopic = {},
-            windowSizeClass = WindowSizeClass.calculateFromSize(DpSize(400.dp, 400.dp))
+            navigateTo = {},
+            windowWidthSizeClass = WindowWidthSizeClass.Compact
+        )
+    }
+}
+
+/**
+ * Displays previews for the topics screen for medium screens.
+ */
+@Preview(widthDp = 800, heightDp = 800)
+@Composable
+private fun TopicsScreenMediumPreview() {
+    ComputerArchitectureTheme {
+        TopicsScreen(
+            navigateTo = {},
+            windowWidthSizeClass = WindowWidthSizeClass.Medium
+        )
+    }
+}
+
+/**
+ * Displays previews for the topics screen for expanded screens.
+ */
+@Preview(widthDp = 1100, heightDp = 1100)
+@Composable
+private fun TopicsScreenExpandedPreview() {
+    ComputerArchitectureTheme {
+        TopicsScreen(
+            navigateTo = {},
+            windowWidthSizeClass = WindowWidthSizeClass.Expanded
         )
     }
 }

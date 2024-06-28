@@ -10,46 +10,22 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.PreviewDynamicColors
-import androidx.compose.ui.tooling.preview.PreviewLightDark
-import androidx.compose.ui.tooling.preview.PreviewScreenSizes
 import androidx.compose.ui.unit.dp
 import com.example.computerarchitecture.R
-import com.example.computerarchitecture.ui.components.TopicTopBar
-import com.example.computerarchitecture.ui.navigation.NavigationDestination
-import com.example.computerarchitecture.ui.theme.ComputerArchitectureTheme
 
 /**
- * Represents a navigation destination for the block identification screen.
- */
-object BlockIdentificationDestination : NavigationDestination {
-    override val route = "Block Identification"
-}
-
-/**
- * Displays the block identification screen.
+ * Displays the block identification content.
  *
  * @param modifier The modifier for the layout
- * @param navigateBack The function to navigate back
  */
 @Composable
-fun BlockIdentificationScreen(modifier: Modifier = Modifier, navigateBack: () -> Unit) {
-    Scaffold(
-        modifier = modifier,
-        topBar = {
-            TopicTopBar(
-                title = stringResource(R.string.block_identification),
-                navigateBack = navigateBack
-            )
-        },
-    ) { paddingValues ->
-        Column(Modifier.padding(paddingValues)) {
+fun BlockIdentificationContent(modifier: Modifier = Modifier) {
+    Column(modifier) {
             DirectMapping()
             SetAssociativeMapping()
             AssociativeMapping()
@@ -58,8 +34,6 @@ fun BlockIdentificationScreen(modifier: Modifier = Modifier, navigateBack: () ->
             Tag(Modifier.padding(16.dp))
             Index(Modifier.padding(16.dp))
             Offset(Modifier.padding(16.dp))
-
-        }
     }
 }
 
@@ -205,22 +179,6 @@ private fun Offset(modifier: Modifier = Modifier) {
         Text(
             text = stringResource(R.string.offset_description),
             style = MaterialTheme.typography.bodyMedium
-        )
-    }
-}
-
-/**
- * Displays previews for the block identification screen for light and dark modes, different screen sizes and
- * dynamic colors.
- */
-@PreviewLightDark
-@PreviewScreenSizes
-@PreviewDynamicColors
-@Composable
-private fun BlockIdentificationScreenPreviews() {
-    ComputerArchitectureTheme {
-        BlockIdentificationScreen(
-            navigateBack = {}
         )
     }
 }

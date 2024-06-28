@@ -11,18 +11,16 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewScreenSizes
 import com.example.computerarchitecture.R
 import com.example.computerarchitecture.ui.components.TopicTopBar
-import com.example.computerarchitecture.ui.navigation.NavigationDestination
 import com.example.computerarchitecture.ui.theme.ComputerArchitectureTheme
 
 /**
- * Represents a navigation destination for the block replacement screen.
+ * Displays the block replacement screen.
+ *
+ * @param modifier The modifier for the layout
+ * @param navigateBack The function to navigate back
  */
-object BlockReplacementDestination : NavigationDestination {
-    override val route = "Block Replacement"
-}
-
 @Composable
-fun BlockReplacementScreen(modifier: Modifier = Modifier, navigateBack: () -> Unit) {
+fun BlockReplacementContent(modifier: Modifier = Modifier, navigateBack: () -> Unit) {
     Scaffold(
         modifier = modifier,
         topBar = {
@@ -32,13 +30,24 @@ fun BlockReplacementScreen(modifier: Modifier = Modifier, navigateBack: () -> Un
             )
         },
     ) { paddingValues ->
-        Column(Modifier.padding(paddingValues)) {
+        BlockReplacementContent(Modifier.padding(paddingValues))
+    }
+}
+
+/**
+ * Displays the block replacement screen.
+ *
+ * @param modifier The modifier for the layout
+ */
+@Composable
+fun BlockReplacementContent(modifier: Modifier = Modifier) {
+    Column(modifier) {
             DirectMapping()
             SetAssociativeMapping()
             AssociativeMapping()
         }
     }
-}
+
 
 /**
  * Displays a list item for direct mapping.
@@ -78,7 +87,7 @@ private fun AssociativeMapping(modifier: Modifier = Modifier) {
 @Composable
 private fun BlockReplacementScreenPreviews() {
     ComputerArchitectureTheme {
-        BlockReplacementScreen(
+        BlockReplacementContent(
             navigateBack = {}
         )
     }

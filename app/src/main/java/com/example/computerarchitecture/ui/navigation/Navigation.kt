@@ -1,5 +1,6 @@
 package com.example.computerarchitecture.ui.navigation
 
+import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
@@ -13,18 +14,8 @@ import com.example.computerarchitecture.ui.screens.MultithreadingDestination
 import com.example.computerarchitecture.ui.screens.MultithreadingScreen
 import com.example.computerarchitecture.ui.screens.TopicsDestination
 import com.example.computerarchitecture.ui.screens.TopicsScreen
-import com.example.computerarchitecture.ui.screens.caching.AverageRuntimesDestination
-import com.example.computerarchitecture.ui.screens.caching.AverageRuntimesScreen
-import com.example.computerarchitecture.ui.screens.caching.BlockIdentificationDestination
-import com.example.computerarchitecture.ui.screens.caching.BlockIdentificationScreen
-import com.example.computerarchitecture.ui.screens.caching.BlockPlacementDestination
-import com.example.computerarchitecture.ui.screens.caching.BlockPlacementScreen
-import com.example.computerarchitecture.ui.screens.caching.BlockReplacementDestination
-import com.example.computerarchitecture.ui.screens.caching.BlockReplacementScreen
 import com.example.computerarchitecture.ui.screens.caching.CachingDestination
 import com.example.computerarchitecture.ui.screens.caching.CachingScreen
-import com.example.computerarchitecture.ui.screens.caching.WriteStrategyDestination
-import com.example.computerarchitecture.ui.screens.caching.WriteStrategyScreen
 
 /**
  * Provides a navigation graph for the application
@@ -35,13 +26,12 @@ import com.example.computerarchitecture.ui.screens.caching.WriteStrategyScreen
 @Composable
 fun ComputerArchitectureNavHost(
     navController: NavHostController,
+    windowWidthSizeClass: WindowWidthSizeClass,
     modifier: Modifier = Modifier,
 ) {
     NavHost(navController, TopicsDestination.route, modifier) {
         composable(route = TopicsDestination.route) {
-            TopicsScreen(
-                { navController.navigate(it) },
-            )
+            TopicsScreen({ navController.navigate(it) }, windowWidthSizeClass)
         }
         composable(route = MultithreadingDestination.route) {
             MultithreadingScreen(
@@ -60,35 +50,10 @@ fun ComputerArchitectureNavHost(
         }
         composable(route = CachingDestination.route) {
             CachingScreen(
-                { navController.popBackStack() },
-                { navController.navigate(it) },
+                { navController.popBackStack() }
             )
         }
-        composable(route = AverageRuntimesDestination.route) {
-            AverageRuntimesScreen {
-                navController.popBackStack()
-            }
-        }
-        composable(route = BlockIdentificationDestination.route) {
-            BlockIdentificationScreen {
-                navController.popBackStack()
-            }
-        }
-        composable(route = BlockPlacementDestination.route) {
-            BlockPlacementScreen {
-                navController.popBackStack()
-            }
-        }
-        composable(route = BlockReplacementDestination.route) {
-            BlockReplacementScreen {
-                navController.popBackStack()
-            }
-        }
-        composable(route = WriteStrategyDestination.route) {
-            WriteStrategyScreen {
-                navController.popBackStack()
-            }
-        }
+
     }
 }
 
