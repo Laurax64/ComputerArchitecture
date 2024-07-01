@@ -30,8 +30,8 @@ fun WriteStrategy(modifier: Modifier = Modifier) {
                 fontWeight = FontWeight.Bold
             )
             Text(text = stringResource(R.string.write_strategy_question))
-            WriteAllocate()
-            NoWriteAllocate()
+            WriteAllocate(Modifier.padding(16.dp))
+            NoWriteAllocate(Modifier.padding(16.dp))
         }
     }
 }
