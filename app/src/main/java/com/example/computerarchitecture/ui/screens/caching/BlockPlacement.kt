@@ -1,27 +1,37 @@
 package com.example.computerarchitecture.ui.screens.caching
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Card
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
 import com.example.computerarchitecture.R
 
 /**
- * Displays the block placement screen.
+ * Displays a card with information about block placement.
  *
  * @param modifier The modifier for the layout
  */
 @Composable
-fun BlockPlacementContent(modifier: Modifier = Modifier) {
-    Column(modifier) {
+fun BlockPlacement(modifier: Modifier = Modifier) {
+    Card(modifier) {
+        Column(Modifier.padding(16.dp)) {
+            Text(
+                text = stringResource(R.string.block_placement),
+                fontWeight = FontWeight.Bold
+            )
+            Text(text = stringResource(R.string.block_placement_question))
             DirectMapping()
             SetAssociativeMapping()
             AssociativeMapping()
         }
+    }
 }
-
 
 /**
  * Displays a list item for direct mapping.
