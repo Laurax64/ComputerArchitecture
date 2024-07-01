@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Card
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.MaterialTheme
@@ -15,17 +16,24 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.computerarchitecture.R
 
 /**
- * Displays the block identification content.
+ * Displays a card with information about block identification.
  *
  * @param modifier The modifier for the layout
  */
 @Composable
-fun BlockIdentificationContent(modifier: Modifier = Modifier) {
-    Column(modifier) {
+fun BlockIdentification(modifier: Modifier = Modifier) {
+    Card(modifier) {
+        Column(Modifier.padding(16.dp)) {
+            Text(
+                text = stringResource(R.string.block_identification),
+                fontWeight = FontWeight.Bold
+            )
+            Text(text = stringResource(R.string.block_identification_question))
             DirectMapping()
             SetAssociativeMapping()
             AssociativeMapping()
@@ -34,6 +42,7 @@ fun BlockIdentificationContent(modifier: Modifier = Modifier) {
             Tag(Modifier.padding(16.dp))
             Index(Modifier.padding(16.dp))
             Offset(Modifier.padding(16.dp))
+        }
     }
 }
 
