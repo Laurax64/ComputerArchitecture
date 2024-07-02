@@ -3,24 +3,31 @@ package com.example.computerarchitecture.ui.navigation
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.computerarchitecture.ui.screens.GPUsDestination
+import com.example.computerarchitecture.ui.screens.EnergyEfficiencyScreen
+import com.example.computerarchitecture.ui.screens.FlashMemoryScreen
 import com.example.computerarchitecture.ui.screens.GPUsScreen
-import com.example.computerarchitecture.ui.screens.MultiprocessorSystemsDestination
+import com.example.computerarchitecture.ui.screens.InstructionSchedulingScreen
+import com.example.computerarchitecture.ui.screens.JumpPredictionScreen
+import com.example.computerarchitecture.ui.screens.MPIScreen
+import com.example.computerarchitecture.ui.screens.MemoryHierarchyScreen
 import com.example.computerarchitecture.ui.screens.MultiprocessorSystemsScreen
-import com.example.computerarchitecture.ui.screens.MultithreadingDestination
 import com.example.computerarchitecture.ui.screens.MultithreadingScreen
-import com.example.computerarchitecture.ui.screens.TopicsDestination
+import com.example.computerarchitecture.ui.screens.NetworksScreen
+import com.example.computerarchitecture.ui.screens.OpenMPScreen
+import com.example.computerarchitecture.ui.screens.ReliabilityScreen
+import com.example.computerarchitecture.ui.screens.SuperscalarityScreen
 import com.example.computerarchitecture.ui.screens.TopicsScreen
-import com.example.computerarchitecture.ui.screens.caching.CachingDestination
 import com.example.computerarchitecture.ui.screens.caching.CachingScreen
 
 /**
- * Provides a navigation graph for the application
+ * Provides a navigation graph for the screens with an app scaffold.
  *
  * @param navController The navigation controller
+ * @param windowWidthSizeClass The window size class of the device
  * @param modifier The modifier for the layout
  */
 @Composable
@@ -29,31 +36,100 @@ fun ComputerArchitectureNavHost(
     windowWidthSizeClass: WindowWidthSizeClass,
     modifier: Modifier = Modifier,
 ) {
-    NavHost(navController, TopicsDestination.route, modifier) {
-        composable(route = TopicsDestination.route) {
-            TopicsScreen({ navController.navigate(it) }, windowWidthSizeClass)
+    NavHost(navController, TopicsDestination.screenRoute, modifier) {
+        composable(TopicsDestination.screenRoute) {
+            TopicsScreen(navController::navigate, windowWidthSizeClass)
         }
-        composable(route = MultithreadingDestination.route) {
-            MultithreadingScreen(
-                { navController.popBackStack() },
-            )
+        composable(MultithreadingDestination.screenRoute) {
+            MultithreadingScreen(navController::popBackStack)
         }
-        composable(route = MultiprocessorSystemsDestination.route) {
-            MultiprocessorSystemsScreen(
-                { navController.popBackStack() },
-            )
+        composable(MultiprocessorSystemsDestination.screenRoute) {
+            MultiprocessorSystemsScreen(navController::popBackStack)
         }
-        composable(route = GPUsDestination.route) {
-            GPUsScreen(
-                { navController.popBackStack() },
-            )
+        composable(GraphicsProcessingUnitsDestination.screenRoute) {
+            GPUsScreen(navController::popBackStack)
         }
-        composable(route = CachingDestination.route) {
-            CachingScreen(
-                { navController.popBackStack() }
-            )
+        composable(OpenMPDestination.screenRoute) {
+            OpenMPScreen(navController::popBackStack)
         }
-
+        composable(MPIDestination.screenRoute) {
+            MPIScreen(navController::popBackStack)
+        }
+        composable(NetworksDestination.screenRoute) {
+            NetworksScreen(navController::popBackStack)
+        }
+        composable(EnergyEfficiencyDestination.screenRoute) {
+            EnergyEfficiencyScreen(navController::popBackStack)
+        }
+        composable(InstructionSchedulingDestination.screenRoute) {
+            InstructionSchedulingScreen(navController::popBackStack)
+        }
+        composable(ReliabilityDestination.screenRoute) {
+            ReliabilityScreen(navController::popBackStack)
+        }
+        composable(JumpPredictionDestination.screenRoute) {
+            JumpPredictionScreen(navController::popBackStack)
+        }
+        composable(SuperscalarityDestination.screenRoute) {
+            SuperscalarityScreen(navController::popBackStack)
+        }
+        composable(MemoryHierarchyDestination.screenRoute) {
+            MemoryHierarchyScreen(navController::popBackStack)
+        }
+        composable(FlashMemoryDestination.screenRoute) {
+            FlashMemoryScreen(navController::popBackStack)
+        }
+        composable(CachingDestination.screenRoute) {
+            CachingScreen(navController::popBackStack)
+        }
+        screenContents()
     }
 }
 
+/**
+ * Provides a navigation graph for the screens without an app scaffold.
+ */
+fun NavGraphBuilder.screenContents() {
+    composable(MultithreadingDestination.contentRoute) {
+        MultithreadingScreen()
+    }
+    composable(MultiprocessorSystemsDestination.contentRoute) {
+        MultiprocessorSystemsScreen()
+    }
+    composable(GraphicsProcessingUnitsDestination.contentRoute) {
+        GPUsScreen()
+    }
+    composable(OpenMPDestination.contentRoute) {
+        OpenMPDestination
+    }
+    composable(MPIDestination.contentRoute) {
+        MPIScreen()
+    }
+    composable(NetworksDestination.contentRoute) {
+        NetworksScreen()
+    }
+    composable(EnergyEfficiencyDestination.contentRoute) {
+        EnergyEfficiencyScreen()
+    }
+    composable(InstructionSchedulingDestination.contentRoute) {
+        InstructionSchedulingScreen()
+    }
+    composable(ReliabilityDestination.contentRoute) {
+        ReliabilityScreen()
+    }
+    composable(MemoryHierarchyDestination.contentRoute) {
+        MemoryHierarchyScreen()
+    }
+    composable(JumpPredictionDestination.contentRoute) {
+        JumpPredictionScreen()
+    }
+    composable(SuperscalarityDestination.contentRoute) {
+        SuperscalarityScreen()
+    }
+    composable(FlashMemoryDestination.contentRoute) {
+        FlashMemoryScreen()
+    }
+    composable(CachingDestination.contentRoute) {
+        CachingScreen()
+    }
+}

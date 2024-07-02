@@ -1,22 +1,41 @@
 package com.example.computerarchitecture.data
 
+import com.example.computerarchitecture.ui.navigation.CachingDestination
+import com.example.computerarchitecture.ui.navigation.EnergyEfficiencyDestination
+import com.example.computerarchitecture.ui.navigation.FlashMemoryDestination
+import com.example.computerarchitecture.ui.navigation.GraphicsProcessingUnitsDestination
+import com.example.computerarchitecture.ui.navigation.InstructionSchedulingDestination
+import com.example.computerarchitecture.ui.navigation.JumpPredictionDestination
+import com.example.computerarchitecture.ui.navigation.MPIDestination
+import com.example.computerarchitecture.ui.navigation.MemoryHierarchyDestination
+import com.example.computerarchitecture.ui.navigation.MultiprocessorSystemsDestination
+import com.example.computerarchitecture.ui.navigation.MultithreadingDestination
+import com.example.computerarchitecture.ui.navigation.NavigationDestination
+import com.example.computerarchitecture.ui.navigation.NetworksDestination
+import com.example.computerarchitecture.ui.navigation.OpenMPDestination
+import com.example.computerarchitecture.ui.navigation.ReliabilityDestination
+import com.example.computerarchitecture.ui.navigation.SuperscalarityDestination
+
+
 /**
- * A list that contains the computer architecture topics that can be navigated to
- * from the main screen
+ * An enum class that represents the computer architecture topics that can be navigated to.
+ *
+ * @param title The title of the topic
+ * @param navigationDestination The navigation destination
  */
-val topics = listOf(
-    "Multithreading",
-    "Multiprocessor Systems",
-    "Graphics Processing Units",
-    "OpenMP",
-    "MPI",
-    "Networks",
-    "Energy Efficiency",
-    "Instruction Scheduling",
-    "Reliability",
-    "Jump Prediction",
-    "Superscalarity",
-    "Memory hierarchy",
-    "Flash Memory",
-    "Caching"
-)
+enum class Topic(val title: String, val navigationDestination: NavigationDestination) {
+    MULTITHREADING("Multithreading", MultithreadingDestination),
+    MULTIPROCESSOR_SYSTEMS("Multiprocessor Systems", MultiprocessorSystemsDestination),
+    GRAPHICS_PROCESSING_UNITS("Graphics Processing Units", GraphicsProcessingUnitsDestination),
+    OPENMP("OpenMP", OpenMPDestination),
+    MPI("MPI", MPIDestination),
+    NETWORKS("Networks", NetworksDestination),
+    ENERGY_EFFICIENCY("Energy Efficiency", EnergyEfficiencyDestination),
+    INSTRUCTION_SCHEDULING("Instruction Scheduling", InstructionSchedulingDestination),
+    RELIABILITY("Reliability", ReliabilityDestination),
+    JUMP_PREDICTION("Jump Prediction", JumpPredictionDestination),
+    SUPERSCALARITY("Superscalarity", SuperscalarityDestination),
+    MEMORY_HIERARCHY("Memory Hierarchy", MemoryHierarchyDestination),
+    FLASH_MEMORY("Flash Memory", FlashMemoryDestination),
+    CACHING("Caching", CachingDestination);
+}

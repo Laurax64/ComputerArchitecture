@@ -33,16 +33,7 @@ import androidx.compose.ui.unit.dp
 import com.example.computerarchitecture.OpenWebView
 import com.example.computerarchitecture.R
 import com.example.computerarchitecture.ui.components.TopicTopBar
-import com.example.computerarchitecture.ui.navigation.NavigationDestination
 import com.example.computerarchitecture.ui.theme.ComputerArchitectureTheme
-
-
-/**
- * Represents a navigation destination for the  screen
- */
-object MultithreadingDestination : NavigationDestination {
-    override val route = "Multithreading"
-}
 
 /**
  * Displays the multithreading screen.

@@ -15,15 +15,7 @@ import androidx.compose.ui.tooling.preview.PreviewScreenSizes
 import androidx.compose.ui.unit.dp
 import com.example.computerarchitecture.R
 import com.example.computerarchitecture.ui.components.TopicTopBar
-import com.example.computerarchitecture.ui.navigation.NavigationDestination
 import com.example.computerarchitecture.ui.theme.ComputerArchitectureTheme
-
-/**
- * Represents a navigation destination for the caching screen.
- */
-object CachingDestination : NavigationDestination {
-    override val route = "Caching"
-}
 
 /**
  * Displays the caching screen.

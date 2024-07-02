@@ -30,24 +30,15 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.computerarchitecture.R
 import com.example.computerarchitecture.ui.components.TopicTopBar
-import com.example.computerarchitecture.ui.navigation.NavigationDestination
 import com.example.computerarchitecture.ui.theme.ComputerArchitectureTheme
 import kotlin.math.roundToInt
 
 /**
- * Represents a navigation destination for the multiprocessor systems screen
- */
-object MultiprocessorSystemsDestination : NavigationDestination {
-    override val route = "Multiprocessor Systems"
-}
-
-/**
- * Displays the multiprocessor systems screen.
+ * Displays the multiprocessor systems screen with an app scaffold.
  *
  * @param navigateBack The function to navigate back
  * @param modifier The modifier for the layout
  */
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MultiprocessorSystemsScreen(
     navigateBack: () -> Unit,
@@ -62,22 +53,32 @@ fun MultiprocessorSystemsScreen(
             )
         },
     ) { paddingValues ->
-        var state by rememberSaveable { mutableIntStateOf(0) }
-        val titles = listOf(R.string.speedup, R.string.numa_title_short)
+        MultiprocessorSystemsScreen(Modifier.padding(paddingValues))
+    }
+}
 
-        Column(Modifier.fillMaxWidth()) {
-            PrimaryTabRow(selectedTabIndex = state, modifier = Modifier.padding(paddingValues)) {
-                titles.forEachIndexed { index, title ->
-                    Tab(
-                        selected = state == index,
-                        onClick = { state = index },
-                        text = { Text(text = stringResource(title)) })
-                }
+/**
+ * Displays the multiprocessor systems screen.
+ *
+ * @param modifier The modifier for the layout
+ */
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun MultiprocessorSystemsScreen(modifier: Modifier = Modifier) {
+    var state by rememberSaveable { mutableIntStateOf(0) }
+    val titles = listOf(R.string.speedup, R.string.numa_title_short)
+    Column(modifier.fillMaxWidth()) {
+        PrimaryTabRow(selectedTabIndex = state) {
+            titles.forEachIndexed { index, title ->
+                Tab(
+                    selected = state == index,
+                    onClick = { state = index },
+                    text = { Text(text = stringResource(title)) })
             }
-            when (state) {
-                0 -> SpeedupTab()
-                1 -> NumaTab()
-            }
+        }
+        when (state) {
+            0 -> SpeedupTab()
+            1 -> NumaTab()
         }
     }
 }

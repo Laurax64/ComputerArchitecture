@@ -19,23 +19,14 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.computerarchitecture.R
 import com.example.computerarchitecture.ui.components.TopicTopBar
-import com.example.computerarchitecture.ui.navigation.NavigationDestination
 import com.example.computerarchitecture.ui.theme.ComputerArchitectureTheme
 
 /**
- * Represents a navigation destination for the GPUs screen
- */
-object GPUsDestination : NavigationDestination {
-    override val route = "GPU"
-}
-
-/**
- * Displays the graphics processing units (GPUs) screen.
+ * Displays the graphics processing units (GPUs) screen with an app scaffold.
  *
  * @param navigateBack The function to navigate back
  * @param modifier The modifier for the layout
  */
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun GPUsScreen(
     navigateBack: () -> Unit,
@@ -50,21 +41,32 @@ fun GPUsScreen(
             )
         },
     ) { paddingValues ->
-        var state by rememberSaveable { mutableIntStateOf(0) }
-        val titles = listOf(R.string.open_cl)
+        GPUsScreen(modifier.padding(paddingValues))
+    }
+}
 
-        Column(Modifier.fillMaxWidth()) {
-            PrimaryTabRow(selectedTabIndex = state, modifier = Modifier.padding(paddingValues)) {
-                titles.forEachIndexed { index, title ->
-                    Tab(
-                        selected = state == index,
-                        onClick = { state = index },
-                        text = { Text(text = stringResource(title)) })
-                }
+/**
+ * Displays the GPUs screen.
+ *
+ * @param modifier The modifier for the layout
+ */
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun GPUsScreen(modifier: Modifier = Modifier) {
+    var state by rememberSaveable { mutableIntStateOf(0) }
+    val titles = listOf(R.string.open_cl)
+
+    Column(modifier.fillMaxWidth()) {
+        PrimaryTabRow(selectedTabIndex = state) {
+            titles.forEachIndexed { index, title ->
+                Tab(
+                    selected = state == index,
+                    onClick = { state = index },
+                    text = { Text(text = stringResource(title)) })
             }
-            when (state) {
-                0 -> OpenCLTab()
-            }
+        }
+        when (state) {
+            0 -> OpenCLTab()
         }
     }
 }
