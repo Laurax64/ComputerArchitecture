@@ -94,9 +94,9 @@ object ReliabilityDestination : NavigationDestination {
 /**
  * Represents a navigation destination for the jump prediction topic.
  */
-object JumpPredictionDestination : NavigationDestination {
-    override val screenRoute: String = "jump_prediction"
-    override val contentRoute: String = "jump_prediction_content"
+object BranchPredictionDestination : NavigationDestination {
+    override val screenRoute: String = "branch_prediction"
+    override val contentRoute: String = "branch_prediction_content"
 }
 
 /**

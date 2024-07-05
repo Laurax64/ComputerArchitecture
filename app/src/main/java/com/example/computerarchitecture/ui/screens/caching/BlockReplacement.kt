@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Card
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -31,9 +32,11 @@ fun BlockReplacement(modifier: Modifier = Modifier) {
                 fontWeight = FontWeight.Bold
             )
             Text(text = stringResource(R.string.block_replacement_question))
+
             DirectMapping()
             SetAssociativeMapping()
             AssociativeMapping()
+            HorizontalDivider()
             Random(Modifier.padding(16.dp))
             LRU(Modifier.padding(16.dp))
             FIFO(Modifier.padding(16.dp))

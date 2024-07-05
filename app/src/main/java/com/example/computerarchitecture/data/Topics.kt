@@ -1,11 +1,11 @@
 package com.example.computerarchitecture.data
 
+import com.example.computerarchitecture.ui.navigation.BranchPredictionDestination
 import com.example.computerarchitecture.ui.navigation.CachingDestination
 import com.example.computerarchitecture.ui.navigation.EnergyEfficiencyDestination
 import com.example.computerarchitecture.ui.navigation.FlashMemoryDestination
 import com.example.computerarchitecture.ui.navigation.GraphicsProcessingUnitsDestination
 import com.example.computerarchitecture.ui.navigation.InstructionSchedulingDestination
-import com.example.computerarchitecture.ui.navigation.JumpPredictionDestination
 import com.example.computerarchitecture.ui.navigation.MPIDestination
 import com.example.computerarchitecture.ui.navigation.MemoryHierarchyDestination
 import com.example.computerarchitecture.ui.navigation.MultiprocessorSystemsDestination
@@ -33,7 +33,7 @@ enum class Topic(val title: String, val navigationDestination: NavigationDestina
     ENERGY_EFFICIENCY("Energy Efficiency", EnergyEfficiencyDestination),
     INSTRUCTION_SCHEDULING("Instruction Scheduling", InstructionSchedulingDestination),
     RELIABILITY("Reliability", ReliabilityDestination),
-    JUMP_PREDICTION("Jump Prediction", JumpPredictionDestination),
+    BRANCH_PREDICTION("Branch Prediction", BranchPredictionDestination),
     SUPERSCALARITY("Superscalarity", SuperscalarityDestination),
     MEMORY_HIERARCHY("Memory Hierarchy", MemoryHierarchyDestination),
     FLASH_MEMORY("Flash Memory", FlashMemoryDestination),

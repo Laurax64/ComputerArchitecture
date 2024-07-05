@@ -7,11 +7,11 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.computerarchitecture.ui.screens.BranchPredictionScreen
 import com.example.computerarchitecture.ui.screens.EnergyEfficiencyScreen
 import com.example.computerarchitecture.ui.screens.FlashMemoryScreen
 import com.example.computerarchitecture.ui.screens.GPUsScreen
 import com.example.computerarchitecture.ui.screens.InstructionSchedulingScreen
-import com.example.computerarchitecture.ui.screens.JumpPredictionScreen
 import com.example.computerarchitecture.ui.screens.MPIScreen
 import com.example.computerarchitecture.ui.screens.MemoryHierarchyScreen
 import com.example.computerarchitecture.ui.screens.MultiprocessorSystemsScreen
@@ -67,8 +67,8 @@ fun ComputerArchitectureNavHost(
         composable(ReliabilityDestination.screenRoute) {
             ReliabilityScreen(navController::popBackStack)
         }
-        composable(JumpPredictionDestination.screenRoute) {
-            JumpPredictionScreen(navController::popBackStack)
+        composable(BranchPredictionDestination.screenRoute) {
+            BranchPredictionScreen(navController::popBackStack)
         }
         composable(SuperscalarityDestination.screenRoute) {
             SuperscalarityScreen(navController::popBackStack)
@@ -120,8 +120,8 @@ fun NavGraphBuilder.screenContents() {
     composable(MemoryHierarchyDestination.contentRoute) {
         MemoryHierarchyScreen()
     }
-    composable(JumpPredictionDestination.contentRoute) {
-        JumpPredictionScreen()
+    composable(BranchPredictionDestination.contentRoute) {
+        BranchPredictionScreen()
     }
     composable(SuperscalarityDestination.contentRoute) {
         SuperscalarityScreen()

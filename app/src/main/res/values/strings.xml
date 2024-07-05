@@ -110,5 +110,11 @@
     <string name="write_allocate_description">The block is allocated on a write miss.</string>
     <string name="no_write_allocate_description">Write misses do not affect the cache. Instead, the block is modified only in the lower-level memory.</string>
     <string name="no_write_allocate">No-write allocate</string>
-    <string name="jump_prediction">Jump Prediction</string>
+    <string name="branch_prediction">Branch Prediction</string>
+    <string name="one_bit_predictors_description">
+        Contain 1 bit: Jump executed last time (taken) or not (not taken)\nPrediction: jump behaves as it did last time
+    </string>
+    <string name="on_bit_predictors">1-bit Predictors</string>
+    <string name="local_predictors">Local Predictors</string>
+    <string name="two_bit_predictors">2-bit Predictors</string>
 </resources>

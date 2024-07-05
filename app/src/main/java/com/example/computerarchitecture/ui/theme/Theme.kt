@@ -274,12 +274,13 @@ data class ColorFamily(
  * Displays the app's theme to the given content.
  *
  * @param darkTheme whether to use the dark theme
+ * @param dynamicColor whether to use dynamic color
  * @param content the content to display
  */
 @Composable
 fun ComputerArchitectureTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    dynamicColor: Boolean = true,
+    dynamicColor: Boolean = false,
     content: @Composable () -> Unit
 ) {
     val colorScheme = when {

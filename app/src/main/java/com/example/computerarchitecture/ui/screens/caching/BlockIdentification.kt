@@ -17,6 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.example.computerarchitecture.R
 
@@ -190,4 +191,13 @@ private fun Offset(modifier: Modifier = Modifier) {
             style = MaterialTheme.typography.bodyMedium
         )
     }
+}
+
+/**
+ * Displays previews for the block identification card.
+ */
+@PreviewLightDark
+@Composable
+private fun BlockIdentificationPreview() {
+    BlockIdentification()
 }
