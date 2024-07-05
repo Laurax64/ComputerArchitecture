@@ -1,6 +1,7 @@
 package com.example.computerarchitecture.ui.screens
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -21,7 +22,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -67,7 +70,16 @@ fun MultiprocessorSystemsScreen(
 fun MultiprocessorSystemsScreen(modifier: Modifier = Modifier) {
     var state by rememberSaveable { mutableIntStateOf(0) }
     val titles = listOf(R.string.speedup, R.string.numa_title_short)
-    Column(modifier.fillMaxWidth()) {
+    val focusManager = LocalFocusManager.current
+    Column(
+        modifier
+            .fillMaxWidth()
+            .pointerInput(Unit) {
+                detectTapGestures(onTap = {
+                    focusManager.clearFocus()
+                })
+            },
+    ) {
         PrimaryTabRow(selectedTabIndex = state) {
             titles.forEachIndexed { index, title ->
                 Tab(
@@ -98,6 +110,7 @@ fun SpeedupTab(modifier: Modifier = Modifier) {
     var speedupGustavson by rememberSaveable {
         mutableStateOf(GustavsonLaw(processors.toDouble(), parallelizedCode.toDouble()).toString())
     }
+
     Column(
         modifier
             .fillMaxWidth()
@@ -105,21 +118,21 @@ fun SpeedupTab(modifier: Modifier = Modifier) {
         verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
         TextField(
-            value = parallelizedCode,
-            onValueChange = { parallelizedCode = it },
+            value = parallelizedCode.ifBlank { "0.0" },
+            onValueChange = { parallelizedCode = it.ifBlank { "0.0" } },
             label = { Text("Fraction of parallelizable code P") },
             modifier = Modifier.fillMaxWidth(),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
         )
         TextField(
-            value = processors,
-            onValueChange = { processors = it },
+            value = processors.ifBlank { "0.0" },
+            onValueChange = { processors = it.ifBlank { "1.0" } },
             label = { Text("Number of processors N") },
             modifier = Modifier.fillMaxWidth(),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
         )
         TextField(
-            value = speedupAmdahl,
+            value = AmdahlsLaw(processors.toDouble(), parallelizedCode.toDouble()).toString(),
             onValueChange = { speedupAmdahl = it },
             label = { Text("Speedup Amdahl's Law") },
             modifier = Modifier.fillMaxWidth(),
@@ -127,7 +140,7 @@ fun SpeedupTab(modifier: Modifier = Modifier) {
 
             )
         TextField(
-            value = speedupGustavson,
+            value = GustavsonLaw(processors.toDouble(), parallelizedCode.toDouble()).toString(),
             onValueChange = { speedupGustavson = it },
             label = { Text("Speedup Gustavson's Law") },
             modifier = Modifier.fillMaxWidth(),
