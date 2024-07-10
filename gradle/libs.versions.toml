@@ -12,6 +12,7 @@ composeBom = "2024.06.00"
 navigationCompose = "2.7.7"
 appcompat = "1.7.0"
 uiTextGoogleFonts = "1.6.8"
+material3WindowSizeClassAndroid = "1.2.1"
 
 [libraries]
 accompanist-systemuicontroller = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanistSystemuicontroller" }
@@ -33,6 +34,7 @@ androidx-material3 = { group = "androidx.compose.material3", name = "material3" 
 androidx-compose-material3-windowSizeClass = { group = "androidx.compose.material3", name = "material3-window-size-class" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 androidx-ui-text-google-fonts = { group = "androidx.compose.ui", name = "ui-text-google-fonts", version.ref = "uiTextGoogleFonts" }
+androidx-material3-windowWidthSizeClass = { group = "androidx.compose.material3", name = "material3-window-size-class-android", version.ref = "material3WindowSizeClassAndroid" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

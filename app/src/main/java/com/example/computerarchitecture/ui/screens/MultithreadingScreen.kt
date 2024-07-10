@@ -1,11 +1,15 @@
 package com.example.computerarchitecture.ui.screens
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -25,6 +29,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -34,6 +39,14 @@ import com.example.computerarchitecture.OpenWebView
 import com.example.computerarchitecture.R
 import com.example.computerarchitecture.ui.components.TopicTopBar
 import com.example.computerarchitecture.ui.theme.ComputerArchitectureTheme
+
+
+/**
+ * Displays the multithreading screen.
+ *
+ * @param navigateBack The function to navigate back
+ * @param modifier The modifier for the layout
+ */
 
 /**
  * Displays the multithreading screen.
@@ -58,6 +71,12 @@ fun MultithreadingScreen(
         MultithreadingScreen(modifier.padding(it))
     }
 }
+
+/**
+ * Displays the content for the multithreading screen.
+ *
+ * @param modifier The modifier for the layout
+ */
 
 /**
  * Displays the content for the multithreading screen.
@@ -92,6 +111,13 @@ fun MultithreadingScreen(modifier: Modifier = Modifier) {
  *
  * @param modifier The modifier for the layout
  */
+
+/**
+ * Displays the hardware layer tab, including descriptions for coarse grain
+ * multithreading, fine grain multithreading, and simultaneous multithreading.
+ *
+ * @param modifier The modifier for the layout
+ */
 @Composable
 fun HardwareLayer(modifier: Modifier = Modifier) {
     Column(
@@ -102,26 +128,15 @@ fun HardwareLayer(modifier: Modifier = Modifier) {
         horizontalAlignment = Alignment.Start,
         verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
-        Text(
-            text = stringResource(R.string.coarse_grained_multithreading),
-            style = MaterialTheme.typography.titleLarge,
-            fontWeight = FontWeight.Bold
-        )
-        Text(stringResource(R.string.cgmt_description))
-        Text(
-            text = stringResource(R.string.fine_grained_multithreading),
-            style = MaterialTheme.typography.titleLarge,
-            fontWeight = FontWeight.Bold
-        )
-        Text(stringResource(R.string.fgmt_description))
-        Text(
-            text = stringResource(R.string.simultanious_multithreading),
-            style = MaterialTheme.typography.titleLarge,
-            fontWeight = FontWeight.Bold
-        )
-        Text(stringResource(R.string.smt_description))
+        CGMT(Modifier)
+        FGMT(Modifier)
+        SMT(Modifier)
     }
 }
+
+/**
+ * Displays the software layer tab, including descriptions for POSIX threads.
+ */
 
 /**
  * Displays the software layer tab, including descriptions for POSIX threads.
@@ -146,8 +161,92 @@ fun SoftwareLayer(modifier: Modifier = Modifier) {
     }
 }
 
+
+@Composable
+private fun CGMT(modifier: Modifier) {
+    Column(modifier) {
+        Text(
+            text = stringResource(R.string.coarse_grained_multithreading),
+            style = MaterialTheme.typography.titleLarge,
+            fontWeight = FontWeight.Bold
+        )
+        Text(stringResource(R.string.cgmt_description))
+
+        Column(Modifier.border(1.dp, MaterialTheme.colorScheme.onSurface)) {
+            cgmtThreads.forEach {
+                Row {
+                    it.forEach {
+                        var color = generateBlueShade(it)
+                        Box(
+                            modifier = Modifier
+                                .size(24.dp)
+                                .background(color)
+                                .border(1.dp, MaterialTheme.colorScheme.onSurface)
+                        )
+                    }
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun FGMT(modifier: Modifier) {
+    Column(modifier) {
+        Text(
+            text = stringResource(R.string.fine_grained_multithreading),
+            style = MaterialTheme.typography.titleLarge,
+            fontWeight = FontWeight.Bold
+        )
+        Text(stringResource(R.string.fgmt_description))
+        Column(Modifier.border(1.dp, MaterialTheme.colorScheme.onSurface)) {
+            fgmtThreads.forEach {
+                Row {
+                    it.forEach {
+                        var color = generateBlueShade(it)
+                        Box(
+                            modifier = Modifier
+                                .size(24.dp)
+                                .background(color)
+                                .border(1.dp, MaterialTheme.colorScheme.onSurface)
+                        )
+                    }
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun SMT(modifier: Modifier = Modifier) {
+    Column(modifier) {
+        Text(
+            text = stringResource(R.string.simultanious_multithreading),
+            style = MaterialTheme.typography.titleLarge,
+            fontWeight = FontWeight.Bold
+        )
+        Text(stringResource(R.string.smt_description))
+
+        Column(Modifier.border(1.dp, MaterialTheme.colorScheme.onSurface)) {
+            smtThreads.forEach {
+                Row {
+                    it.forEach {
+                        var color = generateBlueShade(it)
+                        Box(
+                            modifier = Modifier
+                                .size(24.dp)
+                                .background(color)
+                                .border(1.dp, MaterialTheme.colorScheme.onSurface)
+                        )
+                    }
+                }
+            }
+        }
+    }
+}
+
 /**
- * Displays the includes section for POSIX treads in the software layer tab.
+ * Displays the section for POSIX treads in the software layer tab.
  */
 @Composable
 fun PThreadIncludes(modifier: Modifier = Modifier) {
@@ -160,6 +259,12 @@ fun PThreadIncludes(modifier: Modifier = Modifier) {
         Text(stringResource(R.string.pthread_include))
     }
 }
+
+/**
+ * Displays the pthread_create section for POSIX treads in the software layer tab.
+ *
+ * @param modifier The modifier for the layout
+ */
 
 /**
  * Displays the pthread_create section for POSIX treads in the software layer tab.
@@ -201,6 +306,10 @@ fun PThreadCreation(modifier: Modifier = Modifier) {
 /**
  * Displays previews for the multithreading screen for compact screens.
  */
+
+/**
+ * Displays previews for the multithreading screen for compact screens.
+ */
 @PreviewLightDark
 @Composable
 private fun MultithreadingScreenCompactPreview() {
@@ -210,6 +319,10 @@ private fun MultithreadingScreenCompactPreview() {
         )
     }
 }
+
+/**
+ * Displays previews for the multithreading screen for medium screens.
+ */
 
 /**
  * Displays previews for the multithreading screen for medium screens.
@@ -227,6 +340,10 @@ private fun MultithreadingScreenMediumPreview() {
 /**
  * Displays previews for the multithreading screen for expanded screens.
  */
+
+/**
+ * Displays previews for the multithreading screen for expanded screens.
+ */
 @Preview(widthDp = 1100, heightDp = 1100)
 @Composable
 private fun MultithreadingScreenExpandedPreview() {
@@ -234,5 +351,72 @@ private fun MultithreadingScreenExpandedPreview() {
         MultithreadingScreen(
             navigateBack = {},
         )
+    }
+}
+
+/**
+ * A data class representing an instruction.
+ *
+ * @param units The units to execute the instruction on
+ * @param threadId The id of the thread
+ */
+data class Instruction(
+    val units: List<Boolean>,
+    val threadId: Int
+)
+
+val cgmtThreads = listOf(
+    listOf(0, 0, 0, 0),
+    listOf(0, 0, -1, -1),
+    listOf(0, 0, 0, -1),
+    listOf(0, -1, -1, -1),
+    listOf(-1, -1, -1, -1),
+    listOf(1, 1, 1, -1),
+    listOf(1, 1, 1, -1),
+    listOf(1, 1, -1, -1),
+    listOf(0, 0, -1, -1),
+    listOf(0, 0, 0, 0),
+)
+
+val fgmtThreads = listOf(
+    listOf(0, 0, 0, 0),
+    listOf(1, 1, 1, -1),
+    listOf(2, 2, 2, 2),
+    listOf(3, 3, -1, -1),
+    listOf(0, 0, 0, -1),
+    listOf(1, 1, 1, 1),
+    listOf(2, 2, 2, -1),
+    listOf(3, 3, -1, -1),
+    listOf(0, 0, 0, 0),
+    listOf(1, 1, -1, -1),
+)
+
+val smtThreads = listOf(
+    listOf(0, 0, 1, 2),
+    listOf(1, 1, 0, -1),
+    listOf(2, 2, 3, 3),
+    listOf(3, 3, 2, 1),
+    listOf(0, 0, 1, 2),
+    listOf(1, 1, 0, -1),
+    listOf(2, 2, 3, 3),
+    listOf(3, 3, 2, 1),
+    listOf(0, 0, 1, 2),
+    listOf(1, 1, 0, -1),
+)
+
+
+/**
+ * Generates a shade of blue based on the id.
+ *
+ * @param id The id to generate the shade of blue from
+ * @return The shade of blue
+ */
+fun generateBlueShade(id: Int): Color {
+    return when (id) {
+        0 -> Color(0, 0, 255)
+        1 -> Color(0, 130, 255)
+        2 -> Color(0, 200, 255)
+        3 -> Color(0, 255, 255)
+        else -> Color.Transparent
     }
 }

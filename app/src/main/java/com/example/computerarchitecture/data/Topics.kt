@@ -33,7 +33,7 @@ enum class Topic(val title: String, val navigationDestination: NavigationDestina
     ENERGY_EFFICIENCY("Energy Efficiency", EnergyEfficiencyDestination),
     INSTRUCTION_SCHEDULING("Instruction Scheduling", InstructionSchedulingDestination),
     RELIABILITY("Reliability", ReliabilityDestination),
-    BRANCH_PREDICTION("Branch Prediction", BranchPredictionDestination),
+    JUMP_PREDICTION("Branch Prediction", BranchPredictionDestination),
     SUPERSCALARITY("Superscalarity", SuperscalarityDestination),
     MEMORY_HIERARCHY("Memory Hierarchy", MemoryHierarchyDestination),
     FLASH_MEMORY("Flash Memory", FlashMemoryDestination),
