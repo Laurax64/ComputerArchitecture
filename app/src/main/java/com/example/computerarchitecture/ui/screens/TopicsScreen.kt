@@ -110,7 +110,6 @@ private fun TopicsList(modifier: Modifier = Modifier, navigateTo: (Topic) -> Uni
 /**
  * Displays the topics list and the detail screen for the selected topic.
  *
- * @param navigateTo The function to navigate to another composable function
  * @param modifier The modifier for the layout
  */
 @Composable
