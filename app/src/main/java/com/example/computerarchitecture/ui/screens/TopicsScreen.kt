@@ -68,6 +68,13 @@ fun TopicsScreen(
                         .padding(16.dp)
                 ) { topic -> navigateTo(topic.navigationDestination.screenRoute) }
             }
+            WindowWidthSizeClass.Medium -> {
+                TopicsList(
+                    Modifier
+                        .padding(it)
+                        .padding(16.dp)
+                ) { topic -> navigateTo(topic.navigationDestination.screenRoute) }
+            }
             else -> {
                 TopicsListAndDetail(
                     Modifier
@@ -110,7 +117,6 @@ private fun TopicsList(modifier: Modifier = Modifier, navigateTo: (Topic) -> Uni
 /**
  * Displays the topics list and the detail screen for the selected topic.
  *
- * @param navigateTo The function to navigate to another composable function
  * @param modifier The modifier for the layout
  */
 @Composable

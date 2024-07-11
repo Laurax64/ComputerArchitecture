@@ -11,22 +11,24 @@
     <string name="as_soon_as_possible_description">Executes instructions as soon as possible.</string>
     <string name="as_late_as_possible_name">As late as possible(ALAP)</string>
     <string name="as_late_as_possible_description">Executes instructions as late as possible.</string>
-    <string name="cgmt_description">Long stalls are partially hidden by switching to another thread that uses the
-        resources of the processor. This switching reduces the number of completely idle clock cycles. In a
-        coarse-grained multithreaded processor, however, thread switching only occurs when there is a stall.
-        Because the new thread has a start-up period, there are likely to be some fully idle cycles remaining.</string>
-    <string name="fgmt_description">The interleaving of threads can eliminate fully empty slots. In addition, because
-        the issuing thread is changed on every clock cycle, longer latency operations can be hidden. Because
-        instruction issue and execution are connected, a thread can only issue as many instructions as are ready.
-        With a narrow issue width this is not a problem (a cycle is either occupied or not), which is why fine-grained
-        multithreading works perfectly for a single issue processor, and SMT would make no sense.</string>
-    <string name="smt_description">If one implements fine-grained threading on top of a multiple-issue dynamically
-        schedule processor, the result is SMT. In all existing SMT implementations, all issues come from one thread,
-        although instructions from different threads can initiate execution in the same cycle, using the dynamic
-        scheduling hardware to determine what instructions are ready. Simultaneous multithreading uses the insight
-        that a dynamically scheduled processor already has many of the hardware mechanisms needed to support the
-        mechanism, including a large virtual register set.</string>
-    <string name="simultanious_multithreading">Simultaneous Multithreading</string>
+
+    <string name="cgmt_description">Change threads in case of longer delays.</string>
+    <string name="cgmt_advantages"> Small delay can be tolerated when switching threads.
+        Critical threads can be prioritized.</string>
+    <string name="cgmt_disadvantages">Short stalls must be tolerated.</string>
+
+    <string name="fgmt_description">Change threads with each instruction.</string>
+    <string name="fgmt_advantages">Any processor availability can be used.</string>
+    <string name="fgmt_disadvantages">Higher latency of individual threads.</string>
+
+    <string name="smt_description">Multiple threads can be executed simultaneously on one CPU core.</string>
+    <string name="smt_advantages">Instructions from different,
+        independent threads can be executed simultaneously.</string>
+    <string name="smt_disadvantages">Higher latency of individual threads, higher implementation effort</string>
+
+    <string name="advantages">Advantages</string>
+    <string name="disadvantages">Disadvantages</string>
+    <string name="simultaneous_multithreading">Simultaneous Multithreading</string>
     <string name="fine_grained_multithreading">Fine-grained multithreading</string>
     <string name="coarse_grained_multithreading">Coarse-grained Multithreading</string>
     <string name="hardware_layer">Hardware Layer</string>

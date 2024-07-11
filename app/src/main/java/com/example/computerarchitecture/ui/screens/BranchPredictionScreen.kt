@@ -63,10 +63,11 @@ fun BranchPredictionScreen(modifier: Modifier = Modifier) {
     }
 }
 
+
 @Composable
 private fun LocalPredictors(modifier: Modifier = Modifier) {
     Card(modifier) {
-        Column(Modifier.padding(16.dp)) {
+        Column(Modifier.padding(6.dp)) {
             Text(
                 text = stringResource(R.string.local_predictors),
                 fontWeight = FontWeight.Bold
