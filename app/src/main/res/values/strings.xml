@@ -29,7 +29,7 @@
     <string name="advantages">Advantages</string>
     <string name="disadvantages">Disadvantages</string>
     <string name="simultaneous_multithreading">Simultaneous Multithreading</string>
-    <string name="fine_grained_multithreading">Fine-grained multithreading</string>
+    <string name="fine_grained_multithreading">Fine-grained Multithreading</string>
     <string name="coarse_grained_multithreading">Coarse-grained Multithreading</string>
     <string name="hardware_layer">Hardware Layer</string>
     <string name="software_layer">Software Layer</string>
