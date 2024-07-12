@@ -50,8 +50,30 @@
     <string name="posix_threads">POSIX Threads</string>
     <string name="includes">Includes</string>
     <string name="pthread_include"><![CDATA[#include <pthread.h>]]></string>
-    <string name="thread_creation">Thread Creation</string>
+
+    <string name="thread_create">Thread Create</string>
     <string name="pthread_create">pthread_create(thread, attr, start_routine, arg)</string>
+    <string name="thread_exit">Thread Exit</string>
+    <string name="pthread_exit">pthread_exit(status)</string>
+    <string name="thread_join">Thread Join</string>
+    <string name="pthread_join">pthread_join(thread, status)</string>
+    <string name="thread_cancel">Thread Cancel</string>
+    <string name="pthread_cancel">pthread_cancel(thread)</string>
+    <string name="thread_mutex_init">Thread Mutex Init</string>
+    <string name="pthread_mutex_init">pthread_mutex_init(mutex, attr)</string>
+    <string name="thread_mutex_destroy">Thread Mutex Destroy</string>
+    <string name="pthread_mutex_destroy">pthread_mutex_destroy(mutex)</string>
+    <string name="thread_mutex_lock">Thread Mutex Lock</string>
+    <string name="pthread_mutex_lock">pthread_mutex_lock(mutex)</string>
+    <string name="thread_mutex_unlock">Thread Mutex Unlock</string>
+    <string name="pthread_mutex_unlock">pthread_mutex_unlock(mutex)</string>
+    <string name="thread_condition_init">Thread Condition Init</string>
+    <string name="pthread_cond_init">pthread_cond_init(cond, attr)</string>
+    <string name="thread_condition_wait">Thread Condition Wait</string>
+    <string name="pthread_cond_wait">pthread_cond_wait(cond, mutex)</string>
+    <string name="thread_condition_signal">Thread Condition Signal</string>
+    <string name="pthread_cond_signal">pthread_cond_signal(cond)</string>
+
     <string name="thread">thread</string>
     <string name="attr">attr</string>
     <string name="start_routine">start_routine</string>
@@ -119,4 +141,7 @@
     <string name="on_bit_predictors">1-bit Predictors</string>
     <string name="local_predictors">Local Predictors</string>
     <string name="two_bit_predictors">2-bit Predictors</string>
+    <string name="thread_management">Thread Management</string>
+    <string name="mutex_variables">Mutex Variables</string>
+    <string name="condition_variables">Condition Variables</string>
 </resources>
