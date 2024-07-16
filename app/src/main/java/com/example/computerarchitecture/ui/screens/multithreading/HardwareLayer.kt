@@ -6,13 +6,13 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -20,8 +20,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.PreviewLightDark
+import androidx.compose.ui.tooling.preview.PreviewScreenSizes
 import androidx.compose.ui.unit.dp
 import com.example.computerarchitecture.R
+import com.example.computerarchitecture.ui.theme.ComputerArchitectureTheme
 
 /**
  * Displays the hardware layer tab, including descriptions for coarse grain
@@ -32,11 +35,7 @@ import com.example.computerarchitecture.R
 @Composable
 fun HardwareLayer(modifier: Modifier = Modifier) {
     Column(
-        modifier
-            .fillMaxWidth()
-            .padding(24.dp)
-            .verticalScroll(rememberScrollState()),
-        horizontalAlignment = Alignment.Start,
+        modifier = modifier.verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
         CGMT(Modifier)
@@ -53,12 +52,15 @@ fun HardwareLayer(modifier: Modifier = Modifier) {
 @Composable
 private fun CGMT(modifier: Modifier) {
     Card(modifier) {
-        Row(Modifier.padding(8.dp), Arrangement.spacedBy(8.dp), Alignment.CenterVertically) {
+        Text(
+            text = stringResource(R.string.coarse_grained_multithreading),
+            modifier = Modifier.padding(start = 8.dp, end = 8.dp, top = 8.dp),
+            fontWeight = FontWeight.Bold,
+            style = MaterialTheme.typography.titleLarge,
+        )
+        Row(Modifier.padding(8.dp), Arrangement.spacedBy(8.dp), Alignment.Top) {
             Column(Modifier.weight(1f)) {
-                Text(
-                    text = stringResource(R.string.coarse_grained_multithreading),
-                    fontWeight = FontWeight.Bold,
-                )
+
                 Text(text = stringResource(R.string.cgmt_description))
 
                 Text(
@@ -99,12 +101,14 @@ private fun CGMT(modifier: Modifier) {
 @Composable
 private fun FGMT(modifier: Modifier) {
     Card(modifier) {
-        Row(Modifier.padding(8.dp), Arrangement.spacedBy(8.dp), Alignment.CenterVertically) {
+        Text(
+            text = stringResource(R.string.fine_grained_multithreading),
+            modifier = Modifier.padding(start = 8.dp, end = 8.dp, top = 8.dp),
+            fontWeight = FontWeight.Bold,
+            style = MaterialTheme.typography.titleLarge,
+        )
+        Row(Modifier.padding(8.dp), Arrangement.spacedBy(8.dp), Alignment.Top) {
             Column(Modifier.weight(1f)) {
-                Text(
-                    text = stringResource(R.string.fine_grained_multithreading),
-                    fontWeight = FontWeight.Bold,
-                )
                 Text(text = stringResource(R.string.fgmt_description))
                 Text(
                     text = stringResource(R.string.advantages),
@@ -144,12 +148,14 @@ private fun FGMT(modifier: Modifier) {
 @Composable
 private fun SMT(modifier: Modifier = Modifier) {
     Card(modifier) {
-        Row(Modifier.padding(8.dp), Arrangement.spacedBy(8.dp), Alignment.CenterVertically) {
+        Text(
+            text = stringResource(R.string.simultaneous_multithreading),
+            modifier = Modifier.padding(start = 8.dp, end = 8.dp, top = 8.dp),
+            fontWeight = FontWeight.Bold,
+            style = MaterialTheme.typography.titleLarge,
+        )
+        Row(Modifier.padding(8.dp), Arrangement.spacedBy(8.dp), Alignment.Top) {
             Column(Modifier.weight(1f)) {
-                Text(
-                    text = stringResource(R.string.simultaneous_multithreading),
-                    fontWeight = FontWeight.Bold,
-                )
                 Text(text = stringResource(R.string.smt_description))
                 Text(
                     text = stringResource(R.string.advantages),
@@ -243,5 +249,19 @@ fun generateBlueShade(id: Int): Color {
         2 -> Color(0, 200, 255)
         3 -> Color(0, 255, 255)
         else -> Color.Transparent
+    }
+}
+
+/**
+ * Displays previews for the hardware layer.
+ */
+@PreviewLightDark
+@PreviewScreenSizes
+@Composable
+fun PreviewHardwareLayer() {
+    ComputerArchitectureTheme {
+        Surface {
+            HardwareLayer()
+        }
     }
 }

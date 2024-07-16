@@ -100,7 +100,7 @@ fun NavGraphBuilder.screenContents() {
         GPUsScreen()
     }
     composable(OpenMPDestination.contentRoute) {
-        OpenMPDestination
+        OpenMPScreen()
     }
     composable(MPIDestination.contentRoute) {
         MPIScreen()

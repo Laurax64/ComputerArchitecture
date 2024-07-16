@@ -144,4 +144,6 @@
     <string name="thread_management">Thread Management</string>
     <string name="mutex_variables">Mutex Variables</string>
     <string name="condition_variables">Condition Variables</string>
+    <string name="open_mp_pragmas">OpenMP-Pragmas</string>
+    <string name="open_mp">OpenMP</string>
 </resources>

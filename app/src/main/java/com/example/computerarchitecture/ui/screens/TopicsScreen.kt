@@ -33,7 +33,7 @@ import com.example.computerarchitecture.ui.navigation.screenContents
 import com.example.computerarchitecture.ui.theme.ComputerArchitectureTheme
 
 /**
- * Displays a scrollable list of rows from which the user can navigate to other screens,
+ * Displays a scrollable list of cards from which the user can navigate to other screens,
  * each of which represents a computer architecture topic.
  *
  * @param navigateTo The function to navigate to another composable function
@@ -62,13 +62,6 @@ fun TopicsScreen(
     ) {
         when (windowWidthSizeClass) {
             WindowWidthSizeClass.Compact -> {
-                TopicsList(
-                    Modifier
-                        .padding(it)
-                        .padding(16.dp)
-                ) { topic -> navigateTo(topic.navigationDestination.screenRoute) }
-            }
-            WindowWidthSizeClass.Medium -> {
                 TopicsList(
                     Modifier
                         .padding(it)
@@ -129,14 +122,13 @@ private fun TopicsListAndDetail(
         TopicsList(Modifier.weight(0.5f)) { selectedTopic = it }
         NavHost(
             navController = navController,
-            modifier = Modifier.weight(0.5f),
+            modifier = Modifier.weight(1f),
             startDestination = selectedTopic.navigationDestination.contentRoute
         ) {
             screenContents()
         }
     }
 }
-
 
 /**
  * Displays previews for the topics screen for compact screens.
