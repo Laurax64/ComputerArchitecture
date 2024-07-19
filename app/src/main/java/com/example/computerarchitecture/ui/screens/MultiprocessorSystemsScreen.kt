@@ -144,15 +144,15 @@ private fun GustavsonsLaw(modifier: Modifier = Modifier) {
     Card(modifier) {
         Column(Modifier.padding(8.dp)) {
             Text(
-                text = stringResource(R.string.gustavsons_law),
+                text = stringResource(R.string.gustafsons_law),
                 style = MaterialTheme.typography.titleLarge,
                 fontWeight = FontWeight.Bold
             )
             Text(
-                text = stringResource(R.string.gustavsons_law_formula),
+                text = stringResource(R.string.gustafsons_law_formula),
                 fontWeight = FontWeight.Bold
             )
-            Text(stringResource(R.string.gustavsons_law_description))
+            Text(stringResource(R.string.gustafsons_law_description))
         }
     }
 }
@@ -208,7 +208,7 @@ private fun SpeedupCalculator(modifier: Modifier = Modifier) {
                     parallelizedCode.toDouble()
                 ).toString(),
                 onValueChange = { speedupGustavson = it },
-                label = { Text("Speedup Gustavson's Law") },
+                label = { Text("Speedup Gustafson's Law") },
                 modifier = Modifier.fillMaxWidth(),
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
             )

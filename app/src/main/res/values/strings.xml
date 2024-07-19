@@ -248,7 +248,7 @@
     <string name="amdahls_law">Amdahl\'s Law</string>
     <string name="amdahls_law_formula">S_tot = 1 / ((1 - P) + P / N)</string>
     <string name="amdahls_law_description">Speed-up of parallelized compared to sequential program.</string>
-    <string name="gustavsons_law">Gustafson\'s Law</string>
-    <string name="gustavsons_law_formula">S\'_tot = (1 - P) + P * N</string>
-    <string name="gustavsons_law_description">Speed-up with respect to the overall run-time of the parallelized program.</string>
+    <string name="gustafsons_law">Gustafson\'s Law</string>
+    <string name="gustafsons_law_formula">S\'_tot = (1 - P) + P * N</string>
+    <string name="gustafsons_law_description">Speed-up with respect to the overall run-time of the parallelized program.</string>
 </resources>
