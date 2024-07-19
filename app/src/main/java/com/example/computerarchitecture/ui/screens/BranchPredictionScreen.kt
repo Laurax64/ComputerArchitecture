@@ -53,8 +53,7 @@ fun BranchPredictionScreen(
         modifier = modifier,
         topBar = {
             TopicTopBar(
-                title = stringResource(R.string.branch_prediction),
-                navigateBack = navigateBack
+                title = stringResource(R.string.branch_prediction), navigateBack = navigateBack
             )
         },
     ) { paddingValues ->
@@ -108,8 +107,7 @@ private fun OneBitPredictors(modifier: Modifier = Modifier) {
     Card(modifier) {
         Column(Modifier.padding(8.dp)) {
             Text(
-                text = stringResource(R.string.one_bit_predictors),
-                fontWeight = FontWeight.Bold
+                text = stringResource(R.string.one_bit_predictors), fontWeight = FontWeight.Bold
             )
             Text(stringResource(R.string.one_bit_predictors_description))
         }
@@ -120,21 +118,16 @@ private fun OneBitPredictors(modifier: Modifier = Modifier) {
 
 @Composable
 private fun TwoBitPredictors(modifier: Modifier = Modifier) {
-
-
     val screenWidth = LocalConfiguration.current.screenWidthDp
     val graphSize = when (screenWidth) {
         in 0..599 -> 150.dp
         in 600..841 -> 150.dp
         else -> 250.dp
     }
-
-
     Card(modifier) {
         Column(Modifier.padding(8.dp)) {
             Text(
-                text = stringResource(R.string.two_bit_predictors),
-                fontWeight = FontWeight.Bold
+                text = stringResource(R.string.two_bit_predictors), fontWeight = FontWeight.Bold
             )
             TwoBitPredictionGraph(
                 modifier = Modifier.size(graphSize)
@@ -173,16 +166,10 @@ fun TwoBitPredictionGraph(
 
         // Draw states
         drawCircle(
-            color = circleColor,
-            radius = circleRadius,
-            center = oneZero,
-            style = Stroke(width = 4f)
+            color = circleColor, radius = circleRadius, center = oneZero, style = Stroke(width = 4f)
         )
         drawCircle(
-            color = circleColor,
-            radius = circleRadius,
-            center = oneOne,
-            style = Stroke(width = 4f)
+            color = circleColor, radius = circleRadius, center = oneOne, style = Stroke(width = 4f)
         )
         drawCircle(
             color = circleColor,
@@ -191,10 +178,7 @@ fun TwoBitPredictionGraph(
             style = Stroke(width = 4f)
         )
         drawCircle(
-            color = circleColor,
-            radius = circleRadius,
-            center = zeroOne,
-            style = Stroke(width = 4f)
+            color = circleColor, radius = circleRadius, center = zeroOne, style = Stroke(width = 4f)
         )
 
         // Draw state labels
@@ -206,16 +190,14 @@ fun TwoBitPredictionGraph(
                 textSize = txtSize
                 color = txtColor
             })
-        drawContext.canvas.nativeCanvas.drawLine(
-            oneZero.x + 70,
+        drawContext.canvas.nativeCanvas.drawLine(oneZero.x + 70,
             oneZero.y,
             oneZero.x - 70f,
             oneZero.y,
             Paint().apply {
                 strokeWidth = 4f
                 color = circleColor.toArgb()
-            }
-        )
+            })
         drawContext.canvas.nativeCanvas.drawText(
             "P_T",
             oneZero.x - 13,
@@ -225,24 +207,18 @@ fun TwoBitPredictionGraph(
                 color = txtColor
             })
 
-        drawContext.canvas.nativeCanvas.drawText(
-            "11",
-            oneOne.x - 13,
-            oneOne.y - 20,
-            Paint().apply {
-                textSize = txtSize
-                color = txtColor
-            })
-        drawContext.canvas.nativeCanvas.drawLine(
-            oneOne.x + 70,
+        drawContext.canvas.nativeCanvas.drawText("11", oneOne.x - 13, oneOne.y - 20, Paint().apply {
+            textSize = txtSize
+            color = txtColor
+        })
+        drawContext.canvas.nativeCanvas.drawLine(oneOne.x + 70,
             oneOne.y,
             oneOne.x - 70f,
             oneOne.y,
             Paint().apply {
                 strokeWidth = 4f
                 color = circleColor.toArgb()
-            }
-        )
+            })
         drawContext.canvas.nativeCanvas.drawText(
             "P_T",
             oneOne.x - 13,
@@ -260,16 +236,14 @@ fun TwoBitPredictionGraph(
                 textSize = txtSize
                 color = txtColor
             })
-        drawContext.canvas.nativeCanvas.drawLine(
-            zeroZero.x + 70,
+        drawContext.canvas.nativeCanvas.drawLine(zeroZero.x + 70,
             zeroZero.y,
             zeroZero.x - 70f,
             zeroZero.y,
             Paint().apply {
                 strokeWidth = 4f
                 color = circleColor.toArgb()
-            }
-        )
+            })
         drawContext.canvas.nativeCanvas.drawText(
             "P_NT",
             zeroZero.x - 30,
@@ -287,16 +261,14 @@ fun TwoBitPredictionGraph(
                 textSize = txtSize
                 color = txtColor
             })
-        drawContext.canvas.nativeCanvas.drawLine(
-            zeroOne.x + 70,
+        drawContext.canvas.nativeCanvas.drawLine(zeroOne.x + 70,
             zeroOne.y,
             zeroOne.x - 70f,
             zeroOne.y,
             Paint().apply {
                 strokeWidth = 4f
                 color = circleColor.toArgb()
-            }
-        )
+            })
         drawContext.canvas.nativeCanvas.drawText(
             "P_NT",
             zeroOne.x - 30,
@@ -318,10 +290,7 @@ fun TwoBitPredictionGraph(
 
         fun drawArrowLine(start: Offset, end: Offset) {
             drawLine(
-                color = edgeColor,
-                start = start,
-                end = end,
-                strokeWidth = strokeWidth
+                color = edgeColor, start = start, end = end, strokeWidth = strokeWidth
             )
             // Calculate arrowhead points
             val angle = atan2(end.y - start.y, end.x - start.x)
@@ -341,15 +310,13 @@ fun TwoBitPredictionGraph(
                     lineTo(arrowPoint1.x, arrowPoint1.y)
                     lineTo(arrowPoint2.x, arrowPoint2.y)
                     close()
-                },
-                color = edgeColor
+                }, color = edgeColor
             )
         }
 
         // 00 to 01
         drawArrowLine(
-            Offset(zeroZero.x + 70f, zeroZero.y + 20f),
-            Offset(zeroOne.x - 70f, zeroOne.y + 20f)
+            Offset(zeroZero.x + 70f, zeroZero.y + 20f), Offset(zeroOne.x - 70f, zeroOne.y + 20f)
         )
         drawContext.canvas.nativeCanvas.drawText(
             "T",
@@ -361,8 +328,7 @@ fun TwoBitPredictionGraph(
             })
         // 01 to 00
         drawArrowLine(
-            Offset(zeroOne.x - 70f, zeroOne.y - 20f),
-            Offset(zeroZero.x + 70f, zeroZero.y - 20f)
+            Offset(zeroOne.x - 70f, zeroOne.y - 20f), Offset(zeroZero.x + 70f, zeroZero.y - 20f)
         )
         drawContext.canvas.nativeCanvas.drawText(
             "NT",
@@ -374,8 +340,7 @@ fun TwoBitPredictionGraph(
             })
         // 01 to 11
         drawArrowLine(
-            Offset(zeroOne.x + 20f, zeroOne.y - 70f),
-            Offset(oneOne.x + 20f, oneOne.y + 70f)
+            Offset(zeroOne.x + 20f, zeroOne.y - 70f), Offset(oneOne.x + 20f, oneOne.y + 70f)
         )
         drawContext.canvas.nativeCanvas.drawText(
             "T",
@@ -388,8 +353,7 @@ fun TwoBitPredictionGraph(
 
         // 11 to 10
         drawArrowLine(
-            Offset(oneOne.x - 70f, oneOne.y + 20f),
-            Offset(oneZero.x + 70f, oneZero.y + 20f)
+            Offset(oneOne.x - 70f, oneOne.y + 20f), Offset(oneZero.x + 70f, oneZero.y + 20f)
         )
         drawContext.canvas.nativeCanvas.drawText(
             "NT",
@@ -401,21 +365,15 @@ fun TwoBitPredictionGraph(
             })
         // 10 to 11
         drawArrowLine(
-            Offset(oneZero.x + 70f, oneZero.y - 20f),
-            Offset(oneOne.x - 70f, oneOne.y - 20f)
+            Offset(oneZero.x + 70f, oneZero.y - 20f), Offset(oneOne.x - 70f, oneOne.y - 20f)
         )
-        drawContext.canvas.nativeCanvas.drawText(
-            "T",
-            oneOne.x - 110,
-            oneOne.y - 30,
-            Paint().apply {
-                textSize = txtSize
-                color = txtColor
-            })
+        drawContext.canvas.nativeCanvas.drawText("T", oneOne.x - 110, oneOne.y - 30, Paint().apply {
+            textSize = txtSize
+            color = txtColor
+        })
         // 10 to 00
         drawArrowLine(
-            Offset(oneZero.x - 20f, oneZero.y + 70f),
-            Offset(zeroZero.x - 20f, zeroZero.y - 70f)
+            Offset(oneZero.x - 20f, oneZero.y + 70f), Offset(zeroZero.x - 20f, zeroZero.y - 70f)
         )
         drawContext.canvas.nativeCanvas.drawText(
             "NT",
@@ -439,17 +397,12 @@ fun TwoBitPredictionGraph(
             strokeWidth = strokeWidth
         )
         drawArrowLine(
-            Offset(oneOne.x + 140f, oneOne.y - 20f),
-            Offset(oneOne.x + 70f, oneOne.y - 20f)
+            Offset(oneOne.x + 140f, oneOne.y - 20f), Offset(oneOne.x + 70f, oneOne.y - 20f)
         )
-        drawContext.canvas.nativeCanvas.drawText(
-            "T",
-            oneOne.x + 110,
-            oneOne.y - 30,
-            Paint().apply {
-                textSize = txtSize
-                color = txtColor
-            })
+        drawContext.canvas.nativeCanvas.drawText("T", oneOne.x + 110, oneOne.y - 30, Paint().apply {
+            textSize = txtSize
+            color = txtColor
+        })
 
         // 00 to 00
         drawLine(
