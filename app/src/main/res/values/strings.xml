@@ -205,5 +205,43 @@
     <string name="master_syntax">#pragma omp master</string>
     <string name="master_description">The master thread will run it.</string>
     <string name="schedule_clause">Schedule Clause</string>
-
+    <string name="message_passing_interface">Message Passing Interface</string>
+    <string name="send_syntax">MPI_Send ( address, count, data_type, destination, tag, comm )</string>
+    <string name="send_description">
+        address: Starting memory address of elements to send
+        \ncount: Number of elements to send
+        \ndata_type: Datatype of elements to send
+        \ndestination: Memory address to send elements to
+        \ntag: Integer for message matching
+        \ncomm: Communication context
+    </string>
+    <string name="receive_syntax">MPI_Recv ( address, max_count, data_type, source, tag, comm, status )</string>
+    <string name="receive_description">
+        address: Starting memory address of elements to receive
+        \nmax_count: Maximum number of elements to receive
+        \ndata_type: Datatype of elements to receive
+        \nsource: Memory address to receive elements from
+        \ntag: Integer for message matching
+        \ncomm: Communication context
+        \nstatus: Return parameter with information about actual size, source, and tag
+    </string>
+    <string name="data_types">Data Types</string>
+    <string name="data_types_description">MPI_CHAR, MPI_SHORT, MPI_INT, MPI_LONG</string>
+    <string name="derived_data_types">Derived Data Types</string>
+    <string name="derived_data_types_description">Sequence of basic data types.</string>
+    <string name="communication_patterns">Communication Patterns</string>
+    <string name="mpi_bcast">MPI_Bcast ()</string>
+    <string name="mpi_bcast_description">Broadcasts data to a group of processes.</string>
+    <string name="mpi_reduce_description">Collects and reduces data.</string>
+    <string name="mpi_reduce">MPI_Reduce ()</string>
+    <string name="mpi_scatter">MPI_Scatter ()</string>
+    <string name="mpi_scatter_description">Distributes an array of data; one piece to every process.</string>
+    <string name="mpi_gather">MPI_Gather ()</string>
+    <string name="mpi_gather_description">Collects an array of data; one piece from every process.</string>
+    <string name="mpi_all_reduce">MPI_Allreduce ()</string>
+    <string name="mpi_all_reduce_description">MPI_Reduce () plus MPI_Bcast ()</string>
+    <string name="mpi_all_gather">MPI_Allgather ()</string>
+    <string name="mpi_all_gather_description">MPI_Gather () plus MPI_Bcast ()</string>
+    <string name="mpi_barrier_description">Wait for all processes to reach the barrier.</string>
+    <string name="mpi_barrier">MPI_Barrier ()</string>
 </resources>
