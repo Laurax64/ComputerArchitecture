@@ -155,8 +155,7 @@ private fun PThreadJoin(modifier: Modifier = Modifier) {
  */
 @Composable
 private fun PthreadCancel(modifier: Modifier = Modifier) {
-    Card(modifier.clickable {}
-    ) {
+    Card(modifier) {
         Column(Modifier.padding(8.dp)) {
             Text(
                 text = stringResource(R.string.thread_cancel),
