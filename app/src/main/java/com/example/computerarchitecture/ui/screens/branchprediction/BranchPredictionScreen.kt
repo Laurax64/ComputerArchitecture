@@ -44,11 +44,10 @@ fun BranchPredictionScreen(
         BranchPredictionScreen(
             modifier
                 .padding(paddingValues)
-                .padding(16.dp)
+                .padding(start = 24.dp, end = 24.dp)
         )
     }
 }
-
 
 /**
  * Displays the jump prediction screen.
@@ -57,12 +56,12 @@ fun BranchPredictionScreen(
  */
 @Composable
 fun BranchPredictionScreen(modifier: Modifier = Modifier) {
-    Column(modifier.verticalScroll(rememberScrollState())) {
-        LocalPredictors()
-        CorrelatingPredictors()
-        TournamentPredictors()
-        BranchTargetBuffer()
-        ReturnAddressBuffer()
+    Column(modifier.verticalScroll(rememberScrollState()), Arrangement.spacedBy(8.dp)) {
+        LocalPredictors(Modifier.fillMaxWidth())
+        CorrelatingPredictors(Modifier.fillMaxWidth())
+        TournamentPredictors(Modifier.fillMaxWidth())
+        BranchTargetBuffer(Modifier.fillMaxWidth())
+        ReturnAddressBuffer(Modifier.fillMaxWidth())
     }
 }
 
@@ -82,6 +81,7 @@ private fun LocalPredictors(modifier: Modifier = Modifier) {
             )
             OneBitPredictors(Modifier.fillMaxWidth())
             TwoBitPredictors(Modifier.fillMaxWidth())
+            NBitPredictors(Modifier.fillMaxWidth())
         }
     }
 }
@@ -101,12 +101,29 @@ private fun OneBitPredictors(modifier: Modifier = Modifier) {
 
 @Composable
 private fun NBitPredictors(modifier: Modifier = Modifier) {
-
+    Card(modifier) {
+        Column(Modifier.padding(8.dp)) {
+            Text(
+                text = stringResource(R.string.n_bit_predictors), fontWeight = FontWeight.Bold
+            )
+            Text(stringResource(R.string.n_bit_predictors_description))
+        }
+    }
 }
 
 @Composable
 private fun CorrelatingPredictors(modifier: Modifier = Modifier) {
+    Card(modifier) {
+        Column(Modifier.padding(8.dp), Arrangement.spacedBy(8.dp)) {
+            Text(
+                text = stringResource(R.string.correlating_predictors),
+                style = MaterialTheme.typography.titleLarge,
+                fontWeight = FontWeight.Bold
+            )
+            // TwoLevelPredictor(Modifier.fillMaxWidth())
 
+        }
+    }
 }
 
 @Composable

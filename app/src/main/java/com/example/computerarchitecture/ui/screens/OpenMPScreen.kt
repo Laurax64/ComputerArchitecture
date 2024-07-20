@@ -45,7 +45,7 @@ fun OpenMPScreen(
         OpenMPScreen(
             modifier
                 .padding(it)
-                .padding(12.dp)
+                .padding(start = 24.dp, end = 24.dp)
         )
     }
 }

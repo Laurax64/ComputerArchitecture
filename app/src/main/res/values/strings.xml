@@ -138,9 +138,12 @@
     <string name="one_bit_predictors_description">
         Contain 1 bit: Jump executed last time (taken) or not (not taken)\nPrediction: Jump behaves as it did last time
     </string>
-    <string name="one_bit_predictors">1-bit Predictors</string>
+    <string name="one_bit_predictors">1-Bit Predictors</string>
+    <string name="two_bit_predictors">2-Bit Predictors</string>
+    <string name="n_bit_predictors">n-Bit Predictors</string>
+    <string name="n_bit_predictors_description">Values between 0 and (2^n)-1\nPrediction: If Counter > ((2^n) - 1)/2
+        then Jump will be executed.\nCounter is incremented when a jump is executed and decremented when not.</string>
     <string name="local_predictors">Local Predictors</string>
-    <string name="two_bit_predictors">2-bit Predictors</string>
     <string name="thread_management">Thread Management</string>
     <string name="mutex_variables">Mutex Variables</string>
     <string name="condition_variables">Condition Variables</string>
@@ -251,4 +254,8 @@
     <string name="gustafsons_law">Gustafson\'s Law</string>
     <string name="gustafsons_law_formula">S\'_tot = (1 - P) + P * N</string>
     <string name="gustafsons_law_description">Speed-up with respect to the overall run-time of the parallelized program.</string>
+    <string name="correlating_predictors">Correlating Predictors</string>
+    <string name="send_api">Send API</string>
+    <string name="receive_api">Receive API</string>
+
 </resources>

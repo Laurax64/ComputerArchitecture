@@ -44,8 +44,9 @@ fun MPIScreen(
         MPIScreen(
             Modifier
                 .padding(it)
-                .padding(24.dp))
-}
+                .padding(start = 24.dp, end = 24.dp)
+        )
+    }
 
 }
 
@@ -76,12 +77,19 @@ fun MPIScreen(modifier: Modifier = Modifier) {
 @Composable
 private fun Send(modifier: Modifier = Modifier) {
     Card(modifier) {
-        Column(Modifier.padding(8.dp)) {
+        Column(Modifier.padding(8.dp), Arrangement.spacedBy(8.dp)) {
+            Text(
+                text = stringResource(R.string.send_api),
+                style = MaterialTheme.typography.titleLarge,
+                fontWeight = FontWeight.Bold
+            )
+
             Text(
                 text = stringResource(R.string.send_syntax),
                 fontWeight = FontWeight.Bold
             )
             Text(stringResource(R.string.send_description))
+
         }
     }
 }
@@ -94,13 +102,19 @@ private fun Send(modifier: Modifier = Modifier) {
 @Composable
 private fun Receive(modifier: Modifier = Modifier) {
     Card(modifier) {
-        Column(Modifier.padding(8.dp)) {
+        Column(Modifier.padding(8.dp), Arrangement.spacedBy(8.dp)) {
+            Text(
+                text = stringResource(R.string.receive_api),
+                style = MaterialTheme.typography.titleLarge,
+                fontWeight = FontWeight.Bold
+            )
             Text(
                 text = stringResource(R.string.receive_syntax),
                 fontWeight = FontWeight.Bold
             )
             Text(stringResource(R.string.receive_description))
         }
+
     }
 }
 
@@ -115,6 +129,7 @@ private fun DataTypes(modifier: Modifier = Modifier) {
         Column(Modifier.padding(8.dp)) {
             Text(
                 text = stringResource(R.string.data_types),
+                style = MaterialTheme.typography.titleLarge,
                 fontWeight = FontWeight.Bold
             )
             Text(stringResource(R.string.data_types_description))
@@ -133,6 +148,7 @@ private fun DerivedDataTypes(modifier: Modifier = Modifier) {
         Column(Modifier.padding(8.dp)) {
             Text(
                 text = stringResource(R.string.derived_data_types),
+                style = MaterialTheme.typography.titleLarge,
                 fontWeight = FontWeight.Bold
             )
             Text(stringResource(R.string.derived_data_types_description))
