@@ -61,14 +61,14 @@ fun OpenMPScreen(modifier: Modifier = Modifier) {
         modifier = modifier.verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
-        ParallelDirective()
-        ScheduleClause()
-        SynchronizationConstructs()
-        LibraryFunctions()
-        DataSharingClauses()
-        ReductionClause()
-        NoWaitClause()
-        WorkSharingConstructs()
+        ParallelDirective(Modifier.fillMaxWidth())
+        ScheduleClause(Modifier.fillMaxWidth())
+        SynchronizationConstructs(Modifier.fillMaxWidth())
+        LibraryFunctions(Modifier.fillMaxWidth())
+        DataSharingClauses(Modifier.fillMaxWidth())
+        ReductionClause(Modifier.fillMaxWidth())
+        NoWaitClause(Modifier.fillMaxWidth())
+        WorkSharingConstructs(Modifier.fillMaxWidth())
 
     }
 }
@@ -87,7 +87,7 @@ private fun ParallelDirective(modifier: Modifier = Modifier) {
                 style = MaterialTheme.typography.titleLarge,
                 fontWeight = FontWeight.Bold,
             )
-            Card(modifier) {
+            Card(Modifier.fillMaxWidth()) {
                 Column(Modifier.padding(8.dp)) {
                     Text(
                         text = stringResource(R.string.parallel_syntax),
@@ -109,13 +109,13 @@ private fun ParallelDirective(modifier: Modifier = Modifier) {
 @Composable
 private fun ScheduleClause(modifier: Modifier = Modifier) {
     Card(modifier) {
-        Column(Modifier.padding(8.dp)) {
+        Column(Modifier.padding(8.dp), Arrangement.spacedBy(8.dp)) {
             Text(
                 text = stringResource(R.string.schedule_clause),
                 style = MaterialTheme.typography.titleLarge,
                 fontWeight = FontWeight.Bold
             )
-            Card(Modifier.padding(8.dp)) {
+            Card(Modifier.fillMaxWidth()) {
                 Column(Modifier.padding(8.dp)) {
                     Text(
                         text = stringResource(R.string.schedule_syntax),
@@ -178,10 +178,10 @@ private fun SynchronizationConstructs(modifier: Modifier = Modifier) {
                 style = MaterialTheme.typography.titleLarge,
                 fontWeight = FontWeight.Bold
             )
-            Critical()
-            Barrier()
-            Atomic()
-            Ordered()
+            Critical(Modifier.fillMaxWidth())
+            Barrier(Modifier.fillMaxWidth())
+            Atomic(Modifier.fillMaxWidth())
+            Ordered(Modifier.fillMaxWidth())
         }
     }
 }
@@ -288,9 +288,9 @@ private fun DataSharingClauses(modifier: Modifier = Modifier) {
                 style = MaterialTheme.typography.titleLarge,
                 fontWeight = FontWeight.Bold
             )
-            Default()
-            Shared()
-            Private()
+            Default(Modifier.fillMaxWidth())
+            Shared(Modifier.fillMaxWidth())
+            Private(Modifier.fillMaxWidth())
         }
     }
 }
@@ -363,7 +363,10 @@ private fun ReductionClause(modifier: Modifier = Modifier) {
                 style = MaterialTheme.typography.titleLarge,
                 fontWeight = FontWeight.Bold
             )
-            Card(Modifier.padding(8.dp)) {
+            Card(
+                Modifier
+                    .padding(8.dp)
+                    .fillMaxWidth()) {
                 Column(Modifier.padding(8.dp)) {
                     Text(
                         text = stringResource(R.string.reduction_syntax),
@@ -390,7 +393,10 @@ private fun NoWaitClause(modifier: Modifier = Modifier) {
                 style = MaterialTheme.typography.titleLarge,
                 fontWeight = FontWeight.Bold
             )
-            Card(Modifier.padding(8.dp)) {
+            Card(
+                Modifier
+                    .padding(8.dp)
+                    .fillMaxWidth()) {
                 Column(Modifier.padding(8.dp)) {
                     Text(
                         text = stringResource(R.string.no_wait_syntax),

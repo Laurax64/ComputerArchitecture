@@ -7,7 +7,6 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.computerarchitecture.ui.screens.BranchPredictionScreen
 import com.example.computerarchitecture.ui.screens.EnergyEfficiencyScreen
 import com.example.computerarchitecture.ui.screens.FlashMemoryScreen
 import com.example.computerarchitecture.ui.screens.GPUsScreen
@@ -20,6 +19,7 @@ import com.example.computerarchitecture.ui.screens.OpenMPScreen
 import com.example.computerarchitecture.ui.screens.ReliabilityScreen
 import com.example.computerarchitecture.ui.screens.SuperscalarityScreen
 import com.example.computerarchitecture.ui.screens.TopicsScreen
+import com.example.computerarchitecture.ui.screens.branchprediction.BranchPredictionScreen
 import com.example.computerarchitecture.ui.screens.caching.CachingScreen
 import com.example.computerarchitecture.ui.screens.multithreading.MultithreadingScreen
 
