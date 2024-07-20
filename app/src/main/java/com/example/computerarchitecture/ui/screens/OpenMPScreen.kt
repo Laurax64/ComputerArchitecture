@@ -59,7 +59,7 @@ fun OpenMPScreen(
 fun OpenMPScreen(modifier: Modifier = Modifier) {
     Column(
         modifier = modifier.verticalScroll(rememberScrollState()),
-        verticalArrangement = Arrangement.spacedBy(12.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         ParallelDirective(Modifier.fillMaxWidth())
         ScheduleClause(Modifier.fillMaxWidth())
@@ -364,9 +364,8 @@ private fun ReductionClause(modifier: Modifier = Modifier) {
                 fontWeight = FontWeight.Bold
             )
             Card(
-                Modifier
-                    .padding(8.dp)
-                    .fillMaxWidth()) {
+                Modifier.fillMaxWidth()
+            ) {
                 Column(Modifier.padding(8.dp)) {
                     Text(
                         text = stringResource(R.string.reduction_syntax),
@@ -394,9 +393,8 @@ private fun NoWaitClause(modifier: Modifier = Modifier) {
                 fontWeight = FontWeight.Bold
             )
             Card(
-                Modifier
-                    .padding(8.dp)
-                    .fillMaxWidth()) {
+                Modifier.fillMaxWidth()
+            ) {
                 Column(Modifier.padding(8.dp)) {
                     Text(
                         text = stringResource(R.string.no_wait_syntax),

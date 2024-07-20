@@ -65,14 +65,14 @@ fun TopicsScreen(
                 TopicsList(
                     Modifier
                         .padding(it)
-                        .padding(16.dp)
+                        .padding(start = 16.dp, end = 16.dp)
                 ) { topic -> navigateTo(topic.navigationDestination.screenRoute) }
             }
             else -> {
                 TopicsListAndDetail(
                     Modifier
                         .padding(it)
-                        .padding(16.dp)
+                        .padding(start = 16.dp, end = 16.dp)
                 )
             }
         }

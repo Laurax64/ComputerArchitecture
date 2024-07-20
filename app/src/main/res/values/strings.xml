@@ -250,12 +250,54 @@
     <string name="speedup_calculator">Speedup Calculator</string>
     <string name="amdahls_law">Amdahl\'s Law</string>
     <string name="amdahls_law_formula">S_tot = 1 / ((1 - P) + P / N)</string>
-    <string name="amdahls_law_description">Speed-up of parallelized compared to sequential program.</string>
+    <string name="amdahls_law_description">
+        Assumes that the problem size remains constant, regardless of the number of processors.
+    </string>
     <string name="gustafsons_law">Gustafson\'s Law</string>
     <string name="gustafsons_law_formula">S\'_tot = (1 - P) + P * N</string>
-    <string name="gustafsons_law_description">Speed-up with respect to the overall run-time of the parallelized program.</string>
+    <string name="gustafsons_law_description">
+    Assumes that the problem size grows linearly with the number of processors.
+    </string>
     <string name="correlating_predictors">Correlating Predictors</string>
     <string name="send_api">Send API</string>
     <string name="receive_api">Receive API</string>
-
+    <string name="instruction_scheduling">Instruction Scheduling</string>
+    <string name="energy_efficiency">Energy Efficiency</string>
+    <string name="flash_memory">Flash Memory</string>
+    <string name="memory_hierarchy">Memory Hierarchy</string>
+    <string name="networks">Networks</string>
+    <string name="reliability">Reliability</string>
+    <string name="superscalarity">Superscalarity</string>
+    <string name="flynns_taxonomy">Flynn\'s Taxonomy</string>
+    <string name="tertiary_storage">Tertiary Storage\n(Optical Discs, Tapes)</string>
+    <string name="secondary_storage">Secondary Storage\n(Hard Drives, Flash)</string>
+    <string name="disk_caches">Disk Caches\n(DRAM, Flash)</string>
+    <string name="primary_memory">Main or Primary Memory\n(DRAM)</string>
+    <string name="caches_tlbs">Caches\n(SRAM &amp; TLBs)</string>
+    <string name="registers">Registers\n(SRAM)</string>
+    <string name="cache_coherence">Cache Coherence</string>
+    <string name="cache_coherence_description">Uniformity of shared resource data in multiple local caches.</string>
+    <string name="maintenance">Maintenance</string>
+    <string name="snooping_based_coherence">Snooping-Based Coherence</string>
+    <string name="snooping_based_coherence_description">All processors communicate to agree on item states.</string>
+    <string name="directory_based_coherence">Directory-Based Coherence</string>
+    <string name="directory_based_coherence_description">A centralized directory holds information about state/whereabouts of data items.</string>
+    <string name="cache_definition">Definition</string>
+    <string name="computation_model">Computation Model</string>
+    <string name="open_cl_computation_model_description">Kernels that execute on one or more OpenCL devices and a host program that executes on the host</string>
+    <string name="open_cl_program_components">Program Components</string>
+    <string name="open_cl_program_components_description">Kernels, auxiliary functions and constant data</string>
+    <string name="portability">Portability</string>
+    <string name="open_cl_portability_description">Via its abstracted memory and execution model</string>
+    <string name="memory_model">Memory Model</string>
+    <string name="open_cl_memory_model_description">Memory regions, Memory objects, Shared Virtual Memory, Consistency Model</string>
+    <string name="sisd">Single Instruction Stream, Single Data Stream (SISD)</string>
+    <string name="sisd_description">Sequential computer which exploits no parallelism in either the instruction or data streams.</string>
+    <string name="simd">Single Instruction Stream, Multiple Data Streams (SIMD)</string>
+    <string name="simd_description">A single instruction is simultaneously applied to multiple different data streams.</string>
+    <string name="misd">Multiple Instruction Streams, Single Data Stream (MISD)</string>
+    <string name="misd_description">Multiple instructions operate on one data stream.</string>
+    <string name="mimd">Multiple Instruction Streams, Multiple Data Streams (MIMD)</string>
+    <string name="mimd_description">Multiple autonomous processors simultaneously execute different instructions on different data.</string>
+    <string name="msi_protocol">MSI Protocol</string>
 </resources>

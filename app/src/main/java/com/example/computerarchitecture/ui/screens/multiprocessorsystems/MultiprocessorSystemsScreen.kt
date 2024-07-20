@@ -1,4 +1,4 @@
-package com.example.computerarchitecture.ui.screens
+package com.example.computerarchitecture.ui.screens.multiprocessorsystems
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.gestures.detectTapGestures
@@ -12,8 +12,8 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.PrimaryTabRow
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.ScrollableTabRow
 import androidx.compose.material3.Tab
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -31,7 +31,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
+import androidx.compose.ui.tooling.preview.PreviewScreenSizes
 import androidx.compose.ui.unit.dp
 import com.example.computerarchitecture.R
 import com.example.computerarchitecture.ui.components.TopicTopBar
@@ -58,7 +59,11 @@ fun MultiprocessorSystemsScreen(
             )
         },
     ) { paddingValues ->
-        MultiprocessorSystemsScreen(Modifier.padding(paddingValues))
+        MultiprocessorSystemsScreen(
+            Modifier
+                .padding(paddingValues)
+                .padding(start = 16.dp, end = 16.dp)
+        )
     }
 }
 
@@ -71,7 +76,12 @@ fun MultiprocessorSystemsScreen(
 @Composable
 fun MultiprocessorSystemsScreen(modifier: Modifier = Modifier) {
     var state by rememberSaveable { mutableIntStateOf(0) }
-    val titles = listOf(R.string.speedup, R.string.numa_title_short)
+    val titles = listOf(
+        R.string.speedup,
+        R.string.numa_title_short,
+        R.string.flynns_taxonomy,
+        R.string.cache_coherence
+    )
     val focusManager = LocalFocusManager.current
     Column(
         modifier
@@ -82,7 +92,7 @@ fun MultiprocessorSystemsScreen(modifier: Modifier = Modifier) {
                 })
             },
     ) {
-        PrimaryTabRow(selectedTabIndex = state) {
+        ScrollableTabRow(selectedTabIndex = state) {
             titles.forEachIndexed { index, title ->
                 Tab(
                     selected = state == index,
@@ -91,8 +101,23 @@ fun MultiprocessorSystemsScreen(modifier: Modifier = Modifier) {
             }
         }
         when (state) {
-            0 -> SpeedupTab(Modifier.padding(24.dp))
-            1 -> NumaTab()
+            0 -> SpeedupTab(
+                Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp))
+            1 -> NumaTab(
+                Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp))
+            2 -> FlynnsTaxonomy(
+                Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp))
+            3 -> CacheCoherence(
+                Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp))
+
         }
     }
 }
@@ -106,7 +131,7 @@ fun MultiprocessorSystemsScreen(modifier: Modifier = Modifier) {
 fun SpeedupTab(modifier: Modifier = Modifier) {
     Column(modifier, Arrangement.spacedBy(8.dp)) {
         AmdahlsLaw(Modifier.fillMaxWidth())
-        GustavsonsLaw(Modifier.fillMaxWidth())
+        GustafsonsLaw(Modifier.fillMaxWidth())
         SpeedupCalculator(Modifier.fillMaxWidth())
     }
 }
@@ -135,12 +160,12 @@ private fun AmdahlsLaw(modifier: Modifier = Modifier) {
 }
 
 /**
- * Displays a card with information about Gustavson's Law
+ * Displays a card with information about Gustafson's Law
  *
  * @param modifier The modifier for the layout
  */
 @Composable
-private fun GustavsonsLaw(modifier: Modifier = Modifier) {
+private fun GustafsonsLaw(modifier: Modifier = Modifier) {
     Card(modifier) {
         Column(Modifier.padding(8.dp)) {
             Text(
@@ -249,9 +274,8 @@ fun NumaTab(modifier: Modifier = Modifier) {
     Column(
         modifier
             .fillMaxWidth()
-            .padding(24.dp)
             .verticalScroll(rememberScrollState()),
-        verticalArrangement = Arrangement.spacedBy(12.dp)
+        Arrangement.spacedBy(12.dp)
     ) {
         Text(stringResource(R.string.numa_title_long), fontWeight = FontWeight.Bold)
         Image(
@@ -265,28 +289,15 @@ fun NumaTab(modifier: Modifier = Modifier) {
 }
 
 /**
- * Displays a preview for the multiprocessor systems screen in light mode
+ * Displays previews for the multiprocessor systems screen.
  */
-@Preview
+@PreviewLightDark
+@PreviewScreenSizes
 @Composable
-private fun MultiprocessorSystemsLightPreview() {
-    ComputerArchitectureTheme {
-        MultiprocessorSystemsScreen(
-            navigateBack = {},
-        )
-    }
-}
-
-/**
- * Displays a preview for the multiprocessor systems screen in dark mode
- */
-@Preview
-@Composable
-private fun MultiprocessorSystemsDarkPreview() {
+fun MultiprocessorSystemsScreenPreview() {
     ComputerArchitectureTheme(true) {
         MultiprocessorSystemsScreen(
             navigateBack = {},
         )
     }
 }
-

@@ -1,10 +1,17 @@
 package com.example.computerarchitecture.ui.screens
 
 import android.content.res.Configuration
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.PrimaryTabRow
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Tab
@@ -15,8 +22,10 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.example.computerarchitecture.R
 import com.example.computerarchitecture.ui.components.TopicTopBar
 import com.example.computerarchitecture.ui.theme.ComputerArchitectureTheme
@@ -66,7 +75,11 @@ fun GPUsScreen(modifier: Modifier = Modifier) {
             }
         }
         when (state) {
-            0 -> OpenCLTab()
+            0 -> OpenCLTab(
+                Modifier
+                    .fillMaxWidth()
+                    .padding(24.dp)
+            )
         }
     }
 }
@@ -78,7 +91,101 @@ fun GPUsScreen(modifier: Modifier = Modifier) {
  */
 @Composable
 fun OpenCLTab(modifier: Modifier = Modifier) {
+    Column(modifier.verticalScroll(rememberScrollState()), Arrangement.spacedBy(8.dp)) {
+        OpenCLComputationModel(Modifier.fillMaxWidth())
+        OpenCLProgramComponents(Modifier.fillMaxWidth())
+        Portability(Modifier.fillMaxWidth())
+        MemoryModel(Modifier.fillMaxWidth())
+    }
+}
 
+@Composable
+private fun OpenCLComputationModel(modifier: Modifier = Modifier) {
+    Card(modifier) {
+        Column(Modifier.padding(8.dp), Arrangement.spacedBy(8.dp)) {
+            Text(
+                text = stringResource(R.string.computation_model),
+                style = MaterialTheme.typography.titleLarge,
+            )
+            Row(Modifier.fillMaxWidth(), Arrangement.spacedBy(8.dp)) {
+                Image(
+                    painter = painterResource(
+                        id = R.drawable.open_cl_computation_model
+                    ),
+                    modifier = Modifier.weight(1f),
+                    contentDescription = null, // decorative
+                )
+                Text(
+                    text = stringResource(R.string.open_cl_computation_model_description),
+                    modifier = Modifier.weight(1f),
+                )
+            }
+        }
+    }
+}
+
+/**
+ * Displays a card with information about portability of OpenCL programs.
+ *
+ * @param modifier The modifier for the layout
+ */
+@Composable
+private fun Portability(modifier: Modifier = Modifier) {
+    Card(modifier) {
+        Column(Modifier.padding(8.dp)) {
+            Text(
+                text = stringResource(R.string.portability),
+                style = MaterialTheme.typography.titleLarge,
+            )
+            Text(
+                text = stringResource(R.string.open_cl_portability_description),
+            )
+        }
+    }
+}
+
+/**
+ * Displays a card with information about the program components of an OpenCL program.
+ */
+@Composable
+private fun OpenCLProgramComponents(modifier: Modifier) {
+    Card(modifier) {
+        Column(Modifier.padding(8.dp)) {
+            Text(
+                text = stringResource(R.string.open_cl_program_components),
+                style = MaterialTheme.typography.titleLarge,
+            )
+            Text(
+                text = stringResource(R.string.open_cl_program_components_description),
+            )
+        }
+    }
+}
+
+/**
+ * Displays a card with information about the memory model of OpenCL.
+ *
+ * @param modifier The modifier for the layout
+ */
+@Composable
+private fun MemoryModel(modifier: Modifier = Modifier) {
+    Card(modifier) {
+        Column(Modifier.padding(8.dp), Arrangement.spacedBy(8.dp)) {
+            Text(
+                text = stringResource(R.string.memory_model),
+                style = MaterialTheme.typography.titleLarge,
+            )
+            Row(Modifier.fillMaxWidth(), Arrangement.spacedBy(8.dp)) {
+                Image(
+                    painter = painterResource(
+                        id = R.drawable.open_cl_memory_model
+                    ),
+                    modifier = Modifier.weight(1f),
+                    contentDescription = null, // TODO add description
+                )
+            }
+        }
+    }
 }
 
 

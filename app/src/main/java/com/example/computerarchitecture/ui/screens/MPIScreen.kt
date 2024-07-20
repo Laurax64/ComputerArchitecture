@@ -44,7 +44,7 @@ fun MPIScreen(
         MPIScreen(
             Modifier
                 .padding(it)
-                .padding(start = 24.dp, end = 24.dp)
+                .padding(start = 16.dp, end = 16.dp)
         )
     }
 

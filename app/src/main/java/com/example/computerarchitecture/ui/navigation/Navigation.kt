@@ -13,7 +13,6 @@ import com.example.computerarchitecture.ui.screens.GPUsScreen
 import com.example.computerarchitecture.ui.screens.InstructionSchedulingScreen
 import com.example.computerarchitecture.ui.screens.MPIScreen
 import com.example.computerarchitecture.ui.screens.MemoryHierarchyScreen
-import com.example.computerarchitecture.ui.screens.MultiprocessorSystemsScreen
 import com.example.computerarchitecture.ui.screens.NetworksScreen
 import com.example.computerarchitecture.ui.screens.OpenMPScreen
 import com.example.computerarchitecture.ui.screens.ReliabilityScreen
@@ -21,6 +20,7 @@ import com.example.computerarchitecture.ui.screens.SuperscalarityScreen
 import com.example.computerarchitecture.ui.screens.TopicsScreen
 import com.example.computerarchitecture.ui.screens.branchprediction.BranchPredictionScreen
 import com.example.computerarchitecture.ui.screens.caching.CachingScreen
+import com.example.computerarchitecture.ui.screens.multiprocessorsystems.MultiprocessorSystemsScreen
 import com.example.computerarchitecture.ui.screens.multithreading.MultithreadingScreen
 
 /**
