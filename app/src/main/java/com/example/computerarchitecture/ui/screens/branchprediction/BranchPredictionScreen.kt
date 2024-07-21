@@ -1,5 +1,6 @@
 package com.example.computerarchitecture.ui.screens.branchprediction
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -8,18 +9,27 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewScreenSizes
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Dialog
 import com.example.computerarchitecture.R
 import com.example.computerarchitecture.ui.components.TopicTopBar
 import com.example.computerarchitecture.ui.theme.ComputerArchitectureTheme
+import net.engawapg.lib.zoomable.rememberZoomState
+import net.engawapg.lib.zoomable.zoomable
 
 /**
  * Displays the jump prediction screen with an app scaffold.
@@ -120,7 +130,7 @@ private fun CorrelatingPredictors(modifier: Modifier = Modifier) {
                 style = MaterialTheme.typography.titleLarge,
                 fontWeight = FontWeight.Bold
             )
-            // TwoLevelPredictor(Modifier.fillMaxWidth())
+            Text(stringResource(R.string.correlating_predictors_description))
 
         }
     }
@@ -128,17 +138,61 @@ private fun CorrelatingPredictors(modifier: Modifier = Modifier) {
 
 @Composable
 private fun TournamentPredictors(modifier: Modifier = Modifier) {
-
+    Card(modifier) {
+        Column(Modifier.padding(8.dp), Arrangement.spacedBy(8.dp)) {
+            Text(
+                text = stringResource(R.string.tournament_predictors),
+                style = MaterialTheme.typography.titleLarge,
+                fontWeight = FontWeight.Bold
+            )
+            Text(stringResource(R.string.tournament_predictors_description))
+        }
+    }
 }
 
 @Composable
 private fun BranchTargetBuffer(modifier: Modifier = Modifier) {
-
+    var showPipeline by rememberSaveable { mutableStateOf(false) }
+    Card(modifier) {
+        Column(Modifier.padding(8.dp), Arrangement.spacedBy(8.dp)) {
+            Text(
+                text = stringResource(R.string.branch_target_buffer),
+                style = MaterialTheme.typography.titleLarge,
+                fontWeight = FontWeight.Bold
+            )
+            Text(stringResource(R.string.branch_target_buffer_description))
+            val painter = painterResource(id = R.drawable.branch_target_buffer_steps)
+            val zoomState = rememberZoomState(contentSize = painter.intrinsicSize)
+            OutlinedButton(onClick = { showPipeline = true }) {
+                Text(stringResource(R.string.steps_in_the_pipeline))
+            }
+            if (showPipeline) {
+                Dialog({ showPipeline = false }) {
+                    Image(
+                        painter = painter,
+                        contentDescription = null, // TODO add content description
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .zoomable(zoomState)
+                    )
+                }
+            }
+        }
+    }
 }
 
 @Composable
 private fun ReturnAddressBuffer(modifier: Modifier = Modifier) {
-
+    Card(modifier) {
+        Column(Modifier.padding(8.dp), Arrangement.spacedBy(8.dp)) {
+            Text(
+                text = stringResource(R.string.return_address_buffer),
+                style = MaterialTheme.typography.titleLarge,
+                fontWeight = FontWeight.Bold
+            )
+            Text(stringResource(R.string.return_address_buffer_description))
+        }
+    }
 }
 
 /**

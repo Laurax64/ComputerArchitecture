@@ -47,32 +47,19 @@
     <string name="numa_runtime_description">"Memory access time depends on the memory location relative to the processor. Memory may be local, one hop away, or two hops away. "</string>
     <string name="gpus">Graphics Processing Units</string>
     <string name="open_cl">OpenCL</string>
-    <string name="posix_threads">POSIX Threads</string>
-    <string name="includes">Includes</string>
-    <string name="pthread_include"><![CDATA[#include <pthread.h>]]></string>
 
-    <string name="thread_create">Thread Create</string>
+    <string name="posix_threads">POSIX Threads</string>
     <string name="pthread_create">pthread_create(thread, attr, start_routine, arg)</string>
-    <string name="thread_exit">Thread Exit</string>
     <string name="pthread_exit">pthread_exit(status)</string>
-    <string name="thread_join">Thread Join</string>
     <string name="pthread_join">pthread_join(thread, status)</string>
-    <string name="thread_cancel">Thread Cancel</string>
     <string name="pthread_cancel">pthread_cancel(thread)</string>
-    <string name="thread_mutex_init">Thread Mutex Init</string>
     <string name="pthread_mutex_init">pthread_mutex_init(mutex, attr)</string>
-    <string name="thread_mutex_destroy">Thread Mutex Destroy</string>
     <string name="pthread_mutex_destroy">pthread_mutex_destroy(mutex)</string>
-    <string name="thread_mutex_lock">Thread Mutex Lock</string>
     <string name="pthread_mutex_lock">pthread_mutex_lock(mutex)</string>
-    <string name="thread_mutex_unlock">Thread Mutex Unlock</string>
     <string name="pthread_mutex_unlock">pthread_mutex_unlock(mutex)</string>
-    <string name="thread_condition_init">Thread Condition Init</string>
     <string name="pthread_cond_init">pthread_cond_init(cond, attr)</string>
-    <string name="thread_condition_wait">Thread Condition Wait</string>
-    <string name="pthread_cond_wait">pthread_cond_wait(cond, mutex)</string>
-    <string name="thread_condition_signal">Thread Condition Signal</string>
     <string name="pthread_cond_signal">pthread_cond_signal(cond)</string>
+    <string name="pthread_cond_wait">pthread_cond_wait(cond, mutex)</string>
 
     <string name="thread">thread</string>
     <string name="attr">attr</string>
@@ -141,9 +128,15 @@
     <string name="one_bit_predictors">1-Bit Predictors</string>
     <string name="two_bit_predictors">2-Bit Predictors</string>
     <string name="n_bit_predictors">n-Bit Predictors</string>
-    <string name="n_bit_predictors_description">Values between 0 and (2^n)-1\nPrediction: If Counter > ((2^n) - 1)/2
-        then Jump will be executed.\nCounter is incremented when a jump is executed and decremented when not.</string>
+    <string name="n_bit_predictors_description">Values between 0 and (2^n)-1\nPrediction: If counter > ((2^n) - 1)/2
+        then jump will be executed.\nCounter is incremented when a jump is executed and decremented when not.</string>
     <string name="local_predictors">Local Predictors</string>
+    <string name="correlating_predictors">Correlating Predictors</string>
+    <string name="correlating_predictors_description">Look at behavior of the last m jumps to select an n-bit predictor from 2^n local predictors.</string>
+    <string name="tournament_predictors">Tournament Predictors</string>
+    <string name="tournament_predictors_description">Use of multiple predictors and selection from them, usually a
+        combination of local and global predictors.</string>
+
     <string name="thread_management">Thread Management</string>
     <string name="mutex_variables">Mutex Variables</string>
     <string name="condition_variables">Condition Variables</string>
@@ -258,7 +251,8 @@
     <string name="gustafsons_law_description">
     Assumes that the problem size grows linearly with the number of processors.
     </string>
-    <string name="correlating_predictors">Correlating Predictors</string>
+
+
     <string name="send_api">Send API</string>
     <string name="receive_api">Receive API</string>
     <string name="instruction_scheduling">Instruction Scheduling</string>
@@ -292,12 +286,47 @@
     <string name="memory_model">Memory Model</string>
     <string name="open_cl_memory_model_description">Memory regions, Memory objects, Shared Virtual Memory, Consistency Model</string>
     <string name="sisd">Single Instruction Stream, Single Data Stream (SISD)</string>
-    <string name="sisd_description">Sequential computer which exploits no parallelism in either the instruction or data streams.</string>
+    <string name="sisd_description">Corresponds to the classical uni-processor system.</string>
     <string name="simd">Single Instruction Stream, Multiple Data Streams (SIMD)</string>
-    <string name="simd_description">A single instruction is simultaneously applied to multiple different data streams.</string>
+    <string name="simd_description">Own data memory per processor, but shared instruction memory and control unit.</string>
     <string name="misd">Multiple Instruction Streams, Single Data Stream (MISD)</string>
-    <string name="misd_description">Multiple instructions operate on one data stream.</string>
+    <string name="misd_description">Multiple processors execute different instructions but operate on the same data stream.</string>
     <string name="mimd">Multiple Instruction Streams, Multiple Data Streams (MIMD)</string>
-    <string name="mimd_description">Multiple autonomous processors simultaneously execute different instructions on different data.</string>
+    <string name="mimd_description">Each processor processes its own instruction and data stream.</string>
     <string name="msi_protocol">MSI Protocol</string>
+    <string name="data_parallelism">Dara Parallelism</string>
+    <string name="executing_kernels">Executing Kernels</string>
+    <string name="cl_enqueue_nd_range_kernel">clEnqueueNDRangeKernel</string>
+    <string name="cl_enqueue_nd_range_kernel_description">Enqueues a command to execute a kernel on a device.</string>
+    <string name="work_item_functions">Work-Item Functions</string>
+    <string name="get_global_id">get_global_id(uint dimindx)</string>
+    <string name="get_global_id_description">Returns the unique global work-item ID for the specified dimension dimindx.</string>
+    <string name="spectre">Spectre</string>
+    <string name="spectre_attacks">Spectre Attacks</string>
+    <string name="spectre_attacks_description">Access data from other processes or the operating system, by performing
+        otherwise illegal memory access speculatively, and then extract data via a hidden channel.
+    </string>
+    <string name="spectre_attacks_step_one">1.Speculative Access</string>
+    <string name="spectre_attacks_step_one_example"><![CDATA[const otherArray = [\'notPrivate\', \'privateData1\'];\nif (i < 1) {\n  // Will be executed speculatively even when i >= 1\n  someVariable = someArray[i];\n  tmp = otherArray[(someVariable>>bit)&1];\n}]]></string>
+    <string name="spectre_attacks_step_two">2.Secret-dependent Memory Access</string>
+    <string name="spectre_attacks_step_two_example"><![CDATA[const otherArray = [\'notPrivate\', \'privateData1\'];\nif (i < 1) {\n  someVariable = someArray[i];\n  //Extracts one bit of the read value\n  tmp = otherArray[(someVariable>>bit)&1];\n}]]></string>
+    <string name="spectre_attacks_step_three">3.Reading out the transmitted Data</string>
+    <string name="spectre_attacks_step_three_example"><![CDATA[//Cache hit in case that the extracted bit was 0.\ntime = rdtsc();\nmemory_access(&otherArray[0]);\nvar delta0 = rdtsc() - time;\n//Cache hit in case that the extracted bit was 1.\ntime = rdtsc();\nmemory_access(&otherArray[1]);\nvar delta1 = rdtsc() - time;]]></string>
+    <string name="pthread_exit_description">Terminates the calling thread.</string>
+    <string name="pthread_join_description">Suspends execution of the calling thread until the target thread terminates.</string>
+    <string name="pthread_cancel_description">Requests thread to be canceled.</string>
+    <string name="pthread_mutex_init_description">Initializes the mutex referenced by mutex with attributes specified  by  attr.</string>
+    <string name="pthread_mutex_destroy_description">Destroys  the  mutex  object referenced  by  mutex.</string>
+    <string name="pthread_mutex_lock_description">Locks the object referenced by mutex.</string>
+    <string name="pthread_mutex_unlock_description">Releases the mutex object referenced by mutex.</string>
+    <string name="pthread_cond_init_description">Initializes the condition variable referenced by cond with attributes referenced by attr.</string>
+    <string name="pthread_cond_signal_description">Unblocks at least one of the threads that are blocked on the specified condition variable cond.</string>
+    <string name="pthread_cond_wait_description">Blocks the calling thread until the specified condition cond is signalled.</string>
+    <string name="branch_target_buffer">Branch Target Buffer</string>
+    <string name="branch_target_buffer_description">A structure that caches the destination programm counter or destination instruction for a branch.</string>
+    <string name="steps_in_the_pipeline">Steps in the Pipeline</string>
+    <string name="return_address_buffer">Return Address Buffer</string>
+    <string name="return_address_buffer_description">Stack memory for return addresses\nPush on procedure call and pop on return.</string>
+
+
 </resources>

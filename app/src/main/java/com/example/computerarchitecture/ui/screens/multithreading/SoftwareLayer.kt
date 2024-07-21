@@ -102,10 +102,10 @@ private fun PThreadCreation(modifier: Modifier = Modifier) {
     ) {
         Column(Modifier.padding(8.dp)) {
             Text(
-                text = stringResource(R.string.thread_create),
+                text = stringResource(R.string.pthread_create),
                 fontWeight = FontWeight.Bold,
             )
-            Text(stringResource(R.string.pthread_create))
+            Text(stringResource(R.string.pthread_create_description))
         }
     }
 }
@@ -121,10 +121,10 @@ private fun PThreadExit(modifier: Modifier = Modifier) {
     ) {
         Column(Modifier.padding(8.dp)) {
             Text(
-                text = stringResource(R.string.thread_exit),
+                text = stringResource(R.string.pthread_exit),
                 fontWeight = FontWeight.Bold,
             )
-            Text(stringResource(R.string.pthread_exit))
+            Text(stringResource(R.string.pthread_exit_description))
         }
     }
 }
@@ -140,10 +140,10 @@ private fun PThreadJoin(modifier: Modifier = Modifier) {
     ) {
         Column(Modifier.padding(8.dp)) {
             Text(
-                text = stringResource(R.string.thread_join),
+                text = stringResource(R.string.pthread_join),
                 fontWeight = FontWeight.Bold,
             )
-            Text(stringResource(R.string.pthread_join))
+            Text(stringResource(R.string.pthread_join_description))
         }
     }
 }
@@ -158,10 +158,10 @@ private fun PthreadCancel(modifier: Modifier = Modifier) {
     Card(modifier) {
         Column(Modifier.padding(8.dp)) {
             Text(
-                text = stringResource(R.string.thread_cancel),
+                text = stringResource(R.string.pthread_cancel),
                 fontWeight = FontWeight.Bold,
             )
-            Text(stringResource(R.string.pthread_cancel))
+            Text(stringResource(R.string.pthread_cancel_description))
         }
     }
 }
@@ -177,10 +177,10 @@ private fun PthreadMutexInit(modifier: Modifier = Modifier) {
     ) {
         Column(Modifier.padding(8.dp)) {
             Text(
-                text = stringResource(R.string.thread_mutex_init),
+                text = stringResource(R.string.pthread_mutex_init),
                 fontWeight = FontWeight.Bold,
             )
-            Text(stringResource(R.string.pthread_mutex_init))
+            Text(stringResource(R.string.pthread_mutex_init_description))
         }
     }
 }
@@ -196,10 +196,10 @@ private fun PthreadMutexDestroy(modifier: Modifier = Modifier) {
     ) {
         Column(Modifier.padding(8.dp)) {
             Text(
-                text = stringResource(R.string.thread_mutex_destroy),
+                text = stringResource(R.string.pthread_mutex_destroy),
                 fontWeight = FontWeight.Bold,
             )
-            Text(stringResource(R.string.pthread_mutex_destroy))
+            Text(stringResource(R.string.pthread_mutex_destroy_description))
         }
     }
 }
@@ -215,10 +215,10 @@ private fun PthreadMutexLock(modifier: Modifier = Modifier) {
     ) {
         Column(Modifier.padding(8.dp)) {
             Text(
-                text = stringResource(R.string.thread_mutex_lock),
+                text = stringResource(R.string.pthread_mutex_lock),
                 fontWeight = FontWeight.Bold,
             )
-            Text(stringResource(R.string.pthread_mutex_lock))
+            Text(stringResource(R.string.pthread_mutex_lock_description))
         }
     }
 }
@@ -234,10 +234,10 @@ private fun PthreadMutexUnlock(modifier: Modifier = Modifier) {
     ) {
         Column(Modifier.padding(8.dp)) {
             Text(
-                text = stringResource(R.string.thread_mutex_unlock),
+                text = stringResource(R.string.pthread_mutex_unlock),
                 fontWeight = FontWeight.Bold,
             )
-            Text(stringResource(R.string.pthread_mutex_unlock))
+            Text(stringResource(R.string.pthread_mutex_unlock_description))
         }
     }
 }
@@ -253,10 +253,10 @@ private fun PthreadConditionInit(modifier: Modifier = Modifier) {
     ) {
         Column(Modifier.padding(8.dp)) {
             Text(
-                text = stringResource(R.string.thread_condition_init),
+                text = stringResource(R.string.pthread_cond_init),
                 fontWeight = FontWeight.Bold,
             )
-            Text(stringResource(R.string.pthread_cond_init))
+            Text(stringResource(R.string.pthread_cond_init_description))
         }
     }
 }
@@ -272,10 +272,10 @@ private fun PthreadConditionSignal(modifier: Modifier = Modifier) {
     ) {
         Column(Modifier.padding(8.dp)) {
             Text(
-                text = stringResource(R.string.thread_condition_signal),
+                text = stringResource(R.string.pthread_cond_signal),
                 fontWeight = FontWeight.Bold,
             )
-            Text(stringResource(R.string.pthread_cond_signal))
+            Text(stringResource(R.string.pthread_cond_signal_description))
         }
     }
 }
@@ -291,10 +291,10 @@ private fun PthreadConditionWait(modifier: Modifier = Modifier) {
     ) {
         Column(Modifier.padding(8.dp)) {
             Text(
-                text = stringResource(R.string.thread_condition_wait),
+                text = stringResource(R.string.pthread_cond_wait),
                 fontWeight = FontWeight.Bold,
             )
-            Text(stringResource(R.string.pthread_cond_wait))
+            Text(stringResource(R.string.pthread_cond_wait_description))
         }
     }
 }

@@ -130,3 +130,11 @@ object CachingDestination : NavigationDestination {
     override val screenRoute: String = "caching"
     override val contentRoute: String = "caching_content"
 }
+
+/**
+ * Represents a navigation destination for the spectre topic.
+ */
+object SpectreDestination : NavigationDestination {
+    override val screenRoute: String = "spectre"
+    override val contentRoute: String = "spectre_content"
+}

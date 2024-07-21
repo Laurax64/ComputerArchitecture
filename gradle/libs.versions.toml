@@ -13,6 +13,7 @@ navigationCompose = "2.7.7"
 appcompat = "1.7.0"
 uiTextGoogleFonts = "1.6.8"
 material3WindowSizeClassAndroid = "1.2.1"
+zoomable = "1.0.0"
 
 [libraries]
 accompanist-systemuicontroller = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanistSystemuicontroller" }
@@ -35,6 +36,7 @@ androidx-compose-material3-windowSizeClass = { group = "androidx.compose.materia
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 androidx-ui-text-google-fonts = { group = "androidx.compose.ui", name = "ui-text-google-fonts", version.ref = "uiTextGoogleFonts" }
 androidx-material3-windowWidthSizeClass = { group = "androidx.compose.material3", name = "material3-window-size-class-android", version.ref = "material3WindowSizeClassAndroid" }
+zoomable = { module = "net.engawapg.lib:zoomable", version.ref = "zoomable" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

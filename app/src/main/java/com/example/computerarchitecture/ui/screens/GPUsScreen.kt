@@ -1,6 +1,5 @@
 package com.example.computerarchitecture.ui.screens
 
-import android.content.res.Configuration
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -24,7 +23,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.PreviewLightDark
+import androidx.compose.ui.tooling.preview.PreviewScreenSizes
 import androidx.compose.ui.unit.dp
 import com.example.computerarchitecture.R
 import com.example.computerarchitecture.ui.components.TopicTopBar
@@ -93,6 +94,8 @@ fun GPUsScreen(modifier: Modifier = Modifier) {
 fun OpenCLTab(modifier: Modifier = Modifier) {
     Column(modifier.verticalScroll(rememberScrollState()), Arrangement.spacedBy(8.dp)) {
         OpenCLComputationModel(Modifier.fillMaxWidth())
+        ExecutingKernels(Modifier.fillMaxWidth())
+        WorkItemFunctions(Modifier.fillMaxWidth())
         OpenCLProgramComponents(Modifier.fillMaxWidth())
         Portability(Modifier.fillMaxWidth())
         MemoryModel(Modifier.fillMaxWidth())
@@ -124,6 +127,59 @@ private fun OpenCLComputationModel(modifier: Modifier = Modifier) {
     }
 }
 
+@Composable
+private fun ExecutingKernels(modifier: Modifier = Modifier) {
+    Card(modifier) {
+        Column(Modifier.padding(8.dp)) {
+            Text(
+                text = stringResource(R.string.executing_kernels),
+                style = MaterialTheme.typography.titleLarge,
+            )
+            Text(
+                text = stringResource(R.string.cl_enqueue_nd_range_kernel),
+                fontWeight = FontWeight.Bold,
+            )
+            Text(stringResource(R.string.cl_enqueue_nd_range_kernel_description))
+        }
+    }
+}
+
+/**
+ * Displays a card with information about the work-item functions in OpenCL.
+ *
+ * @param modifier The modifier for the layout
+ */
+@Composable
+private fun WorkItemFunctions(modifier: Modifier = Modifier) {
+    Card(modifier) {
+        Column(Modifier.padding(8.dp)) {
+            Text(
+                text = stringResource(R.string.work_item_functions),
+                style = MaterialTheme.typography.titleLarge,
+            )
+            GetGlobalId(Modifier.fillMaxWidth())
+        }
+    }
+}
+
+/**
+ * Displays a card with information about the get_global_id function in OpenCL.
+ *
+ * @param fillMaxWidth The modifier for the layout
+ */
+@Composable
+fun GetGlobalId(fillMaxWidth: Modifier = Modifier) {
+    Card(fillMaxWidth) {
+        Column(Modifier.padding(8.dp)) {
+            Text(
+                text = stringResource(R.string.get_global_id),
+                fontWeight = FontWeight.Bold,
+            )
+            Text(stringResource(R.string.get_global_id_description))
+        }
+    }
+}
+
 /**
  * Displays a card with information about portability of OpenCL programs.
  *
@@ -138,7 +194,7 @@ private fun Portability(modifier: Modifier = Modifier) {
                 style = MaterialTheme.typography.titleLarge,
             )
             Text(
-                text = stringResource(R.string.open_cl_portability_description),
+                text = stringResource(R.string.open_cl_portability_description)
             )
         }
     }
@@ -189,18 +245,12 @@ private fun MemoryModel(modifier: Modifier = Modifier) {
 }
 
 
+
 /**
- * Displays a preview for the GPUs screen in light mode
+ * Displays a previews for the GPUs screen.
  */
-@Preview(
-    uiMode = Configuration.UI_MODE_NIGHT_YES,
-    name = "GPUsScreenPreviewDark",
-)
-@Preview(
-    uiMode = Configuration.UI_MODE_NIGHT_NO,
-    name = "GPUsScreenPreviewLight",
-)
-@Preview
+@PreviewLightDark
+@PreviewScreenSizes
 @Composable
 private fun GPUsScreenPreview() {
     ComputerArchitectureTheme {

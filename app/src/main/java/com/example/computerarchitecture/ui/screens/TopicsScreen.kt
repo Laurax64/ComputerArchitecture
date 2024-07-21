@@ -89,7 +89,7 @@ fun TopicsScreen(
 private fun TopicsList(modifier: Modifier = Modifier, navigateTo: (Topic) -> Unit) {
     Column(
         modifier = modifier.verticalScroll(rememberScrollState()),
-        verticalArrangement = Arrangement.spacedBy(16.dp)
+        verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         Topic.entries.forEach {
             Card(
