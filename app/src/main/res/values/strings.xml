@@ -338,6 +338,7 @@
     <string name="synchronization_across_work_groups">Synchronization across Work Groups</string>
     <string name="synchronization_across_work_groups_description">Use in-order command queue and queue multiple kernel invocations from the host side or use OpenCL event mechanism.\n(To wait on host side until all queued commands have been completed, use clFinish.)</string>
     <string name="state_machine">State Machine</string>
+    <string name="energy_formula">Energy Formula</string>
 
 
 </resources>
