@@ -78,7 +78,6 @@ fun DataDependencies(modifier: Modifier = Modifier) {
             Text(
                 text = stringResource(R.string.data_dependencies),
                 style = MaterialTheme.typography.titleLarge,
-
                 )
             RAWDependencies(Modifier.fillMaxWidth())
             WARDependencies(Modifier.fillMaxWidth())

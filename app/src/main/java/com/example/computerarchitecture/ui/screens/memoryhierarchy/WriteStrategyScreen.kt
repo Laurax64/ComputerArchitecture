@@ -1,4 +1,4 @@
-package com.example.computerarchitecture.ui.screens.caching
+package com.example.computerarchitecture.ui.screens.memoryhierarchy
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

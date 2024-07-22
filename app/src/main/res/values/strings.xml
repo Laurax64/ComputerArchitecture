@@ -74,16 +74,16 @@
     <string name="arg_description">A single argument that may be passed to start_routine.
         It must be passed by reference as (void *).NULL may be used if no argument is to be passed.</string>
     <string name="caching">Caching</string>
-    <string name="average_runtimes">Average Runtimes</string>
+
     <string name="block_placement">Block Placement</string>
     <string name="block_identification">Block Identification</string>
     <string name="block_replacement">Block Replacement</string>
     <string name="write_strategy">Write Strategy</string>
-    <string name="block_placement_question">Where can a memory block be stored in the cache?</string>
+    <string name="block_placement_question">Where a memory block can be stored in the cache</string>
     <string name="navigate_to">Navigate to</string>
-    <string name="block_identification_question">How is a memory block found?</string>
-    <string name="block_replacement_question">Which block should be replaced in the event of a failed access (cache miss)?</string>
-    <string name="write_strategy_question">What happens when data is written to the cache?</string>
+    <string name="block_identification_question">How a memory block is found</string>
+    <string name="block_replacement_question">Which block should be replaced in the event of a failed access (cache miss)</string>
+    <string name="write_strategy_question">What happens when data is written to the cache</string>
     <string name="direct_mapping_block_placement">Each block can be placed at exactly one location in the cache.</string>
     <string name="direct_mapping">Direct Mapping</string>
     <string name="set_associative_mapping">Set Associative Mapping</string>
@@ -112,11 +112,22 @@
     <string name="random_description">Candidate blocks are randomly selected.</string>
     <string name="lru">Least recently used (LRU)</string>
     <string name="lru_description">The block replaced is the one that has been unused for the longest time.</string>
+    <!-- LRU Linked List -->
+    <string name="lru_linked_list_data_structure">Linked list of entries, sorted by order of access</string>
+    <string name="lru_linked_list_access">Access to entry i</string>
+    <string name="lru_linked_list_access_description">i is inserted at the beginning of the list and any other
+        occurrences of i are removed from the list.</string>
+    <string name="lru_linked_list_supplanting">Supplanting an entry</string>
+    <string name="lru_linked_list_supplanting_description">The entry belonging to the last element in the list is overwritten.</string>
+
+
     <string name="fifo">First in, first out (FIFO)</string>
     <string name="fifo_description">The block replaced is the oldest block.</string>
     <string name="clock">Clock</string>
     <string name="clock_description">Search for block with used bit = \'0\' and reset the bit at the same time. Stop
         after max. 1 round.</string>
+
+
     <string name="write_allocate">Write allocate</string>
     <string name="write_allocate_description">The block is allocated on a write miss.</string>
     <string name="no_write_allocate_description">Write misses do not affect the cache. Instead, the block is modified only in the lower-level memory.</string>
@@ -263,12 +274,12 @@
     <string name="reliability">Reliability</string>
     <string name="superscalarity">Superscalarity</string>
     <string name="flynns_taxonomy">Flynn\'s Taxonomy</string>
-    <string name="tertiary_storage">Tertiary Storage\n(Optical Discs, Tapes)</string>
-    <string name="secondary_storage">Secondary Storage\n(Hard Drives, Flash)</string>
-    <string name="disk_caches">Disk Caches\n(DRAM, Flash)</string>
-    <string name="primary_memory">Main or Primary Memory\n(DRAM)</string>
-    <string name="caches_tlbs">Caches\n(SRAM &amp; TLBs)</string>
-    <string name="registers">Registers\n(SRAM)</string>
+    <string name="tertiary_storage">Tertiary Storage</string>
+    <string name="secondary_storage">Secondary Storage</string>
+    <string name="disk_caches">Disk Caches</string>
+    <string name="primary_memory">Main or Primary Memory</string>
+    <string name="caches_tlbs">Caches</string>
+    <string name="registers">Registers</string>
     <string name="cache_coherence">Cache Coherence</string>
     <string name="cache_coherence_description">Uniformity of shared resource data in multiple local caches.</string>
     <string name="maintenance">Maintenance</string>
@@ -358,5 +369,11 @@
     <string name="raw_example_description">The last 4 instructions are data-dependent on the add instruction because of x12.</string>
     <string name="war_example_description">sub and and are antidata-dependent on the or command because of x12.</string>
     <string name="waw_example_description">add and or are output-dependent on each other.</string>
+    <string name="hierarchy_levels">Hierarchy Levels</string>
+    <string name="memory_address">Memory Address</string>
+    <string name="linked_list">Linked List</string>
+    <string name="triangular_matrix">Triangular Matrix</string>
+    <string name="triangular_matrix_description">f [ i , j ] = 1, if access to i is older than access to j, and 0
+        otherwise for row index i and column index j.</string>
 
 </resources>

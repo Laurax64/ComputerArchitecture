@@ -7,8 +7,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -102,7 +102,7 @@ private fun DirectoryBasedCoherence(modifier: Modifier = Modifier) {
             Text(stringResource(R.string.directory_based_coherence_description))
             val painter = painterResource(R.drawable.directory_based_coherence)
             val zoomState = rememberZoomState(contentSize = painter.intrinsicSize)
-            OutlinedButton(onClick = { showStateMachine = true }) {
+            TextButton(onClick = { showStateMachine = true }) {
                 Text(stringResource(R.string.state_machine))
             }
             if (showStateMachine) {
@@ -135,7 +135,7 @@ private fun MSIProtocol(modifier: Modifier = Modifier) {
             )
             val painter = painterResource(R.drawable.msi_protocol)
             val zoomState = rememberZoomState(contentSize = painter.intrinsicSize)
-            OutlinedButton(onClick = { showStateMachine = true }) {
+            TextButton(onClick = { showStateMachine = true }) {
                 Text(stringResource(R.string.state_machine))
             }
             if (showStateMachine) {

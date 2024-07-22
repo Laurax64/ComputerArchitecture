@@ -2,7 +2,6 @@ package com.example.computerarchitecture.ui.screens.caching
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -40,15 +39,10 @@ fun CachingScreen(
         Column(
             Modifier
                 .padding(paddingValues)
-                .padding(16.dp)
+                .padding(8.dp)
                 .verticalScroll(rememberScrollState()),
-            Arrangement.spacedBy(16.dp)
+            Arrangement.spacedBy(8.dp)
         ) {
-            AverageRuntimes(Modifier.fillMaxWidth())
-            BlockPlacement(Modifier.fillMaxWidth())
-            BlockIdentification(Modifier.fillMaxWidth())
-            BlockReplacement(Modifier.fillMaxWidth())
-            WriteStrategy(Modifier.fillMaxWidth())
         }
     }
 }
@@ -61,11 +55,6 @@ fun CachingScreen(
 @Composable
 fun CachingScreen(modifier: Modifier = Modifier) {
     Column(modifier.verticalScroll(rememberScrollState()), Arrangement.spacedBy(16.dp)) {
-        AverageRuntimes(Modifier.fillMaxWidth())
-        BlockPlacement(Modifier.fillMaxWidth())
-        BlockIdentification(Modifier.fillMaxWidth())
-        BlockReplacement(Modifier.fillMaxWidth())
-        WriteStrategy(Modifier.fillMaxWidth())
     }
 }
 

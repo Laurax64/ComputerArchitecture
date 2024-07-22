@@ -1,4 +1,4 @@
-package com.example.computerarchitecture.ui.screens
+package com.example.computerarchitecture.ui.screens.instructionscheduling
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
