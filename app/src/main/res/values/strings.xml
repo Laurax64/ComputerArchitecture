@@ -327,6 +327,17 @@
     <string name="steps_in_the_pipeline">Steps in the Pipeline</string>
     <string name="return_address_buffer">Return Address Buffer</string>
     <string name="return_address_buffer_description">Stack memory for return addresses\nPush on procedure call and pop on return.</string>
+    <string name="function_qualifiers">Function Qualifiers</string>
+    <string name="kernel">__kernel</string>
+    <string name="kernel_description">Declares a function to be a kernel that can be executed by an application on an OpenCL device(s).</string>
+    <string name="open_cl_barrier_syntax">barrier(flags)</string>
+    <string name="open_cl_barrier_description">Blocks until all threads in the group have reached the barrier. Also enforces memory ordering.</string>
+    <string name="open_cl_mem_fence_syntax">mem_fence(flags)</string>
+    <string name="open_cl_mem_fence_description">Enforces memory ordering: all memory operations are committed before thread continues.</string>
+    <string name="thread_synchronization">Thread Synchronization</string>
+    <string name="synchronization_across_work_groups">Synchronization across Work Groups</string>
+    <string name="synchronization_across_work_groups_description">Use in-order command queue and queue multiple kernel invocations from the host side or use OpenCL event mechanism.\n(To wait on host side until all queued commands have been completed, use clFinish.)</string>
+    <string name="state_machine">State Machine</string>
 
 
 </resources>

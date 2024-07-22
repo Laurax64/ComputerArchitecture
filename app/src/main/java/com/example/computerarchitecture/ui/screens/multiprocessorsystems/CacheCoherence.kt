@@ -7,14 +7,22 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Dialog
 import com.example.computerarchitecture.R
+import net.engawapg.lib.zoomable.rememberZoomState
+import net.engawapg.lib.zoomable.zoomable
 
 /**
  * Displays a column with information about cache coherence.
@@ -84,6 +92,7 @@ private fun SnoopingBasedCoherence(modifier: Modifier = Modifier) {
  */
 @Composable
 private fun DirectoryBasedCoherence(modifier: Modifier = Modifier) {
+    var showStateMachine by remember { mutableStateOf(false) }
     Card(modifier) {
         Column(Modifier.padding(8.dp)) {
             Text(
@@ -91,6 +100,20 @@ private fun DirectoryBasedCoherence(modifier: Modifier = Modifier) {
                 fontWeight = FontWeight.Bold
             )
             Text(stringResource(R.string.directory_based_coherence_description))
+            val painter = painterResource(R.drawable.directory_based_coherence)
+            val zoomState = rememberZoomState(contentSize = painter.intrinsicSize)
+            OutlinedButton(onClick = { showStateMachine = true }) {
+                Text(stringResource(R.string.state_machine))
+            }
+            if (showStateMachine) {
+                Dialog({ showStateMachine = false }) {
+                    Image(
+                        painter = painterResource(R.drawable.directory_based_coherence),
+                        contentDescription = null,
+                        modifier = Modifier.zoomable(zoomState)
+                    )
+                }
+            }
         }
     }
 }
@@ -102,6 +125,7 @@ private fun DirectoryBasedCoherence(modifier: Modifier = Modifier) {
  */
 @Composable
 private fun MSIProtocol(modifier: Modifier = Modifier) {
+    var showStateMachine by remember { mutableStateOf(false) }
     Card(modifier) {
         Column(Modifier.padding(8.dp)) {
             Text(
@@ -109,11 +133,20 @@ private fun MSIProtocol(modifier: Modifier = Modifier) {
                 style = MaterialTheme.typography.titleLarge,
                 fontWeight = FontWeight.Bold
             )
-            Image(
-                painter = painterResource(R.drawable.msi_protocol),
-                contentDescription = null,
-                modifier = Modifier.fillMaxWidth()
-            )
+            val painter = painterResource(R.drawable.msi_protocol)
+            val zoomState = rememberZoomState(contentSize = painter.intrinsicSize)
+            OutlinedButton(onClick = { showStateMachine = true }) {
+                Text(stringResource(R.string.state_machine))
+            }
+            if (showStateMachine) {
+                Dialog({ showStateMachine = false }) {
+                    Image(
+                        painter = painterResource(R.drawable.msi_protocol),
+                        contentDescription = null,
+                        modifier = Modifier.zoomable(zoomState)
+                    )
+                }
+            }
         }
     }
 }

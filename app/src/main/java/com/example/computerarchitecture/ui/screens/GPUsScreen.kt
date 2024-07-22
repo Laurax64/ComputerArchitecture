@@ -93,15 +93,24 @@ fun GPUsScreen(modifier: Modifier = Modifier) {
 @Composable
 fun OpenCLTab(modifier: Modifier = Modifier) {
     Column(modifier.verticalScroll(rememberScrollState()), Arrangement.spacedBy(8.dp)) {
+        MemoryModel(Modifier.fillMaxWidth())
         OpenCLComputationModel(Modifier.fillMaxWidth())
+        OpenCLProgramComponents(Modifier.fillMaxWidth())
+        FunctionQualifiers(Modifier.fillMaxWidth())
         ExecutingKernels(Modifier.fillMaxWidth())
         WorkItemFunctions(Modifier.fillMaxWidth())
-        OpenCLProgramComponents(Modifier.fillMaxWidth())
+        ThreadSynchronization(Modifier.fillMaxWidth())
+        SynchronizationAccrossWorkGroups(Modifier.fillMaxWidth())
         Portability(Modifier.fillMaxWidth())
-        MemoryModel(Modifier.fillMaxWidth())
+
     }
 }
 
+/**
+ * Displays a card with information about synchronization across work groups in OpenCL.
+ *
+ * @param modifier The modifier for the layout
+ */
 @Composable
 private fun OpenCLComputationModel(modifier: Modifier = Modifier) {
     Card(modifier) {
@@ -127,6 +136,11 @@ private fun OpenCLComputationModel(modifier: Modifier = Modifier) {
     }
 }
 
+/**
+ * Displays a card with information about clEnqueueNDRangeKernel.
+ *
+ * @param modifier The modifier for the layout
+ */
 @Composable
 private fun ExecutingKernels(modifier: Modifier = Modifier) {
     Card(modifier) {
@@ -145,6 +159,30 @@ private fun ExecutingKernels(modifier: Modifier = Modifier) {
 }
 
 /**
+ * Displays a card with information about function qualifiers in OpenCL.
+ *
+ * @param modifier The modifier for the layout
+ */
+@Composable
+private fun FunctionQualifiers(modifier: Modifier = Modifier) {
+    Card(modifier) {
+        Column(Modifier.padding(8.dp)) {
+            Text(
+                text = stringResource(R.string.function_qualifiers),
+                style = MaterialTheme.typography.titleLarge,
+            )
+            Text(
+                text = stringResource(R.string.kernel)
+            )
+
+            Text(
+                text = stringResource(R.string.kernel_description),
+            )
+        }
+    }
+}
+
+/**
  * Displays a card with information about the work-item functions in OpenCL.
  *
  * @param modifier The modifier for the layout
@@ -158,6 +196,65 @@ private fun WorkItemFunctions(modifier: Modifier = Modifier) {
                 style = MaterialTheme.typography.titleLarge,
             )
             GetGlobalId(Modifier.fillMaxWidth())
+        }
+    }
+}
+
+/**
+ * Displays a card with information about thread synchronization in OpenCL.
+ *
+ * @param modifier The modifier for the layout
+ */
+@Composable
+private fun ThreadSynchronization(modifier: Modifier = Modifier) {
+    Card(modifier) {
+        Column(Modifier.padding(8.dp)) {
+            Text(
+                text = stringResource(R.string.thread_synchronization),
+                style = MaterialTheme.typography.titleLarge,
+            )
+            Barrier(Modifier.fillMaxWidth())
+            MemFence(Modifier.fillMaxWidth())
+        }
+    }
+}
+
+/**
+ * Displays a card with information about barriers in OpenCL.
+ *
+ * @param modifier The modifier for the layout
+ */
+@Composable
+private fun Barrier(modifier: Modifier = Modifier) {
+    Card(modifier) {
+        Column(Modifier.padding(8.dp)) {
+            Text(
+                text = stringResource(R.string.open_cl_barrier_syntax),
+                fontWeight = FontWeight.Bold,
+            )
+            Text(
+                text = stringResource(R.string.open_cl_barrier_description),
+            )
+        }
+    }
+}
+
+/**
+ * Displays a card with information about memory fences in OpenCL.
+ *
+ * @param modifier The modifier for the layout
+ */
+@Composable
+private fun MemFence(modifier: Modifier = Modifier) {
+    Card(modifier) {
+        Column(Modifier.padding(8.dp)) {
+            Text(
+                text = stringResource(R.string.open_cl_mem_fence_syntax),
+                fontWeight = FontWeight.Bold,
+            )
+            Text(
+                text = stringResource(R.string.open_cl_mem_fence_description),
+            )
         }
     }
 }
@@ -244,6 +341,25 @@ private fun MemoryModel(modifier: Modifier = Modifier) {
     }
 }
 
+/**
+ * Displays a card with information about synchronization across work groups in OpenCL.
+ *
+ * @param modifier The modifier for the layout
+ */
+@Composable
+private fun SynchronizationAccrossWorkGroups(modifier: Modifier) {
+    Card(modifier) {
+        Column(Modifier.padding(8.dp)) {
+            Text(
+                text = stringResource(R.string.synchronization_across_work_groups),
+                style = MaterialTheme.typography.titleLarge,
+            )
+            Text(
+                text = stringResource(R.string.synchronization_across_work_groups_description),
+            )
+        }
+    }
+}
 
 
 /**
