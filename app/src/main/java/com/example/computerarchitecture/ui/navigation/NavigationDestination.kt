@@ -138,3 +138,11 @@ object SpectreDestination : NavigationDestination {
     override val screenRoute: String = "spectre"
     override val contentRoute: String = "spectre_content"
 }
+
+/**
+ * Represents a navigation destination for the pipeline topic.
+ */
+object PipelineDestination : NavigationDestination {
+    override val screenRoute: String = "pipeline"
+    override val contentRoute: String = "pipeline_content"
+}

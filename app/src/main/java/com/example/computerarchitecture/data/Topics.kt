@@ -13,6 +13,7 @@ import com.example.computerarchitecture.ui.navigation.MultithreadingDestination
 import com.example.computerarchitecture.ui.navigation.NavigationDestination
 import com.example.computerarchitecture.ui.navigation.NetworksDestination
 import com.example.computerarchitecture.ui.navigation.OpenMPDestination
+import com.example.computerarchitecture.ui.navigation.PipelineDestination
 import com.example.computerarchitecture.ui.navigation.ReliabilityDestination
 import com.example.computerarchitecture.ui.navigation.SpectreDestination
 import com.example.computerarchitecture.ui.navigation.SuperscalarityDestination
@@ -39,5 +40,6 @@ enum class Topic(val title: String, val navigationDestination: NavigationDestina
     MEMORY_HIERARCHY("Memory Hierarchy", MemoryHierarchyDestination),
     FLASH_MEMORY("Flash Memory", FlashMemoryDestination),
     CACHING("Caching", CachingDestination),
-    SPECTRE("Spectre", SpectreDestination)
+    SPECTRE("Spectre", SpectreDestination),
+    PIPELINE("Pipeline", PipelineDestination)
 }

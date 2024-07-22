@@ -7,6 +7,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.computerarchitecture.ui.PipelineScreen
 import com.example.computerarchitecture.ui.SpectreScreen
 import com.example.computerarchitecture.ui.screens.EnergyEfficiencyScreen
 import com.example.computerarchitecture.ui.screens.FlashMemoryScreen
@@ -86,6 +87,9 @@ fun ComputerArchitectureNavHost(
         composable(SpectreDestination.screenRoute) {
             SpectreScreen(navController::popBackStack)
         }
+        composable(PipelineDestination.screenRoute) {
+            PipelineScreen(navController::popBackStack)
+        }
         screenContents()
     }
 }
@@ -138,5 +142,8 @@ fun NavGraphBuilder.screenContents() {
     }
     composable(SpectreDestination.contentRoute) {
         SpectreScreen()
+    }
+    composable(PipelineDestination.contentRoute) {
+        PipelineScreen()
     }
 }

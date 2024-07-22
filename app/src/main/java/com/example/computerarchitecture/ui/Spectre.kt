@@ -20,7 +20,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.PreviewDynamicColors
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewScreenSizes
 import androidx.compose.ui.unit.dp
@@ -170,7 +169,6 @@ private fun SpectreAttacksStepThree(modifier: Modifier = Modifier) {
  */
 @PreviewLightDark
 @PreviewScreenSizes
-@PreviewDynamicColors
 @Composable
 fun SpectreScreenPreview() {
     ComputerArchitectureTheme {

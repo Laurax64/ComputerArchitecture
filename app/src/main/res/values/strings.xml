@@ -339,6 +339,24 @@
     <string name="synchronization_across_work_groups_description">Use in-order command queue and queue multiple kernel invocations from the host side or use OpenCL event mechanism.\n(To wait on host side until all queued commands have been completed, use clFinish.)</string>
     <string name="state_machine">State Machine</string>
     <string name="energy_formula">Energy Formula</string>
+    <string name="pipeline">Pipeline</string>
+    <string name="data_dependencies">Data Dependencies</string>
 
+    <string name="read_after_write">Read after write (RAW)</string>
+    <string name="read_after_write_description">An instruction j is called data-dependent on a preceding instruction i
+        if i provides data that j requires.</string>
+    <string name="write_after_read">Write after read (WAR)</string>
+    <string name="write_after_read_description">An instruction i is called anti-data-dependent from a subsequent
+        instruction j if j describes a memory cell that still has to be read by i.</string>
+    <string name="write_after_write">Write after write (WAW)</string>
+    <string name="write_after_write_description">Two instructions i and j are called output-dependent if i and j write
+        to the same memory cell.</string>
+    <string name="example">Example</string>
+    <string name="data_dependencies_code">add x12,x2,x3\nsub x4,x5,x12\nand x6,x12,x7\nor x12,x12,x9\nxor x10,x12,x11
+
+    </string>
+    <string name="raw_example_description">The last 4 instructions are data-dependent on the add instruction because of x12.</string>
+    <string name="war_example_description">sub and and are antidata-dependent on the or command because of x12.</string>
+    <string name="waw_example_description">add and or are output-dependent on each other.</string>
 
 </resources>
