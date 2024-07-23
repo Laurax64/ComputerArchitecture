@@ -1,21 +1,32 @@
 package com.example.computerarchitecture.ui.screens.memoryhierarchy
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.PreviewDynamicColors
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.example.computerarchitecture.R
@@ -28,13 +39,21 @@ import com.example.computerarchitecture.ui.theme.ComputerArchitectureTheme
  */
 @Composable
 fun BlockReplacement(modifier: Modifier = Modifier) {
-    Card(modifier) {
+    val focusManager = LocalFocusManager.current
+    Card(modifier
+        .pointerInput(Unit) {
+            detectTapGestures(onTap = {
+                focusManager.clearFocus()
+            })
+        }
+    )
+    {
         Column(Modifier.padding(8.dp), Arrangement.spacedBy(8.dp)) {
             Text(
                 text = stringResource(R.string.block_replacement),
                 style = MaterialTheme.typography.titleLarge,
             )
-            Text(text = stringResource(R.string.block_replacement_question))
+            Text(stringResource(R.string.block_replacement_question))
 
             DirectMapping(Modifier.fillMaxWidth())
             SetAssociativeMapping(Modifier.fillMaxWidth())
@@ -59,11 +78,10 @@ private fun DirectMapping(modifier: Modifier = Modifier) {
         Column(Modifier.padding(8.dp)) {
             Text(
                 text = stringResource(R.string.direct_mapping),
-                style = MaterialTheme.typography.titleMedium
+                fontWeight = FontWeight.Bold
             )
             Text(
                 text = stringResource(R.string.direct_mapping_block_replacement),
-                style = MaterialTheme.typography.bodyMedium
             )
         }
     }
@@ -80,11 +98,10 @@ private fun SetAssociativeMapping(modifier: Modifier = Modifier) {
         Column(Modifier.padding(8.dp)) {
             Text(
                 text = stringResource(R.string.set_associative_mapping),
-                style = MaterialTheme.typography.titleMedium
+                fontWeight = FontWeight.Bold
             )
             Text(
                 text = stringResource(R.string.set_associative_mapping_block_replacement),
-                style = MaterialTheme.typography.bodyMedium
             )
         }
     }
@@ -101,12 +118,12 @@ private fun AssociativeMapping(modifier: Modifier = Modifier) {
         Column(Modifier.padding(8.dp)) {
             Text(
                 text = stringResource(R.string.associative_mapping),
-                style = MaterialTheme.typography.titleMedium
+                fontWeight = FontWeight.Bold
             )
             Text(
                 text = stringResource(R.string.associative_mapping_block_replacement),
-                style = MaterialTheme.typography.bodyMedium
-            )
+
+                )
         }
     }
 }
@@ -119,16 +136,15 @@ private fun AssociativeMapping(modifier: Modifier = Modifier) {
 @Composable
 private fun Random(modifier: Modifier = Modifier) {
     var expanded by rememberSaveable { mutableStateOf(false) }
-    OutlinedCard({ expanded = !expanded }, modifier) {
+    Card({ expanded = !expanded }, modifier) {
         Column(Modifier.padding(8.dp)) {
             Text(
                 text = stringResource(R.string.random),
-                style = MaterialTheme.typography.titleMedium
+                fontWeight = FontWeight.Bold
             )
             if (expanded) {
                 Text(
                     text = stringResource(R.string.random_description),
-                    style = MaterialTheme.typography.bodyMedium
                 )
             }
         }
@@ -142,67 +158,207 @@ private fun Random(modifier: Modifier = Modifier) {
  */
 @Composable
 private fun LRU(modifier: Modifier = Modifier) {
-    var expanded by rememberSaveable { mutableStateOf(true) }
-    var showLinkedList by rememberSaveable { mutableStateOf(false) }
-    var showTriangularMatrix by rememberSaveable { mutableStateOf(false) }
-    OutlinedCard({ expanded = !expanded }, modifier) {
+    Card(modifier) {
         Column(Modifier.padding(8.dp)) {
             Text(
                 text = stringResource(R.string.lru),
                 style = MaterialTheme.typography.titleMedium
             )
-            if (expanded) {
                 Text(
                     text = stringResource(R.string.lru_description),
-                    style = MaterialTheme.typography.bodyMedium
                 )
-                OutlinedCard({ showLinkedList = !showLinkedList }, Modifier.fillMaxWidth()) {
-                    Column(Modifier.padding(8.dp), Arrangement.spacedBy(8.dp)) {
-                        Text(
-                            text = stringResource(R.string.linked_list),
-                        )
-                        if (showLinkedList) {
-                            Text(
-                                text = stringResource(R.string.lru_linked_list_data_structure),
-                                style = MaterialTheme.typography.titleSmall
-                            )
-                            Column {
-                                Text(
-                                    text = stringResource(R.string.lru_linked_list_access),
-                                    style = MaterialTheme.typography.titleSmall
-                                )
-                                Text(
-                                    text = stringResource(R.string.lru_linked_list_access_description),
-                                    style = MaterialTheme.typography.bodySmall
-                                )
-                            }
-                            Column {
-                                Text(
-                                    text = stringResource(R.string.lru_linked_list_supplanting),
-                                    style = MaterialTheme.typography.titleSmall
-                                )
-                                Text(
-                                    text = stringResource(R.string.lru_linked_list_supplanting_description),
-                                    style = MaterialTheme.typography.bodySmall
-                                )
-                            }
-                        }
-                    }
+            LinkedList()
+            TriangularMatrix()
+        }
+    }
+}
+
+/**
+ * Displays a text button that shows a dialog with information about the linked list LRU.
+ *
+ * @param modifier The modifier for the layout
+ */
+@Composable
+private fun LinkedList(modifier: Modifier = Modifier) {
+    var expanded by rememberSaveable { mutableStateOf(false) }
+    TextButton({ expanded = !expanded }, modifier) {
+        Text(stringResource(R.string.linked_list))
+    }
+    if (expanded) {
+        Card {
+            Column(Modifier.padding(8.dp), Arrangement.spacedBy(8.dp)) {
+                Text(
+                    text = stringResource(R.string.lru_linked_list_data_structure),
+                )
+                Column {
+                    Text(
+                        text = stringResource(R.string.lru_linked_list_access),
+                        fontWeight = FontWeight.Bold
+                    )
+                    Text(
+                        text = stringResource(R.string.lru_linked_list_access_description),
+                    )
                 }
-                OutlinedCard({}, Modifier.fillMaxWidth()) {
-                    Column(Modifier.padding(8.dp), Arrangement.spacedBy(8.dp)) {
-                        Text(
-                            text = stringResource(R.string.triangular_matrix)
-                        )
-                        if (showTriangularMatrix) {
-
-                        }
-                    }
-
+                Column {
+                    Text(
+                        text = stringResource(R.string.lru_linked_list_supplanting),
+                        fontWeight = FontWeight.Bold
+                    )
+                    Text(
+                        text = stringResource(R.string.lru_linked_list_supplanting_description),
+                    )
                 }
             }
         }
     }
+}
+
+/**
+ * Displays a text button that shows a dialog with information about the triangular matrix LRU.
+ *
+ * @param modifier The modifier for the layout
+ */
+@Composable
+private fun TriangularMatrix(modifier: Modifier = Modifier) {
+    var expanded by rememberSaveable { mutableStateOf(false) }
+    TextButton({ expanded = !expanded }, modifier) {
+        Text(stringResource(R.string.triangular_matrix))
+    }
+    if (expanded) {
+        Card {
+            Column(Modifier.padding(8.dp), Arrangement.spacedBy(8.dp)) {
+                Text(stringResource(R.string.triangular_matrix_description))
+                Operations(Modifier.fillMaxWidth())
+                LRUCacheMatrix(Modifier.fillMaxWidth())
+                }
+        }
+    }
+}
+
+
+/**
+ * Displays a column with information about the operations in the LRU triangular matrix.
+ *
+ * @param modifier The modifier for the layout
+ */
+@Composable
+private fun Operations(modifier: Modifier = Modifier) {
+    Card(modifier) {
+        Column(
+            Modifier
+                .fillMaxWidth()
+                .padding(8.dp), Arrangement.spacedBy(8.dp)) {
+            Text(stringResource(R.string.operations), fontWeight = FontWeight.Bold)
+            Text(stringResource(R.string.triangular_matrix_initialization))
+            Text(stringResource(R.string.triangular_matrix_access))
+            Text(stringResource(R.string.triangular_matrix_cache_miss))
+        }
+    }
+}
+
+/**
+ * Displays a card with information about LRU cache matrix.
+ */
+@Composable
+fun LRUCacheMatrix(modifier: Modifier = Modifier) {
+    var matrix by rememberSaveable {
+        mutableStateOf(
+            listOf(
+                listOf("Entry", "0", "1", "2", "3"),
+                listOf("0", "", "1", "1", "1"),
+                listOf("1", "", "", "1", "1"),
+                listOf("2", "", "", "", "1")
+            )
+        )
+    }
+
+    Card(modifier) {
+        Column(Modifier.padding(8.dp), Arrangement.spacedBy(8.dp), Alignment.CenterHorizontally) {
+            MatrixDisplay(Modifier, matrix)
+            CacheControls(Modifier, matrix) { updatedMatrix ->
+                matrix = updatedMatrix
+            }
+        }
+    }
+}
+
+/**
+ * Displays the given matrix in a grid layout.
+ *
+ * @param modifier The modifier for the layout
+ * @param matrix The matrix to display
+ */
+@Composable
+fun MatrixDisplay(modifier: Modifier = Modifier, matrix: List<List<String>>) {
+    Column(modifier) {
+        for (row in matrix) {
+            Row {
+                for (item in row) {
+                    Box(
+                        Modifier
+                            .size(50.dp)
+                            .border(1.dp, MaterialTheme.colorScheme.onSurface)
+                            .background(MaterialTheme.colorScheme.surface),
+                        Alignment.Center
+                    ) {
+                        Text(
+                            text = item
+                        )
+                    }
+                }
+            }
+        }
+    }
+}
+
+/**
+ * Displays a text field for the user to input the most entry to access in the LRU cache matrix.
+ *
+ * @param modifier The modifier for the layout
+ * @param matrix The current matrix
+ * @param onMatrixUpdate The callback to update the matrix
+ */
+@Composable
+fun CacheControls(
+    modifier: Modifier = Modifier,
+    matrix: List<List<String>>,
+    onMatrixUpdate: (List<List<String>>) -> Unit
+) {
+    var inputValue by remember { mutableStateOf("") }
+    TextField(
+        value = inputValue,
+        onValueChange = {
+            inputValue = it
+            val entry = inputValue.toIntOrNull()
+            if (entry != null && entry in 0..2) {
+                val updatedMatrix = updateMatrix(matrix, entry)
+                onMatrixUpdate(updatedMatrix)
+            }
+        },
+        modifier = modifier,
+        label = { Text(stringResource(id = R.string.access_entry)) }
+    )
+
+}
+
+/**
+ * Updates the LRU cache matrix with the most recent entry.
+ *
+ * @param matrix The current matrix
+ * @return The updated matrix
+ */
+private fun updateMatrix(matrix: List<List<String>>, k: Int): List<List<String>> {
+    val newMatrix = matrix.map { it.toMutableList() }.toMutableList()
+
+    // Access to k, k becomes the most recent entry
+    for (j in k + 2 until newMatrix[0].size) {
+        newMatrix[k + 1][j] = "0"
+    }
+    for (i in 1 until k + 1) {
+        newMatrix[i][k + 1] = "1"
+    }
+
+    return newMatrix
 }
 
 /**
@@ -213,7 +369,7 @@ private fun LRU(modifier: Modifier = Modifier) {
 @Composable
 private fun FIFO(modifier: Modifier = Modifier) {
     var expanded by rememberSaveable { mutableStateOf(false) }
-    OutlinedCard({ expanded = !expanded }, modifier) {
+    Card({ expanded = !expanded }, modifier) {
         Column(Modifier.padding(8.dp)) {
             Text(
                 text = stringResource(R.string.fifo),
@@ -237,7 +393,7 @@ private fun FIFO(modifier: Modifier = Modifier) {
 @Composable
 private fun Clock(modifier: Modifier = Modifier) {
     var expanded by rememberSaveable { mutableStateOf(false) }
-    OutlinedCard({ expanded = !expanded }, modifier) {
+    Card({ expanded = !expanded }, modifier) {
         Column(Modifier.padding(8.dp)) {
             Text(
                 text = stringResource(R.string.clock),
@@ -257,7 +413,6 @@ private fun Clock(modifier: Modifier = Modifier) {
  * Displays previews for the block replacement card.
  */
 @PreviewLightDark
-@PreviewDynamicColors
 @Composable
 private fun BlockReplacementPreviews() {
     ComputerArchitectureTheme {

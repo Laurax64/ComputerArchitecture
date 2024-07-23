@@ -2,6 +2,7 @@ package com.example.computerarchitecture.ui.screens.memoryhierarchy
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
@@ -30,42 +31,45 @@ fun WriteStrategy(modifier: Modifier = Modifier) {
                 fontWeight = FontWeight.Bold
             )
             Text(text = stringResource(R.string.write_strategy_question))
-            WriteAllocate(Modifier.padding(16.dp))
-            NoWriteAllocate(Modifier.padding(16.dp))
+            WriteAllocate(Modifier.fillMaxWidth())
+            NoWriteAllocate(Modifier.fillMaxWidth())
         }
     }
 }
 
 /**
- * Displays a column with information about write allocate.
+ * Displays a card with information about write allocate.
  *
  * @param modifier The modifier for the layout
  */
 @Composable
 private fun WriteAllocate(modifier: Modifier = Modifier) {
-    Column(modifier, Arrangement.spacedBy(8.dp)) {
-        Text(
-            text = stringResource(R.string.write_allocate),
-            style = MaterialTheme.typography.titleMedium
-        )
-        Text(
-            text = stringResource(R.string.write_allocate_description),
-            style = MaterialTheme.typography.bodyMedium
-        )
+    Card(modifier) {
+        Column(Modifier.padding(8.dp), Arrangement.spacedBy(8.dp)) {
+            Text(
+                text = stringResource(R.string.write_allocate),
+                fontWeight = FontWeight.Bold
+            )
+            Text(
+                text = stringResource(R.string.write_allocate_description),
+                style = MaterialTheme.typography.bodyMedium
+            )
+        }
     }
 }
 
 /**
- * Displays a column with information about no write allocate.
+ * Displays a card with information about no write allocate.
  *
  * @param modifier The modifier for the layout
  */
 @Composable
 private fun NoWriteAllocate(modifier: Modifier = Modifier) {
-    Column(modifier, Arrangement.spacedBy(8.dp)) {
+    Card(modifier) {}
+    Column(Modifier.padding(8.dp), Arrangement.spacedBy(8.dp)) {
         Text(
             text = stringResource(R.string.no_write_allocate),
-            style = MaterialTheme.typography.titleMedium
+            fontWeight = FontWeight.Bold
         )
         Text(
             text = stringResource(R.string.no_write_allocate_description),

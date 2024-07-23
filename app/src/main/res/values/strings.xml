@@ -11,21 +11,17 @@
     <string name="as_soon_as_possible_description">Executes instructions as soon as possible.</string>
     <string name="as_late_as_possible_name">As late as possible(ALAP)</string>
     <string name="as_late_as_possible_description">Executes instructions as late as possible.</string>
-
     <string name="cgmt_description">Change threads in case of longer delays.</string>
     <string name="cgmt_advantages"> Small delay can be tolerated when switching threads.
         Critical threads can be prioritized.</string>
     <string name="cgmt_disadvantages">Short stalls must be tolerated.</string>
-
     <string name="fgmt_description">Change threads with each instruction.</string>
     <string name="fgmt_advantages">Any processor availability can be used.</string>
     <string name="fgmt_disadvantages">Higher latency of individual threads.</string>
-
     <string name="smt_description">Multiple threads can be executed simultaneously on one CPU core.</string>
     <string name="smt_advantages">Instructions from different,
         independent threads can be executed simultaneously.</string>
     <string name="smt_disadvantages">Higher latency of individual threads, higher implementation effort</string>
-
     <string name="advantages">Advantages</string>
     <string name="disadvantages">Disadvantages</string>
     <string name="simultaneous_multithreading">Simultaneous Multithreading</string>
@@ -39,7 +35,6 @@
     executed in this order due to their dependencies. The table lists the amount of run-time each part contributes to
     the run-time of the program. Parts A, C and E cannot be parallelized. Part B can be transformed in max. 16
         sub-parts that can be executed in parallel. For the parallel execution of part D, no restrictions exist.</string>
-
     <string name="part">Part</string>
     <string name="multiprocessor_systems">Multiprocessor Systems</string>
     <string name="numa_title_short">NUMA</string>
@@ -47,7 +42,6 @@
     <string name="numa_runtime_description">"Memory access time depends on the memory location relative to the processor. Memory may be local, one hop away, or two hops away. "</string>
     <string name="gpus">Graphics Processing Units</string>
     <string name="open_cl">OpenCL</string>
-
     <string name="posix_threads">POSIX Threads</string>
     <string name="pthread_create">pthread_create(thread, attr, start_routine, arg)</string>
     <string name="pthread_exit">pthread_exit(status)</string>
@@ -60,7 +54,6 @@
     <string name="pthread_cond_init">pthread_cond_init(cond, attr)</string>
     <string name="pthread_cond_signal">pthread_cond_signal(cond)</string>
     <string name="pthread_cond_wait">pthread_cond_wait(cond, mutex)</string>
-
     <string name="thread">thread</string>
     <string name="attr">attr</string>
     <string name="start_routine">start_routine</string>
@@ -74,7 +67,6 @@
     <string name="arg_description">A single argument that may be passed to start_routine.
         It must be passed by reference as (void *).NULL may be used if no argument is to be passed.</string>
     <string name="caching">Caching</string>
-
     <string name="block_placement">Block Placement</string>
     <string name="block_identification">Block Identification</string>
     <string name="block_replacement">Block Replacement</string>
@@ -119,15 +111,11 @@
         occurrences of i are removed from the list.</string>
     <string name="lru_linked_list_supplanting">Supplanting an entry</string>
     <string name="lru_linked_list_supplanting_description">The entry belonging to the last element in the list is overwritten.</string>
-
-
     <string name="fifo">First in, first out (FIFO)</string>
     <string name="fifo_description">The block replaced is the oldest block.</string>
     <string name="clock">Clock</string>
     <string name="clock_description">Search for block with used bit = \'0\' and reset the bit at the same time. Stop
         after max. 1 round.</string>
-
-
     <string name="write_allocate">Write allocate</string>
     <string name="write_allocate_description">The block is allocated on a write miss.</string>
     <string name="no_write_allocate_description">Write misses do not affect the cache. Instead, the block is modified only in the lower-level memory.</string>
@@ -147,7 +135,6 @@
     <string name="tournament_predictors">Tournament Predictors</string>
     <string name="tournament_predictors_description">Use of multiple predictors and selection from them, usually a
         combination of local and global predictors.</string>
-
     <string name="thread_management">Thread Management</string>
     <string name="mutex_variables">Mutex Variables</string>
     <string name="condition_variables">Condition Variables</string>
@@ -205,7 +192,6 @@
                     structured-block-sequence\n\t
             …\n\t
         }
-
     </string>
     <string name="single_syntax">#pragma omp single</string>
     <string name="single_description">Some thread will run it.</string>
@@ -262,8 +248,6 @@
     <string name="gustafsons_law_description">
     Assumes that the problem size grows linearly with the number of processors.
     </string>
-
-
     <string name="send_api">Send API</string>
     <string name="receive_api">Receive API</string>
     <string name="instruction_scheduling">Instruction Scheduling</string>
@@ -332,7 +316,7 @@
     <string name="pthread_mutex_unlock_description">Releases the mutex object referenced by mutex.</string>
     <string name="pthread_cond_init_description">Initializes the condition variable referenced by cond with attributes referenced by attr.</string>
     <string name="pthread_cond_signal_description">Unblocks at least one of the threads that are blocked on the specified condition variable cond.</string>
-    <string name="pthread_cond_wait_description">Blocks the calling thread until the specified condition cond is signalled.</string>
+    <string name="pthread_cond_wait_description">Blocks the calling thread until the specified condition cond is signaled.</string>
     <string name="branch_target_buffer">Branch Target Buffer</string>
     <string name="branch_target_buffer_description">A structure that caches the destination programm counter or destination instruction for a branch.</string>
     <string name="steps_in_the_pipeline">Steps in the Pipeline</string>
@@ -352,7 +336,6 @@
     <string name="energy_formula">Energy Formula</string>
     <string name="pipeline">Pipeline</string>
     <string name="data_dependencies">Data Dependencies</string>
-
     <string name="read_after_write">Read after write (RAW)</string>
     <string name="read_after_write_description">An instruction j is called data-dependent on a preceding instruction i
         if i provides data that j requires.</string>
@@ -364,7 +347,6 @@
         to the same memory cell.</string>
     <string name="example">Example</string>
     <string name="data_dependencies_code">add x12,x2,x3\nsub x4,x5,x12\nand x6,x12,x7\nor x12,x12,x9\nxor x10,x12,x11
-
     </string>
     <string name="raw_example_description">The last 4 instructions are data-dependent on the add instruction because of x12.</string>
     <string name="war_example_description">sub and and are antidata-dependent on the or command because of x12.</string>
@@ -375,5 +357,12 @@
     <string name="triangular_matrix">Triangular Matrix</string>
     <string name="triangular_matrix_description">f [ i , j ] = 1, if access to i is older than access to j, and 0
         otherwise for row index i and column index j.</string>
+    <string name="triangular_matrix_initialization">Initialization with 1.</string>
+    <string name="triangular_matrix_access"><![CDATA[Access to k, k becomes the most recent entry.\n∀j > k : f[k,j] = 0; ∀i < k : f[i,k] = 1]]></string>
+    <string name="triangular_matrix_cache_miss"><![CDATA[Miss in cache, searching for oldest entry k, for which the following applies.\n∀j > k : f[k,j] = 1 ∧ ∀i < k : f[i,k] = 0]]></string>
+    <string name="triangular_matrix_cache_miss_zero">Cache miss, overwrite way 0.</string>
+    <string name="access_entry">Access Entry</string>
+    <string name="operations">Operations</string>
+    <string name="calculator">Calculator</string>
 
 </resources>

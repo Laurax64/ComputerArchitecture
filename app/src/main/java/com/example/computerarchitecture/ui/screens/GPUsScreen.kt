@@ -172,7 +172,8 @@ private fun FunctionQualifiers(modifier: Modifier = Modifier) {
                 style = MaterialTheme.typography.titleLarge,
             )
             Text(
-                text = stringResource(R.string.kernel)
+                text = stringResource(R.string.kernel),
+                style = MaterialTheme.typography.titleMedium,
             )
 
             Text(
@@ -208,7 +209,7 @@ private fun WorkItemFunctions(modifier: Modifier = Modifier) {
 @Composable
 private fun ThreadSynchronization(modifier: Modifier = Modifier) {
     Card(modifier) {
-        Column(Modifier.padding(8.dp)) {
+        Column(Modifier.padding(8.dp), Arrangement.spacedBy(8.dp)) {
             Text(
                 text = stringResource(R.string.thread_synchronization),
                 style = MaterialTheme.typography.titleLarge,
