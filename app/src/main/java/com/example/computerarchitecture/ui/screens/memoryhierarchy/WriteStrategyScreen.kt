@@ -11,8 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.PreviewDynamicColors
-import androidx.compose.ui.tooling.preview.PreviewLightDark
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.computerarchitecture.R
 import com.example.computerarchitecture.ui.theme.ComputerArchitectureTheme
@@ -25,12 +24,12 @@ import com.example.computerarchitecture.ui.theme.ComputerArchitectureTheme
 @Composable
 fun WriteStrategy(modifier: Modifier = Modifier) {
     Card(modifier) {
-        Column(Modifier.padding(16.dp)) {
+        Column(Modifier.padding(8.dp), Arrangement.spacedBy(8.dp)) {
             Text(
                 text = stringResource(R.string.write_strategy),
-                fontWeight = FontWeight.Bold
+                style = MaterialTheme.typography.titleLarge,
             )
-            Text(text = stringResource(R.string.write_strategy_question))
+            Text(stringResource(R.string.write_strategy_question))
             WriteAllocate(Modifier.fillMaxWidth())
             NoWriteAllocate(Modifier.fillMaxWidth())
         }
@@ -45,7 +44,7 @@ fun WriteStrategy(modifier: Modifier = Modifier) {
 @Composable
 private fun WriteAllocate(modifier: Modifier = Modifier) {
     Card(modifier) {
-        Column(Modifier.padding(8.dp), Arrangement.spacedBy(8.dp)) {
+        Column(Modifier.padding(8.dp)) {
             Text(
                 text = stringResource(R.string.write_allocate),
                 fontWeight = FontWeight.Bold
@@ -65,24 +64,24 @@ private fun WriteAllocate(modifier: Modifier = Modifier) {
  */
 @Composable
 private fun NoWriteAllocate(modifier: Modifier = Modifier) {
-    Card(modifier) {}
-    Column(Modifier.padding(8.dp), Arrangement.spacedBy(8.dp)) {
-        Text(
-            text = stringResource(R.string.no_write_allocate),
-            fontWeight = FontWeight.Bold
-        )
-        Text(
-            text = stringResource(R.string.no_write_allocate_description),
-            style = MaterialTheme.typography.bodyMedium
-        )
+    Card(modifier) {
+        Column(Modifier.padding(8.dp)) {
+            Text(
+                text = stringResource(R.string.no_write_allocate),
+                fontWeight = FontWeight.Bold
+            )
+            Text(
+                text = stringResource(R.string.no_write_allocate_description),
+                style = MaterialTheme.typography.bodyMedium
+            )
+        }
     }
 }
 
 /**
  * Displays previews for the write strategy card.
  */
-@PreviewLightDark
-@PreviewDynamicColors
+@Preview(showBackground = true)
 @Composable
 private fun WriteStrategyPreviews() {
     ComputerArchitectureTheme {
