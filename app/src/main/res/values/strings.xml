@@ -252,11 +252,9 @@
     <string name="receive_api">Receive API</string>
     <string name="instruction_scheduling">Instruction Scheduling</string>
     <string name="energy_efficiency">Energy Efficiency</string>
-    <string name="flash_memory">Flash Memory</string>
     <string name="memory_hierarchy">Memory Hierarchy</string>
     <string name="networks">Networks</string>
     <string name="reliability">Reliability</string>
-    <string name="superscalarity">Superscalarity</string>
     <string name="flynns_taxonomy">Flynn\'s Taxonomy</string>
     <string name="tertiary_storage">Tertiary Storage</string>
     <string name="secondary_storage">Secondary Storage</string>
@@ -367,5 +365,18 @@
     <string name="access_entry">Access Entry</string>
     <string name="operations">Operations</string>
     <string name="calculator">Calculator</string>
+    <string name="static_scheduling">Static Scheduling</string>
+    <string name="dynamic_scheduling">Dynamic Scheduling</string>
+    <string name="parallelism">Parallelism</string>
+    <string name="static_scheduling_parallelism_description">Found and exploited during compilation.</string>
+    <string name="dynamic_scheduling_parallelism_description">Found and exploited during execution.</string>
+    <string name="execution_order">Execution Order</string>
+    <string name="static_scheduling_execution_order_description">In-order: sequence of instructions in memory, apart from jumps; hinders fast execution.</string>
+    <string name="dynamic_scheduling_execution_order_description">Out-of-order execution: e.g., scoreboarding, Tomasulo\'s algorithm</string>
+    <string name="scorboarding">Scoreboarding</string>
+    <string name="scorboarding_description">Stages: issue, read operands, execution, write results\nPhysical registers\nCentral acquisition\nWAR, WAW -> stall></string>
+    <string name="tomasulos_algorithm">Tomasulo\'s algorithm</string>
+    <string name="tomasulo_algorithm_description">Stages: issue, execution, write results\nLogical registers\nReservation stations\nWAR, WAW solved</string>
+
 
 </resources>

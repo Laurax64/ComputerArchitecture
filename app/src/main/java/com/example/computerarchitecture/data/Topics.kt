@@ -3,7 +3,6 @@ package com.example.computerarchitecture.data
 import com.example.computerarchitecture.ui.navigation.BranchPredictionDestination
 import com.example.computerarchitecture.ui.navigation.CachingDestination
 import com.example.computerarchitecture.ui.navigation.EnergyEfficiencyDestination
-import com.example.computerarchitecture.ui.navigation.FlashMemoryDestination
 import com.example.computerarchitecture.ui.navigation.GraphicsProcessingUnitsDestination
 import com.example.computerarchitecture.ui.navigation.InstructionSchedulingDestination
 import com.example.computerarchitecture.ui.navigation.MPIDestination
@@ -16,7 +15,6 @@ import com.example.computerarchitecture.ui.navigation.OpenMPDestination
 import com.example.computerarchitecture.ui.navigation.PipelineDestination
 import com.example.computerarchitecture.ui.navigation.ReliabilityDestination
 import com.example.computerarchitecture.ui.navigation.SpectreDestination
-import com.example.computerarchitecture.ui.navigation.SuperscalarityDestination
 
 
 /**
@@ -36,9 +34,7 @@ enum class Topic(val title: String, val navigationDestination: NavigationDestina
     INSTRUCTION_SCHEDULING("Instruction Scheduling", InstructionSchedulingDestination),
     RELIABILITY("Reliability", ReliabilityDestination),
     JUMP_PREDICTION("Branch Prediction", BranchPredictionDestination),
-    SUPERSCALARITY("Superscalarity", SuperscalarityDestination),
     MEMORY_HIERARCHY("Memory Hierarchy", MemoryHierarchyDestination),
-    FLASH_MEMORY("Flash Memory", FlashMemoryDestination),
     CACHING("Caching", CachingDestination),
     SPECTRE("Spectre", SpectreDestination),
     PIPELINE("Pipeline", PipelineDestination)

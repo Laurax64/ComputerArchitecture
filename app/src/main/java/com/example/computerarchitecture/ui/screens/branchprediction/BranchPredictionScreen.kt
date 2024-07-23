@@ -109,6 +109,11 @@ private fun OneBitPredictors(modifier: Modifier = Modifier) {
 
 }
 
+/**
+ * Displays a card with information about two bit predictors.
+ *
+ * @param modifier The modifier for the layout
+ */
 @Composable
 private fun NBitPredictors(modifier: Modifier = Modifier) {
     Card(modifier) {
@@ -121,6 +126,11 @@ private fun NBitPredictors(modifier: Modifier = Modifier) {
     }
 }
 
+/**
+ * Displays a card with information about correlating predictors.
+ *
+ * @param modifier The modifier for the layout
+ */
 @Composable
 private fun CorrelatingPredictors(modifier: Modifier = Modifier) {
     Card(modifier) {
@@ -136,6 +146,11 @@ private fun CorrelatingPredictors(modifier: Modifier = Modifier) {
     }
 }
 
+/**
+ * Displays a card with information about tournament predictors.
+ *
+ * @param modifier The modifier for the layout
+ */
 @Composable
 private fun TournamentPredictors(modifier: Modifier = Modifier) {
     Card(modifier) {
@@ -150,6 +165,11 @@ private fun TournamentPredictors(modifier: Modifier = Modifier) {
     }
 }
 
+/**
+ * Displays a card with information about the branch target buffer.
+ *
+ * @param modifier The modifier for the layout
+ */
 @Composable
 private fun BranchTargetBuffer(modifier: Modifier = Modifier) {
     var showPipeline by rememberSaveable { mutableStateOf(false) }

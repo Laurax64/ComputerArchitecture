@@ -100,27 +100,11 @@ object BranchPredictionDestination : NavigationDestination {
 }
 
 /**
- * Represents a navigation destination for the superscalarity topic.
- */
-object SuperscalarityDestination : NavigationDestination {
-    override val screenRoute: String = "superscalarity"
-    override val contentRoute: String = "superscalarity_content"
-}
-
-/**
  * Represents a navigation destination for the memory hierarchy topic.
  */
 object MemoryHierarchyDestination : NavigationDestination {
     override val screenRoute: String = "memory_hierarchy"
     override val contentRoute: String = "memory_hierarchy_content"
-}
-
-/**
- * Represents a navigation destination for the flash memory topic.
- */
-object FlashMemoryDestination : NavigationDestination {
-    override val screenRoute: String = "flash_memory"
-    override val contentRoute: String = "flash_memory_content"
 }
 
 /**

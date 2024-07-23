@@ -55,7 +55,7 @@ fun MemoryHierarchyScreen(
 @Composable
 fun MemoryHierarchyScreen(modifier: Modifier = Modifier) {
     Column(modifier.verticalScroll(rememberScrollState()), Arrangement.spacedBy(8.dp)) {
-        Levels(Modifier.fillMaxWidth())
+        HierarchyLevels(Modifier.fillMaxWidth())
         MemoryAddress(Modifier.fillMaxWidth())
         BlockPlacement(Modifier.fillMaxWidth())
         BlockIdentification(Modifier.fillMaxWidth())

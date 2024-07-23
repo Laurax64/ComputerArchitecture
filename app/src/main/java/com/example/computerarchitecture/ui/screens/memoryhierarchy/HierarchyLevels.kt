@@ -2,7 +2,6 @@ package com.example.computerarchitecture.ui.screens.memoryhierarchy
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
@@ -10,7 +9,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.computerarchitecture.R
@@ -34,21 +32,15 @@ private val technologies: List<Int> = listOf(
  * @param modifier The modifier for the layout
  */
 @Composable
-fun Levels(modifier: Modifier = Modifier) {
+fun HierarchyLevels(modifier: Modifier = Modifier) {
     Card(modifier) {
         Column(Modifier.padding(8.dp), Arrangement.spacedBy(8.dp)) {
             Text(
                 text = stringResource(R.string.hierarchy_levels),
-                fontWeight = FontWeight.Bold,
+                style = MaterialTheme.typography.titleLarge,
             )
             technologies.forEach {
-                Card(Modifier.fillMaxWidth()) {
-                    Text(
-                        text = stringResource(it),
-                        modifier = Modifier.padding(8.dp),
-                        style = MaterialTheme.typography.titleMedium,
-                    )
-                }
+                Text(text = stringResource(it))
             }
         }
     }
@@ -61,6 +53,6 @@ fun Levels(modifier: Modifier = Modifier) {
 @Composable
 fun HierarchyLevelsPreview() {
     ComputerArchitectureTheme {
-        Levels()
+        HierarchyLevels()
     }
 }

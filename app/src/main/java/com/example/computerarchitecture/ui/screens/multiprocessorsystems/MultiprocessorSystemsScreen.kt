@@ -104,19 +104,26 @@ fun MultiprocessorSystemsScreen(modifier: Modifier = Modifier) {
             0 -> SpeedupTab(
                 Modifier
                     .fillMaxWidth()
-                    .padding(16.dp))
+                    .padding(16.dp)
+            )
+
             1 -> NumaTab(
                 Modifier
                     .fillMaxWidth()
-                    .padding(16.dp))
+                    .padding(16.dp)
+            )
+
             2 -> FlynnsTaxonomy(
                 Modifier
                     .fillMaxWidth()
-                    .padding(16.dp))
+                    .padding(16.dp)
+            )
+
             3 -> CacheCoherence(
                 Modifier
                     .fillMaxWidth()
-                    .padding(16.dp))
+                    .padding(16.dp)
+            )
 
         }
     }

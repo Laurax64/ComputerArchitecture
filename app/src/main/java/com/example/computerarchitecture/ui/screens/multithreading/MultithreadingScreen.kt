@@ -41,7 +41,10 @@ fun MultithreadingScreen(
             )
         },
     ) {
-        MultithreadingScreen(Modifier.padding(it))
+        MultithreadingScreen(
+            Modifier
+                .padding(it)
+                .padding(start = 16.dp, end = 16.dp))
     }
 }
 
@@ -66,8 +69,8 @@ fun MultithreadingScreen(modifier: Modifier = Modifier) {
             }
         }
         when (state) {
-            0 -> HardwareLayer(Modifier.padding(24.dp))
-            1 -> SoftwareLayer(Modifier.padding(24.dp))
+            0 -> HardwareLayer()
+            1 -> SoftwareLayer()
         }
     }
 }
