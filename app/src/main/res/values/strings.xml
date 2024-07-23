@@ -357,9 +357,12 @@
     <string name="triangular_matrix">Triangular Matrix</string>
     <string name="triangular_matrix_description">f [ i , j ] = 1, if access to i is older than access to j, and 0
         otherwise for row index i and column index j.</string>
-    <string name="triangular_matrix_initialization">Initialization with 1.</string>
-    <string name="triangular_matrix_access"><![CDATA[Access to k, k becomes the most recent entry.\n∀j > k : f[k,j] = 0; ∀i < k : f[i,k] = 1]]></string>
-    <string name="triangular_matrix_cache_miss"><![CDATA[Miss in cache, searching for oldest entry k, for which the following applies.\n∀j > k : f[k,j] = 1 ∧ ∀i < k : f[i,k] = 0]]></string>
+    <string name="triangular_matrix_initialization">Initialization.</string>
+    <string name="triangular_matrix_initialization_description">All entries are set to 1.</string>
+    <string name="triangular_matrix_access">Access to k</string>
+    <string name="triangular_matrix_access_description"><![CDATA[k becomes the most recent entry. ∀j > k : f[k,j] = 0; ∀i < k : f[i,k] = 1]]></string>
+    <string name="triangular_matrix_cache_miss">Cache Miss</string>
+    <string name="triangular_matrix_cache_miss_description"><![CDATA[Searching for oldest entry k, for which the following applies.\n∀j > k : f[k,j] = 1 ∧ ∀i < k : f[i,k] = 0]]></string>
     <string name="triangular_matrix_cache_miss_zero">Cache miss, overwrite way 0.</string>
     <string name="access_entry">Access Entry</string>
     <string name="operations">Operations</string>

@@ -243,18 +243,31 @@ private fun TriangularMatrix(modifier: Modifier = Modifier) {
  */
 @Composable
 private fun Operations(modifier: Modifier = Modifier) {
-    Card(modifier) {
-        Column(
-            Modifier
-                .fillMaxWidth()
-                .padding(8.dp), Arrangement.spacedBy(8.dp)) {
-            Text(stringResource(R.string.operations), fontWeight = FontWeight.Bold)
-            Text(stringResource(R.string.triangular_matrix_initialization))
-            Text(stringResource(R.string.triangular_matrix_access))
-            Text(stringResource(R.string.triangular_matrix_cache_miss))
+    Column(modifier, Arrangement.spacedBy(8.dp)) {
+
+        Column {
+            Text(
+                stringResource(R.string.triangular_matrix_initialization),
+                fontWeight = FontWeight.Bold
+            )
+            Text(stringResource(R.string.triangular_matrix_initialization_description))
+        }
+        Column {
+            Text(
+                stringResource(R.string.triangular_matrix_access),
+                fontWeight = FontWeight.Bold
+            )
+            Text(stringResource(R.string.triangular_matrix_access_description))
+        }
+        Column {
+            Text(
+                stringResource(R.string.triangular_matrix_cache_miss),
+                fontWeight = FontWeight.Bold
+            )
+            Text(stringResource(R.string.triangular_matrix_cache_miss_description))
+        }
         }
     }
-}
 
 /**
  * Displays a card with information about LRU cache matrix.
@@ -271,15 +284,13 @@ fun LRUCacheMatrix(modifier: Modifier = Modifier) {
             )
         )
     }
-
-    Card(modifier) {
-        Column(Modifier.padding(8.dp), Arrangement.spacedBy(8.dp), Alignment.CenterHorizontally) {
+    Column(modifier, Arrangement.spacedBy(8.dp), Alignment.CenterHorizontally) {
             MatrixDisplay(Modifier, matrix)
             CacheControls(Modifier, matrix) { updatedMatrix ->
                 matrix = updatedMatrix
             }
         }
-    }
+
 }
 
 /**
