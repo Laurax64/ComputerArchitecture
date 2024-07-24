@@ -12,7 +12,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.computerarchitecture.R
 
@@ -46,8 +45,7 @@ private fun SISD(modifier: Modifier = Modifier) {
         Column(Modifier.padding(8.dp)) {
             Text(
                 text = stringResource(R.string.sisd),
-                style = MaterialTheme.typography.titleLarge,
-                fontWeight = FontWeight.Bold
+                style = MaterialTheme.typography.titleLarge
             )
             Text(
                 text = stringResource(R.string.sisd_description),
@@ -67,8 +65,7 @@ private fun SIMD(modifier: Modifier = Modifier) {
         Column(Modifier.padding(8.dp)) {
             Text(
                 text = stringResource(R.string.simd),
-                style = MaterialTheme.typography.titleLarge,
-                fontWeight = FontWeight.Bold
+                style = MaterialTheme.typography.titleLarge
             )
             Text(
                 text = stringResource(R.string.simd_description),
@@ -88,8 +85,7 @@ private fun MISD(modifier: Modifier = Modifier) {
         Column(Modifier.padding(8.dp)) {
             Text(
                 text = stringResource(R.string.misd),
-                style = MaterialTheme.typography.titleLarge,
-                fontWeight = FontWeight.Bold
+                style = MaterialTheme.typography.titleLarge
             )
             Text(
                 text = stringResource(R.string.misd_description),
@@ -109,8 +105,7 @@ private fun MIMD(modifier: Modifier = Modifier) {
         Column(Modifier.padding(8.dp)) {
             Text(
                 text = stringResource(R.string.mimd),
-                style = MaterialTheme.typography.titleLarge,
-                fontWeight = FontWeight.Bold
+                style = MaterialTheme.typography.titleLarge
             )
             Text(
                 text = stringResource(R.string.mimd_description),
