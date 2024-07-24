@@ -80,7 +80,7 @@ fun OpenMPScreen(modifier: Modifier = Modifier) {
 
 /**
  * Displays a card with information about the OpenMP syntax.
- * 
+ *
  * @param modifier The modifier for the layout
  */
 @Composable
@@ -313,20 +313,22 @@ private fun Sections(modifier: Modifier = Modifier) {
  */
 @Composable
 private fun Clauses(modifier: Modifier = Modifier) {
-    Card(modifier) {
-        Text(
-            stringResource(R.string.clauses),
-            style = MaterialTheme.typography.titleLarge,
-            modifier = Modifier.padding(8.dp)
-        )
+    var expanded by rememberSaveable { mutableStateOf(false) }
+    Card({ expanded = !expanded }, modifier) {
         Column(Modifier.padding(8.dp), Arrangement.spacedBy(8.dp)) {
-            Default(Modifier.fillMaxWidth())
-            Shared(Modifier.fillMaxWidth())
-            Private(Modifier.fillMaxWidth())
-            Reduction(Modifier.fillMaxWidth())
-            NoWait(Modifier.fillMaxWidth())
-            NumThread(Modifier.fillMaxWidth())
-            Schedule(Modifier.fillMaxWidth())
+            Text(
+                stringResource(R.string.clauses),
+                style = MaterialTheme.typography.titleLarge
+            )
+            if (expanded) {
+                Default(Modifier.fillMaxWidth())
+                Shared(Modifier.fillMaxWidth())
+                Private(Modifier.fillMaxWidth())
+                Reduction(Modifier.fillMaxWidth())
+                NoWait(Modifier.fillMaxWidth())
+                NumThread(Modifier.fillMaxWidth())
+                Schedule(Modifier.fillMaxWidth())
+            }
         }
     }
 }
@@ -475,16 +477,18 @@ private fun Schedule(modifier: Modifier = Modifier) {
  */
 @Composable
 private fun Functions(modifier: Modifier = Modifier) {
-    Card(modifier) {
-        Column(Modifier.padding(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+    var expanded by rememberSaveable { mutableStateOf(false) }
+    Card({ expanded = !expanded }, modifier) {
+        Column(Modifier.padding(8.dp), Arrangement.spacedBy(8.dp)) {
             Text(
                 text = stringResource(R.string.functions),
                 style = MaterialTheme.typography.titleLarge,
-                fontWeight = FontWeight.Bold
             )
-            SetNumThreads(Modifier.fillMaxWidth())
-            GetNumThreads(Modifier.fillMaxWidth())
-            GetThreadNum(Modifier.fillMaxWidth())
+            if (expanded) {
+                SetNumThreads(Modifier.fillMaxWidth())
+                GetNumThreads(Modifier.fillMaxWidth())
+                GetThreadNum(Modifier.fillMaxWidth())
+            }
         }
     }
 }
