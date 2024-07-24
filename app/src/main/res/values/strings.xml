@@ -43,7 +43,6 @@
     <string name="gpus">Graphics Processing Units</string>
     <string name="open_cl">OpenCL</string>
     <string name="posix_threads">POSIX Threads</string>
-    <string name="pthread_create">pthread_create(thread, attr, start_routine, arg)</string>
     <string name="pthread_exit">pthread_exit(status)</string>
     <string name="pthread_join">pthread_join(thread, status)</string>
     <string name="pthread_cancel">pthread_cancel(thread)</string>
@@ -58,7 +57,9 @@
     <string name="attr">attr</string>
     <string name="start_routine">start_routine</string>
     <string name="arg">arg</string>
-    <string name="pthread_create_description">Creates a new thread and makes it executable. </string>
+    <string name="pthread_create">pthread_create(thread, attr, start_routine, arg)</string>
+    <string name="pthread_create_description">Creates a new thread executing start_routine with arg as its argument.
+    </string>
     <string name="thread_description">An opaque, unique identifier for the new thread returned by the
         subroutine.</string>
     <string name="attr_description">An opaque attribute object that may be used to set thread attributes.

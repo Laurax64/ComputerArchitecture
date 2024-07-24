@@ -11,15 +11,19 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewScreenSizes
 import androidx.compose.ui.unit.dp
 import com.example.computerarchitecture.R
+import com.example.computerarchitecture.openWebsite
 import com.example.computerarchitecture.ui.theme.ComputerArchitectureTheme
+
 
 /**
  * Displays the software layer tab, including descriptions for POSIX threads.
@@ -28,7 +32,7 @@ import com.example.computerarchitecture.ui.theme.ComputerArchitectureTheme
 fun SoftwareLayer(modifier: Modifier = Modifier) {
     Column(
         modifier = modifier.verticalScroll(rememberScrollState()),
-        verticalArrangement = Arrangement.spacedBy(12.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         Text(
             text = stringResource(R.string.posix_threads),
@@ -47,8 +51,7 @@ private fun ThreadManagement(modifier: Modifier = Modifier) {
         Column(Modifier.padding(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
             Text(
                 text = stringResource(R.string.thread_management),
-                style = MaterialTheme.typography.titleLarge,
-                fontWeight = FontWeight.Bold
+                style = MaterialTheme.typography.titleLarge
             )
             PThreadCreation(Modifier.fillMaxWidth())
             PThreadExit(Modifier.fillMaxWidth())
@@ -58,14 +61,19 @@ private fun ThreadManagement(modifier: Modifier = Modifier) {
     }
 }
 
+
+/**
+ * Displays a card with information about mutex variables.
+ *
+ * @param modifier The modifier for the layout
+ */
 @Composable
 private fun MutexVariables(modifier: Modifier = Modifier) {
     Card(modifier) {
         Column(Modifier.padding(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
             Text(
                 text = stringResource(R.string.mutex_variables),
-                style = MaterialTheme.typography.titleLarge,
-                fontWeight = FontWeight.Bold
+                style = MaterialTheme.typography.titleLarge
             )
             PthreadMutexInit(Modifier.fillMaxWidth())
             PthreadMutexDestroy(Modifier.fillMaxWidth())
@@ -75,14 +83,18 @@ private fun MutexVariables(modifier: Modifier = Modifier) {
     }
 }
 
+/**
+ * Displays a card with information about condition variables.
+ *
+ * @param modifier The modifier for the layout
+ */
 @Composable
 private fun ConditionVariables(modifier: Modifier = Modifier) {
     Card(modifier) {
         Column(Modifier.padding(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
             Text(
                 text = stringResource(R.string.condition_variables),
-                style = MaterialTheme.typography.titleLarge,
-                fontWeight = FontWeight.Bold
+                style = MaterialTheme.typography.titleLarge
             )
             PthreadConditionInit(Modifier.fillMaxWidth())
             PthreadConditionSignal(Modifier.fillMaxWidth())
@@ -98,6 +110,7 @@ private fun ConditionVariables(modifier: Modifier = Modifier) {
  */
 @Composable
 private fun PThreadCreation(modifier: Modifier = Modifier) {
+    val context = LocalContext.current
     Card(modifier.clickable {}
     ) {
         Column(Modifier.padding(8.dp)) {
@@ -106,6 +119,13 @@ private fun PThreadCreation(modifier: Modifier = Modifier) {
                 fontWeight = FontWeight.Bold,
             )
             Text(stringResource(R.string.pthread_create_description))
+            TextButton(
+                onClick = {
+                    openWebsite("https://onlinegdb.com/lDcvdpNdK", context)
+                },
+            ) {
+                Text(stringResource(R.string.example))
+            }
         }
     }
 }
@@ -268,8 +288,7 @@ private fun PthreadConditionInit(modifier: Modifier = Modifier) {
  */
 @Composable
 private fun PthreadConditionSignal(modifier: Modifier = Modifier) {
-    Card(modifier.clickable {}
-    ) {
+    Card(modifier) {
         Column(Modifier.padding(8.dp)) {
             Text(
                 text = stringResource(R.string.pthread_cond_signal),
@@ -287,8 +306,7 @@ private fun PthreadConditionSignal(modifier: Modifier = Modifier) {
  */
 @Composable
 private fun PthreadConditionWait(modifier: Modifier = Modifier) {
-    Card(modifier.clickable {}
-    ) {
+    Card(modifier) {
         Column(Modifier.padding(8.dp)) {
             Text(
                 text = stringResource(R.string.pthread_cond_wait),

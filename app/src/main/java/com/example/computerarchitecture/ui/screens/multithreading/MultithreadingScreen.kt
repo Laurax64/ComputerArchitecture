@@ -28,10 +28,7 @@ import com.example.computerarchitecture.ui.theme.ComputerArchitectureTheme
  * @param modifier The modifier for the layout
  */
 @Composable
-fun MultithreadingScreen(
-    navigateBack: () -> Unit,
-    modifier: Modifier = Modifier,
-) {
+fun MultithreadingScreen(navigateBack: () -> Unit, modifier: Modifier = Modifier) {
     Scaffold(
         modifier = modifier,
         topBar = {
@@ -44,7 +41,8 @@ fun MultithreadingScreen(
         MultithreadingScreen(
             Modifier
                 .padding(it)
-                .padding(start = 16.dp, end = 16.dp))
+                .padding(start = 16.dp, end = 16.dp)
+        )
     }
 }
 
@@ -69,8 +67,8 @@ fun MultithreadingScreen(modifier: Modifier = Modifier) {
             }
         }
         when (state) {
-            0 -> HardwareLayer()
-            1 -> SoftwareLayer()
+            0 -> HardwareLayer(Modifier.padding(8.dp))
+            1 -> SoftwareLayer(Modifier.padding(8.dp))
         }
     }
 }

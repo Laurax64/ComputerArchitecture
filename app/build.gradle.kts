@@ -67,6 +67,7 @@ dependencies {
     implementation(libs.androidx.ui.text.google.fonts)
     implementation(libs.androidx.material3.windowWidthSizeClass)
     implementation(libs.zoomable)
+    implementation(libs.androidx.browser)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

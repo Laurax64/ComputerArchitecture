@@ -1,30 +1,17 @@
 package com.example.computerarchitecture
 
-import android.annotation.SuppressLint
-import android.webkit.WebSettings
-import android.webkit.WebView
-import android.webkit.WebViewClient
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.viewinterop.AndroidView
+import android.content.Context
+import android.net.Uri
+import androidx.browser.customtabs.CustomTabsIntent
 
 /**
- * Opens a [WebView] with the given [url].
+ * Opens the given URL in a custom tab.
  *
- * @param url The URL to open in the [WebView]
+ * @param url The URL to open
+ * @param context The context of the activity
  */
-@SuppressLint("SetJavaScriptEnabled")
-@Composable
-fun OpenWebView(url: String, modifier: Modifier = Modifier) {
-    AndroidView(
-        factory = { context ->
-            WebView(context).apply {
-                webViewClient = WebViewClient()
-                settings.javaScriptEnabled = true
-                settings.mixedContentMode = WebSettings.MIXED_CONTENT_ALWAYS_ALLOW
-                loadUrl(url)
-            }
-        },
-
-        )
+fun openWebsite(url: String, context: Context) {
+    val intent = CustomTabsIntent.Builder()
+        .build()
+    intent.launchUrl(context, Uri.parse(url))
 }
