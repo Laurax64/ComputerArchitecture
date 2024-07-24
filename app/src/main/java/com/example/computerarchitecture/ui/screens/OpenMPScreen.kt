@@ -11,7 +11,6 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -85,50 +84,57 @@ fun OpenMPScreen(modifier: Modifier = Modifier) {
  */
 @Composable
 private fun Syntax(modifier: Modifier = Modifier) {
-    var expanded by rememberSaveable { mutableStateOf(false) }
-    Card({ expanded = !expanded }, modifier) {
-        Column(Modifier.padding(8.dp), Arrangement.spacedBy(8.dp)) {
+    Card(modifier) {
+        Column(Modifier.padding(8.dp)) {
             Text(
                 text = stringResource(R.string.syntax),
                 style = MaterialTheme.typography.titleLarge,
             )
-            if (expanded) {
-                Text(
-                    buildAnnotatedString {
-                        withStyle(SpanStyle(fontWeight = FontWeight.Bold)) {
-                            append("#pragma omp ")
-                        }
-                        append("construct clauses")
-                    }
-                )
-            }
+            Pragma(Modifier.fillMaxWidth())
         }
     }
 }
+
+
+/**
+ * Displays a card with information about OpenMP pragma.
+ *
+ * @param modifier The modifier for the layout
+ */
+@Composable
+private fun Pragma(modifier: Modifier = Modifier) {
+            Text(
+                buildAnnotatedString {
+                    withStyle(SpanStyle(fontWeight = FontWeight.Bold)) {
+                        append("#pragma omp ")
+                    }
+                    append("construct clauses")
+                },
+                modifier
+            )
+}
+
 
 /**
  * Displays a card with information about OpenMP constructs.
  */
 @Composable
 private fun Constructs(modifier: Modifier = Modifier) {
-    var expanded by rememberSaveable { mutableStateOf(false) }
-    Card({ expanded = !expanded }, modifier) {
-        Column(Modifier.padding(8.dp), Arrangement.spacedBy(8.dp)) {
+    Card(modifier) {
+        Column(Modifier.padding(8.dp)) {
             Text(
                 stringResource(R.string.constructs),
                 style = MaterialTheme.typography.titleLarge,
             )
-            if (expanded) {
-                Parallel(Modifier.fillMaxWidth())
-                Critical(Modifier.fillMaxWidth())
-                Barrier(Modifier.fillMaxWidth())
-                Atomic(Modifier.fillMaxWidth())
-                Ordered(Modifier.fillMaxWidth())
-                Single(Modifier.fillMaxWidth())
-                Master(Modifier.fillMaxWidth())
-                For(Modifier.fillMaxWidth())
-                Sections(Modifier.fillMaxWidth())
-            }
+            Parallel(Modifier.fillMaxWidth())
+            Critical(Modifier.fillMaxWidth())
+            Barrier(Modifier.fillMaxWidth())
+            Atomic(Modifier.fillMaxWidth())
+            Ordered(Modifier.fillMaxWidth())
+            Single(Modifier.fillMaxWidth())
+            Master(Modifier.fillMaxWidth())
+            For(Modifier.fillMaxWidth())
+            Sections(Modifier.fillMaxWidth())
         }
     }
 }
@@ -140,11 +146,14 @@ private fun Constructs(modifier: Modifier = Modifier) {
  */
 @Composable
 private fun Parallel(modifier: Modifier = Modifier) {
-    Card(modifier) {
+    var expanded by rememberSaveable { mutableStateOf(false) }
+    Card({ expanded = !expanded }, modifier) {
         Column(Modifier.padding(8.dp)) {
             Text("parallel", fontWeight = FontWeight.Bold)
-            Text(stringResource(R.string.parallel_description))
-
+            if (expanded) {
+                Text(stringResource(R.string.parallel_description))
+                Image(painterResource(R.drawable.open_mp_parallel_example), null)
+            }
         }
     }
 }
@@ -156,13 +165,16 @@ private fun Parallel(modifier: Modifier = Modifier) {
  */
 @Composable
 private fun Critical(modifier: Modifier = Modifier) {
-    Card(modifier) {
+    var expanded by rememberSaveable { mutableStateOf(false) }
+    Card({ expanded = !expanded }, modifier) {
         Column(Modifier.padding(8.dp)) {
             Text(
                 text = "critical",
                 fontWeight = FontWeight.Bold
             )
-            Text(stringResource(R.string.pragma_omp_critical_description))
+            if (expanded) {
+                Text(stringResource(R.string.pragma_omp_critical_description))
+            }
         }
     }
 }
@@ -174,13 +186,16 @@ private fun Critical(modifier: Modifier = Modifier) {
  */
 @Composable
 private fun Barrier(modifier: Modifier = Modifier) {
-    Card(modifier) {
+    var expanded by rememberSaveable { mutableStateOf(false) }
+    Card({ expanded = !expanded }, modifier) {
         Column(Modifier.padding(8.dp)) {
             Text(
                 text = "barrier",
                 fontWeight = FontWeight.Bold
             )
-            Text(stringResource(R.string.barrier_description))
+            if (expanded) {
+                Text(stringResource(R.string.barrier_description))
+            }
         }
     }
 }
@@ -192,13 +207,16 @@ private fun Barrier(modifier: Modifier = Modifier) {
  */
 @Composable
 private fun Atomic(modifier: Modifier = Modifier) {
-    Card(modifier) {
+    var expanded by rememberSaveable { mutableStateOf(false) }
+    Card({ expanded = !expanded }, modifier) {
         Column(Modifier.padding(8.dp)) {
             Text(
                 text = "atomic",
                 fontWeight = FontWeight.Bold
             )
-            Text(stringResource(R.string.pragma_omp_atomic_description))
+            if (expanded) {
+                Text(stringResource(R.string.pragma_omp_atomic_description))
+            }
         }
     }
 }
@@ -210,19 +228,15 @@ private fun Atomic(modifier: Modifier = Modifier) {
  */
 @Composable
 private fun Ordered(modifier: Modifier = Modifier) {
-    var showExample by rememberSaveable { mutableStateOf(false) }
-    Card(modifier) {
+    var expanded by rememberSaveable { mutableStateOf(false) }
+    Card({ expanded = !expanded }, modifier) {
         Column(Modifier.padding(8.dp)) {
             Text(
                 text = "ordered",
                 fontWeight = FontWeight.Bold
             )
-            Text(stringResource(R.string.order_description))
-            TextButton(onClick = { showExample = !showExample }) {
-                Text(stringResource(R.string.example))
-            }
-
-            if (showExample) {
+            if (expanded) {
+                Text(stringResource(R.string.order_description))
                 Image(painter = painterResource(R.drawable.open_mp_ordered_example), null)
             }
         }
@@ -236,13 +250,16 @@ private fun Ordered(modifier: Modifier = Modifier) {
  */
 @Composable
 private fun Single(modifier: Modifier = Modifier) {
-    Card(modifier) {
+    var expanded by rememberSaveable { mutableStateOf(false) }
+    Card({ expanded = !expanded }, modifier) {
         Column(Modifier.padding(8.dp)) {
             Text(
                 text = "single",
                 fontWeight = FontWeight.Bold
             )
-            Text(stringResource(R.string.single_description))
+            if (expanded) {
+                Text(stringResource(R.string.single_description))
+            }
         }
     }
 }
@@ -254,13 +271,16 @@ private fun Single(modifier: Modifier = Modifier) {
  */
 @Composable
 private fun Master(modifier: Modifier = Modifier) {
-    Card(modifier) {
+    var expanded by rememberSaveable { mutableStateOf(false) }
+    Card({ expanded = !expanded }, modifier) {
         Column(Modifier.padding(8.dp)) {
             Text(
                 text = "master",
                 fontWeight = FontWeight.Bold
             )
-            Text(stringResource(R.string.master_description))
+            if (expanded) {
+                Text(stringResource(R.string.master_description))
+            }
         }
     }
 }
@@ -273,13 +293,16 @@ private fun Master(modifier: Modifier = Modifier) {
  */
 @Composable
 private fun For(modifier: Modifier = Modifier) {
-    Card(modifier) {
+    var expanded by rememberSaveable { mutableStateOf(false) }
+    Card({ expanded = !expanded }, modifier) {
         Column(Modifier.padding(8.dp)) {
             Text(
                 text = "for",
                 fontWeight = FontWeight.Bold
             )
-            Text(stringResource(R.string.for_description))
+            if (expanded) {
+                Text(stringResource(R.string.for_description))
+            }
         }
     }
 }
@@ -291,15 +314,12 @@ private fun For(modifier: Modifier = Modifier) {
  */
 @Composable
 private fun Sections(modifier: Modifier = Modifier) {
-    var showExample by rememberSaveable { mutableStateOf(false) }
-    Card(modifier) {
+    var expanded by rememberSaveable { mutableStateOf(false) }
+    Card({ expanded = !expanded }, modifier) {
         Column(Modifier.padding(8.dp)) {
             Text("sections", fontWeight = FontWeight.Bold)
+            if (expanded) {
             Text(stringResource(R.string.sections_description))
-            TextButton(onClick = { showExample = !showExample }) {
-                Text(stringResource(R.string.example))
-            }
-            if (showExample) {
                 Image(painterResource(R.drawable.open_mp_sections_example), null)
             }
         }
@@ -313,14 +333,12 @@ private fun Sections(modifier: Modifier = Modifier) {
  */
 @Composable
 private fun Clauses(modifier: Modifier = Modifier) {
-    var expanded by rememberSaveable { mutableStateOf(false) }
-    Card({ expanded = !expanded }, modifier) {
-        Column(Modifier.padding(8.dp), Arrangement.spacedBy(8.dp)) {
+    Card(modifier) {
+        Column(Modifier.padding(8.dp)) {
             Text(
                 stringResource(R.string.clauses),
                 style = MaterialTheme.typography.titleLarge
             )
-            if (expanded) {
                 Default(Modifier.fillMaxWidth())
                 Shared(Modifier.fillMaxWidth())
                 Private(Modifier.fillMaxWidth())
@@ -328,7 +346,6 @@ private fun Clauses(modifier: Modifier = Modifier) {
                 NoWait(Modifier.fillMaxWidth())
                 NumThread(Modifier.fillMaxWidth())
                 Schedule(Modifier.fillMaxWidth())
-            }
         }
     }
 }
@@ -340,13 +357,16 @@ private fun Clauses(modifier: Modifier = Modifier) {
  */
 @Composable
 private fun Default(modifier: Modifier = Modifier) {
-    Card(modifier) {
+    var expanded by rememberSaveable { mutableStateOf(false) }
+    Card({ expanded = !expanded }, modifier) {
         Column(Modifier.padding(8.dp)) {
             Text(
                 text = stringResource(R.string.default_syntax),
                 fontWeight = FontWeight.Bold
             )
-            Text(stringResource(R.string.default_description))
+            if (expanded) {
+                Text(stringResource(R.string.default_description))
+            }
         }
     }
 }
@@ -358,13 +378,16 @@ private fun Default(modifier: Modifier = Modifier) {
  */
 @Composable
 private fun Shared(modifier: Modifier = Modifier) {
-    Card(modifier) {
+    var expanded by rememberSaveable { mutableStateOf(false) }
+    Card({ expanded = !expanded }, modifier) {
         Column(Modifier.padding(8.dp)) {
             Text(
                 text = stringResource(R.string.shared_syntax),
                 fontWeight = FontWeight.Bold
             )
-            Text(stringResource(R.string.shared_description))
+            if (expanded) {
+                Text(stringResource(R.string.shared_description))
+            }
         }
     }
 }
@@ -376,13 +399,16 @@ private fun Shared(modifier: Modifier = Modifier) {
  */
 @Composable
 private fun Private(modifier: Modifier = Modifier) {
-    Card(modifier) {
+    var expanded by rememberSaveable { mutableStateOf(false) }
+    Card({ expanded = !expanded }, modifier) {
         Column(Modifier.padding(8.dp)) {
             Text(
                 text = stringResource(R.string.private_syntax),
                 fontWeight = FontWeight.Bold
             )
-            Text(stringResource(R.string.private_description))
+            if (expanded) {
+                Text(stringResource(R.string.private_description))
+            }
         }
     }
 }
@@ -394,18 +420,15 @@ private fun Private(modifier: Modifier = Modifier) {
  */
 @Composable
 private fun Reduction(modifier: Modifier = Modifier) {
-    var showExample by rememberSaveable { mutableStateOf(false) }
-    Card(modifier) {
+    var expanded by rememberSaveable { mutableStateOf(false) }
+    Card({ expanded = !expanded }, modifier) {
         Column(Modifier.padding(8.dp)) {
             Text(
                 text = stringResource(R.string.reduction_syntax),
                 fontWeight = FontWeight.Bold
             )
+            if (expanded) {
             Text(stringResource(R.string.reduction_description))
-            TextButton(onClick = { showExample = !showExample }) {
-                Text(stringResource(R.string.example))
-            }
-            if (showExample) {
                 Image(painter = painterResource(R.drawable.open_mp_reduction_example), null)
             }
         }
@@ -419,15 +442,16 @@ private fun Reduction(modifier: Modifier = Modifier) {
  */
 @Composable
 private fun NoWait(modifier: Modifier = Modifier) {
-    Card(
-        modifier
-    ) {
+    var expanded by rememberSaveable { mutableStateOf(false) }
+    Card({ expanded = !expanded }, modifier) {
         Column(Modifier.padding(8.dp)) {
             Text(
                 text = stringResource(R.string.no_wait_syntax),
                 fontWeight = FontWeight.Bold
             )
-            Text(stringResource(R.string.no_wait_description))
+            if (expanded) {
+                Text(stringResource(R.string.no_wait_description))
+            }
         }
     }
 }
@@ -439,15 +463,16 @@ private fun NoWait(modifier: Modifier = Modifier) {
  */
 @Composable
 private fun NumThread(modifier: Modifier = Modifier) {
-    Card(
-        modifier
-    ) {
+    var expanded by rememberSaveable { mutableStateOf(false) }
+    Card({ expanded = !expanded }, modifier) {
         Column(Modifier.padding(8.dp)) {
             Text(
                 text = stringResource(R.string.num_threads_syntax),
                 fontWeight = FontWeight.Bold
             )
-            Text(stringResource(R.string.num_threads_description))
+            if (expanded) {
+                Text(stringResource(R.string.num_threads_description))
+            }
         }
     }
 }
@@ -459,13 +484,16 @@ private fun NumThread(modifier: Modifier = Modifier) {
  */
 @Composable
 private fun Schedule(modifier: Modifier = Modifier) {
-    Card(modifier) {
+    var expanded by rememberSaveable { mutableStateOf(false) }
+    Card({ expanded = !expanded }, modifier) {
         Column(Modifier.padding(8.dp), Arrangement.spacedBy(8.dp)) {
             Text(
                 text = "schedule(schedule_kind, chunk_size)",
                 fontWeight = FontWeight.Bold
             )
-            Text(stringResource(R.string.schedule_pragma_description))
+            if (expanded) {
+                Text(stringResource(R.string.schedule_pragma_description))
+            }
         }
     }
 }
@@ -477,20 +505,17 @@ private fun Schedule(modifier: Modifier = Modifier) {
  */
 @Composable
 private fun Functions(modifier: Modifier = Modifier) {
-    var expanded by rememberSaveable { mutableStateOf(false) }
-    Card({ expanded = !expanded }, modifier) {
-        Column(Modifier.padding(8.dp), Arrangement.spacedBy(8.dp)) {
+    Card(modifier) {
+        Column(Modifier.padding(8.dp)) {
             Text(
                 text = stringResource(R.string.functions),
                 style = MaterialTheme.typography.titleLarge,
             )
-            if (expanded) {
                 SetNumThreads(Modifier.fillMaxWidth())
                 GetNumThreads(Modifier.fillMaxWidth())
                 GetThreadNum(Modifier.fillMaxWidth())
             }
         }
-    }
 }
 
 /**
@@ -500,13 +525,16 @@ private fun Functions(modifier: Modifier = Modifier) {
  */
 @Composable
 private fun SetNumThreads(modifier: Modifier = Modifier) {
-    Card(modifier) {
+    var expanded by rememberSaveable { mutableStateOf(false) }
+    Card({ expanded = !expanded }, modifier) {
         Column(Modifier.padding(8.dp)) {
             Text(
                 text = stringResource(R.string.set_num_threads),
                 fontWeight = FontWeight.Bold,
             )
+            if (expanded) {
             Text(stringResource(R.string.set_num_threads_description))
+            }
         }
     }
 }
@@ -518,13 +546,17 @@ private fun SetNumThreads(modifier: Modifier = Modifier) {
  */
 @Composable
 private fun GetNumThreads(modifier: Modifier = Modifier) {
-    Card(modifier) {
+    var expanded by rememberSaveable { mutableStateOf(false) }
+    Card({ expanded = !expanded }, modifier) {
         Column(Modifier.padding(8.dp)) {
             Text(
                 text = stringResource(R.string.get_num_threads),
                 fontWeight = FontWeight.Bold,
             )
-            Text(stringResource(R.string.get_num_threads_description))
+            if (expanded) {
+                Text(stringResource(R.string.get_num_threads_description))
+                Image(painter = painterResource(R.drawable.open_mp_get_num_threads_example), null)
+            }
         }
     }
 }
@@ -536,13 +568,16 @@ private fun GetNumThreads(modifier: Modifier = Modifier) {
  */
 @Composable
 private fun GetThreadNum(modifier: Modifier = Modifier) {
-    Card(modifier) {
+    var expanded by rememberSaveable { mutableStateOf(false) }
+    Card({ expanded = !expanded }, modifier) {
         Column(Modifier.padding(8.dp)) {
             Text(
                 text = stringResource(R.string.get_thread_num),
                 fontWeight = FontWeight.Bold,
             )
-            Text(stringResource(R.string.get_thread_num_description))
+            if (expanded) {
+                Text(stringResource(R.string.get_thread_num_description))
+            }
         }
     }
 }
