@@ -10,13 +10,10 @@ import androidx.navigation.compose.composable
 import com.example.computerarchitecture.ui.PipelineScreen
 import com.example.computerarchitecture.ui.SpectreScreen
 import com.example.computerarchitecture.ui.screens.EnergyEfficiencyScreen
-import com.example.computerarchitecture.ui.screens.FlashMemoryScreen
 import com.example.computerarchitecture.ui.screens.GPUsScreen
 import com.example.computerarchitecture.ui.screens.MPIScreen
 import com.example.computerarchitecture.ui.screens.NetworksScreen
 import com.example.computerarchitecture.ui.screens.OpenMPScreen
-import com.example.computerarchitecture.ui.screens.ReliabilityScreen
-import com.example.computerarchitecture.ui.screens.SuperscalarityScreen
 import com.example.computerarchitecture.ui.screens.TopicsScreen
 import com.example.computerarchitecture.ui.screens.branchprediction.BranchPredictionScreen
 import com.example.computerarchitecture.ui.screens.caching.CachingScreen
@@ -66,21 +63,6 @@ fun ComputerArchitectureNavHost(
         composable(InstructionSchedulingDestination.screenRoute) {
             InstructionSchedulingScreen(navController::popBackStack)
         }
-        composable(ReliabilityDestination.screenRoute) {
-            ReliabilityScreen(navController::popBackStack)
-        }
-        composable(BranchPredictionDestination.screenRoute) {
-            BranchPredictionScreen(navController::popBackStack)
-        }
-        composable(SuperscalarityDestination.screenRoute) {
-            SuperscalarityScreen(navController::popBackStack)
-        }
-        composable(MemoryHierarchyDestination.screenRoute) {
-            MemoryHierarchyScreen(navController::popBackStack)
-        }
-        composable(FlashMemoryDestination.screenRoute) {
-            FlashMemoryScreen(navController::popBackStack)
-        }
         composable(CachingDestination.screenRoute) {
             CachingScreen(navController::popBackStack)
         }
@@ -122,20 +104,11 @@ fun NavGraphBuilder.screenContents() {
     composable(InstructionSchedulingDestination.contentRoute) {
         InstructionSchedulingScreen()
     }
-    composable(ReliabilityDestination.contentRoute) {
-        ReliabilityScreen()
-    }
     composable(MemoryHierarchyDestination.contentRoute) {
         MemoryHierarchyScreen()
     }
     composable(BranchPredictionDestination.contentRoute) {
         BranchPredictionScreen()
-    }
-    composable(SuperscalarityDestination.contentRoute) {
-        SuperscalarityScreen()
-    }
-    composable(FlashMemoryDestination.contentRoute) {
-        FlashMemoryScreen()
     }
     composable(CachingDestination.contentRoute) {
         CachingScreen()

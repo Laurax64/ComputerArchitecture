@@ -139,25 +139,19 @@
     <string name="mutex_variables">Mutex Variables</string>
     <string name="condition_variables">Condition Variables</string>
     <string name="open_mp">OpenMP</string>
-    <string name="parallel_directive">Parallel Directive</string>
-    <string name="parallel_syntax">#pragma omp parallel</string>
     Instructs the master thread to
+    <string name="clauses">Clauses</string>
     <string name="parallel_description">Tells the master thread to fork and create a team of threads.</string>
-    <string name="parallel_for_pragma_description">Compiler will automatically assign loop iterations to parallel threads.
-        \nclauses : nowait, order, ordered, private, reduction, schedule</string>
-    <string name="pragma_omp_parallel_for">#pragma omp parallel for</string>
-    <string name="library_functions">Library Functions</string>
+    <string name="for_description">Compiler will automatically assign loop iterations to parallel threads.</string>
+    <string name="functions">Functions</string>
     <string name="set_num_threads">omp_set_num_threads(num_threads)</string>
     <string name="set_num_threads_description">Affects the number of threads to be used for subsequent parallel regions that do not specify a num_threads clause.</string>
     <string name="get_num_threads">omp_get_num_threads()</string>
     <string name="get_num_threads_description">Returns the number of threads in the current team.</string>
     <string name="get_thread_num">omp_get_thread_num()</string>
     <string name="get_thread_num_description">Returns the thread number, within the current team, of the calling thread.</string>
-    <string name="schedule_syntax">schedule(schedule_kind, chunk_size)</string>
     <string name="schedule_pragma_description">schedule_kind can be static, dynamic, guided, auto or runtime.</string>
-    <string name="pragma_omp_critical">#pragma omp critical</string>
     <string name="pragma_omp_critical_description">Restricts execution of the associated structured block to a single thread at a time.</string>
-    <string name="pragma_omp_atomic">#pragma omp atomic</string>
     <string name="pragma_omp_atomic_description">Ensures a specific storage location is accessed atomically.</string>
     <string name="data_sharing_clauses">Data Sharing Clauses</string>
     <string name="default_syntax">default (shared | private | none)</string>
@@ -167,37 +161,24 @@
     <string name="private_syntax">private (list)</string>
     <string name="private_description">Creates a new variable for each item in list that is private to each thread or explicit task. The private variable is not given an initial value.</string>
     <string name="reduction_clause">Reduction Clause</string>
-    <string name="reduction_syntax">reduction (operator : variable_name)</string>
+    <string name="reduction_syntax">reduction (operator:var_name)</string>
     <string name="reduction_description">At join, local variables are combined and assigned to shared variable.
         \noperator : +, *, &amp;, |, ^, &amp;&amp; or ||
     </string>
-    <string name="barrier_syntax">#pragma omp barrier</string>
+
     <string name="barrier_description">Threads will wait until all threads have reached the barrier.</string>
     <string name="synchronization_constructs">Synchronization Constructs</string>
     <string name="no_wait_syntax">nowait</string>
     <string name="no_wait_description">"Overrides any synchronization that would otherwise occur at the end of a construct. "</string>
     <string name="no_wait_clause">No Wait Clause</string>
     <string name="order_clause">Order Clause</string>
-    <string name="ordered_syntax">#pragma omp ordered</string>
-    <string name="order_description">The ordered clause can be used to control the order of some operations within a loop.</string>
+    <string name="order_description">Can be used to control the order of some operations within a loop.</string>
     <string name="work_sharing_constructs">Work Sharing Constructs</string>
-    <string name="sections_syntax">#pragma omp sections</string>
     <string name="sections_description">A non-iterative work sharing construct that contains a set of structured blocks
-        that are to be distributed among and executed by the threads in a team.\n
-        #pragma omp sections\n\t
-            {\n\t
-                #pragma omp section\n\t\t\t\t
-                    structured-block-sequence\n\t
-                #pragma omp section\n\t\t\t\t
-                    structured-block-sequence\n\t
-            …\n\t
-        }
+        that are to be distributed among and executed by the threads in a team.
     </string>
-    <string name="single_syntax">#pragma omp single</string>
     <string name="single_description">Some thread will run it.</string>
-    <string name="master_syntax">#pragma omp master</string>
     <string name="master_description">The master thread will run it.</string>
-    <string name="schedule_clause">Schedule Clause</string>
     <string name="message_passing_interface">Message Passing Interface</string>
     <string name="send_syntax">MPI_Send ( address, count, data_type, destination, tag, comm )</string>
     <string name="send_description">
@@ -377,6 +358,10 @@
     <string name="scorboarding_description">Stages: issue, read operands, execution, write results\nPhysical registers\nCentral acquisition\nWAR, WAW -> stall></string>
     <string name="tomasulos_algorithm">Tomasulo\'s algorithm</string>
     <string name="tomasulo_algorithm_description">Stages: issue, execution, write results\nLogical registers\nReservation stations\nWAR, WAW solved</string>
+    <string name="num_threads_syntax">num_threads (nthreads)</string>
+    <string name="num_threads_description">Specifies the number of threads to execute.</string>
+    <string name="constructs">Constructs</string>
+    <string name="syntax">Syntax</string>
 
 
 </resources>
