@@ -24,7 +24,6 @@ import com.example.computerarchitecture.R
 import com.example.computerarchitecture.openWebsite
 import com.example.computerarchitecture.ui.theme.ComputerArchitectureTheme
 
-
 /**
  * Displays the software layer tab, including descriptions for POSIX threads.
  */
@@ -45,6 +44,11 @@ fun SoftwareLayer(modifier: Modifier = Modifier) {
     }
 }
 
+/**
+ * Displays a card with information about POSIX thread management.
+ *
+ * @param modifier The modifier for the layout
+ */
 @Composable
 private fun ThreadManagement(modifier: Modifier = Modifier) {
     Card(modifier) {
@@ -111,8 +115,7 @@ private fun ConditionVariables(modifier: Modifier = Modifier) {
 @Composable
 private fun PThreadCreation(modifier: Modifier = Modifier) {
     val context = LocalContext.current
-    Card(modifier.clickable {}
-    ) {
+    Card(modifier) {
         Column(Modifier.padding(8.dp)) {
             Text(
                 text = stringResource(R.string.pthread_create),
@@ -120,9 +123,7 @@ private fun PThreadCreation(modifier: Modifier = Modifier) {
             )
             Text(stringResource(R.string.pthread_create_description))
             TextButton(
-                onClick = {
-                    openWebsite("https://onlinegdb.com/lDcvdpNdK", context)
-                },
+                { openWebsite("https://onlinegdb.com/lDcvdpNdK", context) },
             ) {
                 Text(stringResource(R.string.example))
             }
@@ -137,14 +138,17 @@ private fun PThreadCreation(modifier: Modifier = Modifier) {
  */
 @Composable
 private fun PThreadExit(modifier: Modifier = Modifier) {
-    Card(modifier.clickable {}
-    ) {
+    val context = LocalContext.current
+    Card(modifier) {
         Column(Modifier.padding(8.dp)) {
             Text(
                 text = stringResource(R.string.pthread_exit),
                 fontWeight = FontWeight.Bold,
             )
             Text(stringResource(R.string.pthread_exit_description))
+            TextButton({ openWebsite("https://onlinegdb.com/4gSVCnil4", context) }) {
+                Text(stringResource(R.string.example))
+            }
         }
     }
 }
@@ -156,14 +160,18 @@ private fun PThreadExit(modifier: Modifier = Modifier) {
  */
 @Composable
 private fun PThreadJoin(modifier: Modifier = Modifier) {
-    Card(modifier.clickable {}
-    ) {
+    val context = LocalContext.current
+    Card(modifier) {
         Column(Modifier.padding(8.dp)) {
             Text(
                 text = stringResource(R.string.pthread_join),
                 fontWeight = FontWeight.Bold,
             )
             Text(stringResource(R.string.pthread_join_description))
+            TextButton({ openWebsite("https://www.onlinegdb.com/?dest_fid=50346396", context) }) {
+                Text(stringResource(R.string.example))
+            }
+
         }
     }
 }
@@ -175,6 +183,7 @@ private fun PThreadJoin(modifier: Modifier = Modifier) {
  */
 @Composable
 private fun PthreadCancel(modifier: Modifier = Modifier) {
+    val context = LocalContext.current
     Card(modifier) {
         Column(Modifier.padding(8.dp)) {
             Text(
@@ -182,6 +191,9 @@ private fun PthreadCancel(modifier: Modifier = Modifier) {
                 fontWeight = FontWeight.Bold,
             )
             Text(stringResource(R.string.pthread_cancel_description))
+            TextButton({ openWebsite("https://onlinegdb.com/IuQ4ii_oR", context) }) {
+                Text(stringResource(R.string.example))
+            }
         }
     }
 }
@@ -193,14 +205,17 @@ private fun PthreadCancel(modifier: Modifier = Modifier) {
  */
 @Composable
 private fun PthreadMutexInit(modifier: Modifier = Modifier) {
-    Card(modifier.clickable {}
-    ) {
+    val context = LocalContext.current
+    Card(modifier.clickable {}) {
         Column(Modifier.padding(8.dp)) {
             Text(
                 text = stringResource(R.string.pthread_mutex_init),
                 fontWeight = FontWeight.Bold,
             )
             Text(stringResource(R.string.pthread_mutex_init_description))
+            TextButton({ openWebsite("https://onlinegdb.com/SisTbTJOt", context) }) {
+                Text(stringResource(R.string.example))
+            }
         }
     }
 }
@@ -212,14 +227,17 @@ private fun PthreadMutexInit(modifier: Modifier = Modifier) {
  */
 @Composable
 private fun PthreadMutexDestroy(modifier: Modifier = Modifier) {
-    Card(modifier.clickable {}
-    ) {
+    val context = LocalContext.current
+    Card(modifier) {
         Column(Modifier.padding(8.dp)) {
             Text(
                 text = stringResource(R.string.pthread_mutex_destroy),
                 fontWeight = FontWeight.Bold,
             )
             Text(stringResource(R.string.pthread_mutex_destroy_description))
+            TextButton({ openWebsite("https://onlinegdb.com/3Ywu3uHd8", context) }) {
+                Text(stringResource(R.string.example))
+            }
         }
     }
 }
@@ -231,14 +249,17 @@ private fun PthreadMutexDestroy(modifier: Modifier = Modifier) {
  */
 @Composable
 private fun PthreadMutexLock(modifier: Modifier = Modifier) {
-    Card(modifier.clickable {}
-    ) {
+    val context = LocalContext.current
+    Card(modifier) {
         Column(Modifier.padding(8.dp)) {
             Text(
                 text = stringResource(R.string.pthread_mutex_lock),
                 fontWeight = FontWeight.Bold,
             )
             Text(stringResource(R.string.pthread_mutex_lock_description))
+            TextButton({ openWebsite("https://www.onlinegdb.com/edit/nHpmVI1QD", context) }) {
+                Text(stringResource(R.string.example))
+            }
         }
     }
 }
@@ -250,14 +271,17 @@ private fun PthreadMutexLock(modifier: Modifier = Modifier) {
  */
 @Composable
 private fun PthreadMutexUnlock(modifier: Modifier = Modifier) {
-    Card(modifier.clickable {}
-    ) {
+    val context = LocalContext.current
+    Card(modifier) {
         Column(Modifier.padding(8.dp)) {
             Text(
                 text = stringResource(R.string.pthread_mutex_unlock),
                 fontWeight = FontWeight.Bold,
             )
             Text(stringResource(R.string.pthread_mutex_unlock_description))
+            TextButton({ openWebsite("https://onlinegdb.com/FAtoHJdDc", context) }) {
+                Text(stringResource(R.string.example))
+            }
         }
     }
 }
@@ -269,8 +293,7 @@ private fun PthreadMutexUnlock(modifier: Modifier = Modifier) {
  */
 @Composable
 private fun PthreadConditionInit(modifier: Modifier = Modifier) {
-    Card(modifier.clickable {}
-    ) {
+    Card(modifier.clickable {}) {
         Column(Modifier.padding(8.dp)) {
             Text(
                 text = stringResource(R.string.pthread_cond_init),
