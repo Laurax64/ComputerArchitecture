@@ -363,5 +363,72 @@
     <string name="num_threads_description">Specifies the number of threads to execute.</string>
     <string name="constructs">Constructs</string>
     <string name="syntax">Syntax</string>
+    <string name="cross_bar">Cross Bar</string>
+    <string name="cross_bar_description">Circuit of direct connections of all possible node pairs</string>
+    <string name="cross_bar_benefits">Communication between nodes via switch is possible in one step.</string>
+    <string name="cross_bar_disadvantages">Extremely high hardware complexity</string>
+    <string name="switches">Switches</string>
+    <string name="omega_network">Omega Network</string>
+    <string name="omega_network_description">A circuit of connections of all possible node pairs in several stages.\n
+        Multistage interconnection network (MIN).</string>
+    <string name="omega_network_benefits">Less hardware complexity than cross bar</string>
+    <string name="omega_network_disadvantages">Forwarding of data requires several sub-steps.\nMutual blocking of data paths is possible.</string>
+    <string name="benes_network">Benes Network</string>
+    <string name="benes_network_description">Consists of two backward-connected butterfly networks\nAll permutations of pairwise node connections can be switched (for offline calculation of routes)\nCan be converted into a redundant tree structure by folding</string>
+    <string name="routing_mechanisms">Routing Mechanisms</string>
+    <string name="store_and_forward">Store-and-Forward</string>
+    <string name="store_and_forward_description">Packages are only forwarded when received completely</string>
+    <string name="cut_through_routing">Cut-Through Routing</string>
+    <string name="cut_through_routing_description">Flits of a packet are forwarded individually; decision for routing
+        to the next node is already made when the packet header is known\n=> Reduced transmission latency similar
+        to pipelining
+    </string>
+    <string name="interconnects">Interconnects</string>
+    <string name="topologies">Topologies</string>
+    <string name="topologies_description">Connection structure between nodes with communication capabilities (usually
+        switches).Influences routing, realibility, throughput, latency, and manufacturing complexity.</string>
+    <string name="linear_array">Linear Array</string>
+    <string name="degree_of_nodes">Degree of Nodes</string>
+    <string name="diameter">Diameter</string>
+    <string name="bisection_bandwidth">Bisection Bandwidth</string>
+    <string name="evaluation_criteria">Evaluation Criteria</string>
+    <string name="node_degree">Node Degree</string>
+    <string name="node_degree_description">Number of channels connected to a node or switch</string>
+    <string name="network_degree_description">The maximum node degree in the network</string>
+    <string name="bisection_bandwidth_description">The minimum number of directed edges in a network between two equal halves of the network with any subdivision, or number of parallel connections between two network halves</string>
+    <string name="degree_of_nodes_linear_array">2 for all inner nodes, 1 for edge nodes</string>
+    <string name="diameter_description">Length of the maximum shortest path in the network between any two nodes</string>
+    <string name="network_degree">Network Degree</string>
+    <string name="scalability">Scalability</string>
+    <string name="scalability_linear_array">No hardware restriction</string>
+    <string name="ring_topology">Ring Topology</string>
+    <string name="diameter_ring_topology">⌊N/2⌋ in bidirectional case, N-1 in unidirectional case</string>
+    <string name="scalability_ring_topology">No hardware restriction</string>
+    <string name="mesh">Mesh (k-D)</string>
+    <string name="degree_of_nodes_mesh">k, for corner nodes\n≤2k, for inner nodes</string>
+    <string name="torus">Torus</string>
+    <string name="tree">Tree</string>
+    <string name="degree_of_nodes_tree">1 for leaf/end nodes, 2 for root nodes, 3 for all inner nodes</string>
+    <string name="fat_tree">Fat Tree</string>
+    <string name="degree_of_nodes_fat_tree">1 for leaf nodes</string>
+    <string name="redundant_fat_tree_description">Further improvement of redundancy through replication of communication nodes in the tree and connection to all successor nodes</string>
+    <string name="hypercube">Hypercube</string>
+    <string name="package_discarding">Discarding the Package</string>
+    <string name="package_discarding_description">Network protocol must detect loss and initiate retransmission.</string>
+    <string name="buffering_blocked_transmission">Buffering blocked transmission</string>
+    <string name="buffering_blocked_transmission_description">In conjunction with cut-through routing: virtual cut-through, buffer size may be problematic</string>
+    <string name="blocking_further_transmission">Blocking further transmission</string>
+    <string name="blocking_further_transmission_description">In conjunction with cut-through routing: wormhole routing, backlog problematic</string>
+    <string name="redirection_of_packets">Redirection of packets</string>
+    <string name="redirection_of_packets_description">Requires corresponding routing method</string>
+    <string name="routing">Routing</string>
+    <string name="redundant_fat_tree">Redundant Fat Tree</string>
+    <string name="exclusive_channel_occupation">Exclusive Channel Occupation</string>
+    <string name="exclusive_channel_occupation_solutions">Virtual channels (and strict order for channel assignment)\nRestriction of valid routes: Routing procedure itself prevents the creation of cycles (up-down routing, turn-model routing)</string>
+    <string name="solutions">Solutions</string>
+    <string name="exclusive_channel_occupation_description">For the transmission of messages, physical channels must be occupied exclusively.</string>
+    <string name="definition">Definition</string>
+    <string name="collision_handling">Collision Handling</string>
+
 
 </resources>

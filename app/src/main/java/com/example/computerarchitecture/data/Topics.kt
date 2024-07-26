@@ -13,7 +13,6 @@ import com.example.computerarchitecture.ui.navigation.NavigationDestination
 import com.example.computerarchitecture.ui.navigation.NetworksDestination
 import com.example.computerarchitecture.ui.navigation.OpenMPDestination
 import com.example.computerarchitecture.ui.navigation.PipelineDestination
-import com.example.computerarchitecture.ui.navigation.ReliabilityDestination
 import com.example.computerarchitecture.ui.navigation.SpectreDestination
 
 
@@ -32,7 +31,6 @@ enum class Topic(val title: String, val navigationDestination: NavigationDestina
     NETWORKS("Networks", NetworksDestination),
     ENERGY_EFFICIENCY("Energy Efficiency", EnergyEfficiencyDestination),
     INSTRUCTION_SCHEDULING("Instruction Scheduling", InstructionSchedulingDestination),
-    RELIABILITY("Reliability", ReliabilityDestination),
     JUMP_PREDICTION("Branch Prediction", BranchPredictionDestination),
     MEMORY_HIERARCHY("Memory Hierarchy", MemoryHierarchyDestination),
     CACHING("Caching", CachingDestination),
