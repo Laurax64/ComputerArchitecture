@@ -429,6 +429,38 @@
     <string name="exclusive_channel_occupation_description">For the transmission of messages, physical channels must be occupied exclusively.</string>
     <string name="definition">Definition</string>
     <string name="collision_handling">Collision Handling</string>
+    <string name="reduce_cache_misses">Reduce Cache Misses</string>
+    <string name="larger_cache_blocks">Larger cache blocks</string>
+    <string name="larger_caches_disadvantages">Higher costs, longer cache access time</string>
+    <string name="higher_associativity">Higher Associativity</string>
+    <string name="higher_associativity_disadvantages">Increases cycle time</string>
+    <string name="larger_caches">Larger Caches</string>
+    <string name="larger_cache_blocks_disadvantages">Longer loading times</string>
+    <string name="reduce_hit_time">Reduce Hit Time</string>
+    <string name="small_and_simple_caches">Small and Simple Caches</string>
+    <string name="small_and_simple_caches_advantages">Indexing of the tag memory (via index) and comparison with
+        requested address: fast if cache is small\nSmall cache can be realized on-chip (of the CPU): shorter signal
+        runtimes, more efficient data transfer\nSimpler, i.e., direct mapped: overlapping of data transfer and tag check possible</string>
+    <string name="no_address_translation_on_cache_access">No address translation on cache access</string>
+    <string name="no_address_translation_on_cache_access_advantages">Virtually indexed, virtually tagged: fast, coherence problems\nVirtually indexed, physically tagged: medium fast\nPhysically indexed, physically tagged: slow, no coherence problems\nPhysically indexed, virtually tagged: theoretically possible, but pointless</string>
+    <string name="increase_memory_bandwidth">Increase Memory Bandwidth</string>
+    <string name="reduce_miss_penalty">Reduce Miss Penalty</string>
+    <string name="multibanked_caches">Multibanked Caches</string>
+    <string name="multibanked_caches_description">Blocks are distributed across several memory banks.</string>
+    <string name="pipelined_cache_access">Pipelined Cache Access</string>
+    <string name="pipelined_cache_access_description">Cache access is distributed over several stages of the pipeline, greater latency in case of incorrect jump prediction</string>
+    <string name="nonblocking_caches">Nonblocking Caches</string>
+    <string name="nonblocking_caches_description">CPUs with out-of-order completion/execution:\nStopping the CPU in the event of a cache miss is not required.</string>
+    <string name="grouping_of_write_buffers">Grouping of Write Buffers</string>
+    <string name="grouping_of_write_buffers_description">Writing larger data blocks is more efficient.</string>
+    <string name="multiple_cache_levels">Multiple Cache Levels</string>
+    <string name="multiple_cache_levels_description">2 cache levels\nL1 cache:\nfast, small, adapted to CPU clock\nL2 cache: large enough to buffer many accesses, can be slower</string>
+    <string name="critical_word_first_early_restart_description">If the CPU only needs one value from the cache block, it does not wait until the complete block has been reloaded.</string>
+    <string name="critical_word_first_early_restart"><![CDATA[Critical Word First & Early Restart]]></string>
+    <string name="prioritization_of_read_over_write_accesses_description">Advantageous if the write buffer contains a value that is requested by the read access</string>
+    <string name="prioritization_of_read_over_write_accesses">Prioritization of Read over Write Accesses</string>
+    <string name="prefetching">Prefetching</string>
+    <string name="prefetching_description">Load elements into cache before they are needed\nAttempt to use memory bandwidth that would otherwise be unused\nCan interfere with regular requests or accesses</string>
 
 
 </resources>
