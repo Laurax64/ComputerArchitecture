@@ -2,6 +2,8 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
     alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.dagger.hilt)
 }
 
 android {
@@ -67,6 +69,11 @@ dependencies {
     implementation(libs.androidx.material3.windowWidthSizeClass)
     implementation(libs.zoomable)
     implementation(libs.androidx.browser)
+    implementation(libs.androidx.datastore.preferences)
+    implementation(libs.dagger.hilt.android)
+    implementation(libs.androidx.lifecycle.runtime.compose.android)
+    ksp(libs.hilt.compiler)
+    implementation(libs.androidx.hilt)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

@@ -9,18 +9,20 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.PrimaryTabRow
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Tab
+import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -28,6 +30,7 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewScreenSizes
 import androidx.compose.ui.unit.dp
 import com.example.computerarchitecture.R
+import com.example.computerarchitecture.openWebsite
 import com.example.computerarchitecture.ui.components.TopicTopBar
 import com.example.computerarchitecture.ui.theme.ComputerArchitectureTheme
 
@@ -60,14 +63,13 @@ fun GPUsScreen(
  *
  * @param modifier The modifier for the layout
  */
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun GPUsScreen(modifier: Modifier = Modifier) {
     var state by rememberSaveable { mutableIntStateOf(0) }
-    val titles = listOf(R.string.open_cl)
+    val titles = listOf(R.string.open_cl, R.string.gpus_vs_cpus)
 
     Column(modifier.fillMaxWidth()) {
-        PrimaryTabRow(selectedTabIndex = state) {
+        TabRow(selectedTabIndex = state) {
             titles.forEachIndexed { index, title ->
                 Tab(
                     selected = state == index,
@@ -77,6 +79,12 @@ fun GPUsScreen(modifier: Modifier = Modifier) {
         }
         when (state) {
             0 -> OpenCLTab(
+                Modifier
+                    .fillMaxWidth()
+                    .padding(24.dp)
+            )
+
+            1 -> GPUsVsCPUs(
                 Modifier
                     .fillMaxWidth()
                     .padding(24.dp)
@@ -98,11 +106,10 @@ fun OpenCLTab(modifier: Modifier = Modifier) {
         OpenCLProgramComponents(Modifier.fillMaxWidth())
         FunctionQualifiers(Modifier.fillMaxWidth())
         ExecutingKernels(Modifier.fillMaxWidth())
-        WorkItemFunctions(Modifier.fillMaxWidth())
-        ThreadSynchronization(Modifier.fillMaxWidth())
+        Functions(Modifier.fillMaxWidth())
         SynchronizationAccrossWorkGroups(Modifier.fillMaxWidth())
         Portability(Modifier.fillMaxWidth())
-
+        Flags(Modifier.fillMaxWidth())
     }
 }
 
@@ -189,33 +196,19 @@ private fun FunctionQualifiers(modifier: Modifier = Modifier) {
  * @param modifier The modifier for the layout
  */
 @Composable
-private fun WorkItemFunctions(modifier: Modifier = Modifier) {
-    Card(modifier) {
-        Column(Modifier.padding(8.dp)) {
-            Text(
-                text = stringResource(R.string.work_item_functions),
-                style = MaterialTheme.typography.titleLarge,
-            )
-            GetGlobalId(Modifier.fillMaxWidth())
-        }
-    }
-}
-
-/**
- * Displays a card with information about thread synchronization in OpenCL.
- *
- * @param modifier The modifier for the layout
- */
-@Composable
-private fun ThreadSynchronization(modifier: Modifier = Modifier) {
+private fun Functions(modifier: Modifier = Modifier) {
+    val context = LocalContext.current
     Card(modifier) {
         Column(Modifier.padding(8.dp), Arrangement.spacedBy(8.dp)) {
             Text(
-                text = stringResource(R.string.thread_synchronization),
+                text = stringResource(R.string.functions),
                 style = MaterialTheme.typography.titleLarge,
             )
+            GetGlobalId(Modifier.fillMaxWidth())
             Barrier(Modifier.fillMaxWidth())
             MemFence(Modifier.fillMaxWidth())
+            CreateBuffer(Modifier.fillMaxWidth())
+            EnqueueMapBuffer(Modifier.fillMaxWidth())
         }
     }
 }
@@ -263,11 +256,11 @@ private fun MemFence(modifier: Modifier = Modifier) {
 /**
  * Displays a card with information about the get_global_id function in OpenCL.
  *
- * @param fillMaxWidth The modifier for the layout
+ * @param modifier The modifier for the layout
  */
 @Composable
-fun GetGlobalId(fillMaxWidth: Modifier = Modifier) {
-    Card(fillMaxWidth) {
+fun GetGlobalId(modifier: Modifier = Modifier) {
+    Card(modifier) {
         Column(Modifier.padding(8.dp)) {
             Text(
                 text = stringResource(R.string.get_global_id),
@@ -299,6 +292,49 @@ private fun Portability(modifier: Modifier = Modifier) {
 }
 
 /**
+ * Displays a card with information about creating a buffer in OpenCL.
+ *
+ * @param modifier The modifier for the layout
+ */
+@Composable
+private fun CreateBuffer(modifier: Modifier = Modifier) {
+    Card(modifier) {
+        Column(Modifier.padding(8.dp)) {
+            Text(
+                text = "clCreateBuffer(context, flags, size, host_ptr, errcode_ret)",
+                fontWeight = FontWeight.Bold,
+            )
+            Text(
+                text = stringResource(R.string.open_cl_create_buffer_description),
+            )
+        }
+    }
+}
+
+/**
+ * Displays a card with information about enqueuing a map buffer in OpenCL.
+ *
+ * @param modifier The modifier for the layout
+ */
+@Composable
+private fun EnqueueMapBuffer(modifier: Modifier = Modifier) {
+    Card(modifier) {
+        Column(Modifier.padding(8.dp)) {
+            Text(
+                "clEnqueueMapBuffer(queue, buffer, blocking_map, map_flags, offset, size, " +
+                        "num_events_in_wait_list, event_wait_list, event)",
+                fontWeight = FontWeight.Bold
+            )
+            Text(
+                text = stringResource(R.string.open_cl_enqueue_map_buffer_description),
+            )
+        }
+    }
+}
+
+
+
+/**
  * Displays a card with information about the program components of an OpenCL program.
  */
 @Composable
@@ -315,6 +351,7 @@ private fun OpenCLProgramComponents(modifier: Modifier) {
         }
     }
 }
+
 
 /**
  * Displays a card with information about the memory model of OpenCL.
@@ -360,6 +397,66 @@ private fun SynchronizationAccrossWorkGroups(modifier: Modifier) {
             )
         }
     }
+}
+
+/**
+ * Displays a card with information about GPUs vs CPUs.
+ *
+ * @param modifier The modifier for the layout
+ */
+@Composable
+private fun GPUsVsCPUs(modifier: Modifier = Modifier) {
+    Card(modifier) {
+        Column(Modifier.padding(8.dp)) {
+            Text(
+                text = stringResource(R.string.gpus_vs_cpus),
+                style = MaterialTheme.typography.titleLarge,
+            )
+            Text(
+                text = stringResource(R.string.gpu),
+                fontWeight = FontWeight.Bold,
+            )
+            Text(
+                text = stringResource(R.string.gpu_description),
+            )
+            Text(
+                text = stringResource(R.string.cpu),
+                fontWeight = FontWeight.Bold,
+            )
+            Text(
+                text = stringResource(R.string.cpu_description),
+            )
+        }
+    }
+}
+
+/**
+ * Displays a card with information about flags.
+ */
+@Composable
+private fun Flags(modifier: Modifier = Modifier) {
+    val context = LocalContext.current
+    var expanded by rememberSaveable { mutableStateOf(true) }
+    Card({ expanded = !expanded }, modifier) {
+        Column(Modifier.padding(8.dp), Arrangement.spacedBy(8.dp)) {
+            Text(
+                stringResource(R.string.flags),
+                style = MaterialTheme.typography.titleLarge
+            )
+            if (expanded) {
+                TextButton(onClick = {
+                    openWebsite(
+                        url = "https://registry.khronos.org/OpenCL/specs/" +
+                                "3.0-unified/html/OpenCL_API.html#memory-flags-table",
+                        context = context
+                    )
+                }) {
+                    Text(stringResource(R.string.memory_flags))
+                }
+            }
+        }
+    }
+
 }
 
 

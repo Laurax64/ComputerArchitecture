@@ -9,10 +9,12 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.computerarchitecture.ui.navigation.ComputerArchitectureNavHost
 import com.example.computerarchitecture.ui.theme.ComputerArchitectureTheme
+import dagger.hilt.android.AndroidEntryPoint
 
 /**
  * The main activity for the application
  */
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {

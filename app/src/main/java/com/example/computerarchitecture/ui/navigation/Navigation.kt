@@ -3,7 +3,7 @@ package com.example.computerarchitecture.ui.navigation
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavGraphBuilder
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -15,12 +15,11 @@ import com.example.computerarchitecture.ui.screens.MPIScreen
 import com.example.computerarchitecture.ui.screens.NetworksScreen
 import com.example.computerarchitecture.ui.screens.OpenMPScreen
 import com.example.computerarchitecture.ui.screens.TopicsScreen
-import com.example.computerarchitecture.ui.screens.branchprediction.BranchPredictionScreen
 import com.example.computerarchitecture.ui.screens.caching.CachingScreen
 import com.example.computerarchitecture.ui.screens.instructionscheduling.InstructionSchedulingScreen
-import com.example.computerarchitecture.ui.screens.memoryhierarchy.MemoryHierarchyScreen
 import com.example.computerarchitecture.ui.screens.multiprocessorsystems.MultiprocessorSystemsScreen
 import com.example.computerarchitecture.ui.screens.multithreading.MultithreadingScreen
+import com.example.computerarchitecture.ui.viewmodels.MultithreadingViewModel
 
 /**
  * Provides a navigation graph for the screens with an app scaffold.
@@ -40,7 +39,10 @@ fun ComputerArchitectureNavHost(
             TopicsScreen(navController::navigate, windowWidthSizeClass)
         }
         composable(MultithreadingDestination.screenRoute) {
-            MultithreadingScreen(navController::popBackStack)
+            MultithreadingScreen(
+                navController::popBackStack,
+                multithreadingViewModel = hiltViewModel<MultithreadingViewModel>()
+            )
         }
         composable(MultiprocessorSystemsDestination.screenRoute) {
             MultiprocessorSystemsScreen(navController::popBackStack)
@@ -72,51 +74,5 @@ fun ComputerArchitectureNavHost(
         composable(PipelineDestination.screenRoute) {
             PipelineScreen(navController::popBackStack)
         }
-        screenContents()
-    }
-}
-
-/**
- * Provides a navigation graph for the screens without an app scaffold.
- */
-fun NavGraphBuilder.screenContents() {
-    composable(MultithreadingDestination.contentRoute) {
-        MultithreadingScreen()
-    }
-    composable(MultiprocessorSystemsDestination.contentRoute) {
-        MultiprocessorSystemsScreen()
-    }
-    composable(GraphicsProcessingUnitsDestination.contentRoute) {
-        GPUsScreen()
-    }
-    composable(OpenMPDestination.contentRoute) {
-        OpenMPScreen()
-    }
-    composable(MPIDestination.contentRoute) {
-        MPIScreen()
-    }
-    composable(NetworksDestination.contentRoute) {
-        NetworksScreen()
-    }
-    composable(EnergyEfficiencyDestination.contentRoute) {
-        EnergyEfficiencyScreen()
-    }
-    composable(InstructionSchedulingDestination.contentRoute) {
-        InstructionSchedulingScreen()
-    }
-    composable(MemoryHierarchyDestination.contentRoute) {
-        MemoryHierarchyScreen()
-    }
-    composable(BranchPredictionDestination.contentRoute) {
-        BranchPredictionScreen()
-    }
-    composable(CachingDestination.contentRoute) {
-        CachingScreen()
-    }
-    composable(SpectreDestination.contentRoute) {
-        SpectreScreen()
-    }
-    composable(PipelineDestination.contentRoute) {
-        PipelineScreen()
     }
 }

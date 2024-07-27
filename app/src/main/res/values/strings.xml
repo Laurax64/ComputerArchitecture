@@ -273,7 +273,6 @@
     <string name="executing_kernels">Executing Kernels</string>
     <string name="cl_enqueue_nd_range_kernel">clEnqueueNDRangeKernel</string>
     <string name="cl_enqueue_nd_range_kernel_description">Enqueues a command to execute a kernel on a device.</string>
-    <string name="work_item_functions">Work-Item Functions</string>
     <string name="get_global_id">get_global_id(uint dimindx)</string>
     <string name="get_global_id_description">Returns the unique global work-item ID for the specified dimension dimindx.</string>
     <string name="spectre">Spectre</string>
@@ -461,6 +460,17 @@
     <string name="prioritization_of_read_over_write_accesses">Prioritization of Read over Write Accesses</string>
     <string name="prefetching">Prefetching</string>
     <string name="prefetching_description">Load elements into cache before they are needed\nAttempt to use memory bandwidth that would otherwise be unused\nCan interfere with regular requests or accesses</string>
-
-
+    <string name="avoid_spectre_attacks_description">Serializing</string>
+    <string name="avoid_spectre_attacks">Avoid Spectre Attacks</string>
+    <string name="gpus_vs_cpus">GPUs vs CPUs</string>
+    <string name="gpu">GPU</string>
+    <string name="gpu_description">data parallelism\n- lightweight thread\n- 10,000s of threads on 100s of cores\n- threads scheduled in batches\n- all threads run same code</string>
+    <string name="cpu">CPU</string>
+    <string name="cpu_description">task parallelism\n- relatively heavyweight\n- 10s of threads on 10s of cores\n- each thread managed explicitly\n- threads run different code</string>
+    <string name="open_cl_create_buffer_description">Creates a buffer object.</string>
+    <string name="flags">Flags</string>
+    <string name="memory_flags">Memory Flags</string>
+    <string name="open_cl_enqueue_map_buffer_description">Enqueues a command to map a region of the buffer object given by buffer into the host address space and returns a pointer to this mapped region.</string>
+    <string name="study_mode">Study Mode</string>
+    <string name="normal_mode">Normal Mode</string>
 </resources>

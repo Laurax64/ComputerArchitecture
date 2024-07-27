@@ -8,27 +8,33 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Tab
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.example.computerarchitecture.R
 import com.example.computerarchitecture.ui.components.TopicTopBar
 import com.example.computerarchitecture.ui.theme.ComputerArchitectureTheme
+import com.example.computerarchitecture.ui.viewmodels.MultithreadingViewModel
 
 /**
  * Displays the multithreading screen.
  *
  * @param navigateBack The function to navigate back
- * @param modifier The modifier for the layout
+ * param modifier The modifier for the layout
  */
 @Composable
-fun MultithreadingScreen(navigateBack: () -> Unit, modifier: Modifier = Modifier) {
+fun MultithreadingScreen(
+    navigateBack: () -> Unit,
+    modifier: Modifier = Modifier,
+    multithreadingViewModel: MultithreadingViewModel
+) {
+    val isStudyMode by multithreadingViewModel.isStudyMode.collectAsState()
     Scaffold(
         modifier = modifier,
         topBar = {
@@ -36,12 +42,13 @@ fun MultithreadingScreen(navigateBack: () -> Unit, modifier: Modifier = Modifier
                 title = stringResource(R.string.multithreading),
                 navigateBack = navigateBack
             )
-        },
+        }
     ) {
-        MultithreadingScreen(
+        MultithreadingScreenContent(
+            isStudyMode,
             Modifier
                 .padding(it)
-                .padding(start = 16.dp, end = 16.dp)
+                .padding(start = 16.dp, end = 16.dp),
         )
     }
 }
@@ -50,10 +57,14 @@ fun MultithreadingScreen(navigateBack: () -> Unit, modifier: Modifier = Modifier
  * Displays the content for the multithreading screen.
  *
  * @param modifier The modifier for the layout
+ * @param isStudyMode Whether the user is in study mode
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MultithreadingScreen(modifier: Modifier = Modifier) {
+fun MultithreadingScreenContent(
+    isStudyMode: Boolean,
+    modifier: Modifier = Modifier,
+) {
     var state by rememberSaveable { mutableIntStateOf(0) }
     val titles = listOf(R.string.hardware_layer, R.string.software_layer)
 
@@ -67,51 +78,23 @@ fun MultithreadingScreen(modifier: Modifier = Modifier) {
             }
         }
         when (state) {
-            0 -> HardwareLayer(Modifier.padding(8.dp))
-            1 -> SoftwareLayer(Modifier.padding(8.dp))
+            0 -> HardwareLayer(Modifier.padding(8.dp), isStudyMode)
+            1 -> SoftwareLayer(Modifier.padding(8.dp), isStudyMode)
         }
     }
 }
 
 /**
- * Displays previews for the multithreading screen for compact screens.
+ * Displays previews for the multithreading screen.
  */
 @PreviewLightDark
 @Composable
-private fun MultithreadingScreenCompactPreview() {
+private fun MultithreadingScreenPreview() {
     ComputerArchitectureTheme {
-        MultithreadingScreen(
-            navigateBack = {},
+        MultithreadingScreenContent(
+            isStudyMode = false,
+            modifier = Modifier.padding(16.dp)
         )
     }
 }
 
-/**
- * Displays previews for the multithreading screen for medium screens.
- */
-
-/**
- * Displays previews for the multithreading screen for medium screens.
- */
-@Preview(widthDp = 800, heightDp = 800)
-@Composable
-private fun MultithreadingScreenMediumPreview() {
-    ComputerArchitectureTheme {
-        MultithreadingScreen(
-            navigateBack = {},
-        )
-    }
-}
-
-/**
- * Displays previews for the multithreading screen for expanded screens.
- */
-@Preview(widthDp = 1100, heightDp = 1100)
-@Composable
-private fun MultithreadingScreenExpandedPreview() {
-    ComputerArchitectureTheme {
-        MultithreadingScreen(
-            navigateBack = {},
-        )
-    }
-}

@@ -26,9 +26,12 @@ import com.example.computerarchitecture.ui.theme.ComputerArchitectureTheme
 
 /**
  * Displays the software layer tab, including descriptions for POSIX threads.
+ *
+ * @param modifier The modifier for the layout
+ * @param isStudyMode Whether the user is in study mode
  */
 @Composable
-fun SoftwareLayer(modifier: Modifier = Modifier) {
+fun SoftwareLayer(modifier: Modifier = Modifier, isStudyMode: Boolean) {
     Column(
         modifier = modifier.verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.spacedBy(8.dp),
@@ -350,7 +353,7 @@ private fun PthreadConditionWait(modifier: Modifier = Modifier) {
 fun PreviewSoftwareLayer() {
     ComputerArchitectureTheme {
         Surface {
-            SoftwareLayer()
+            SoftwareLayer(isStudyMode = false)
         }
     }
 }

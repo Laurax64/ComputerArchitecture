@@ -164,6 +164,25 @@ private fun SpectreAttacksStepThree(modifier: Modifier = Modifier) {
     }
 }
 
+@Composable
+private fun AvoidSpectreAttacks(modifier: Modifier = Modifier) {
+    var expanded by rememberSaveable { mutableStateOf(false) }
+    OutlinedCard({ expanded = !expanded }, modifier) {
+        Column(Modifier.padding(8.dp), Arrangement.spacedBy(8.dp)) {
+            Text(
+                text = stringResource(R.string.avoid_spectre_attacks),
+                style = MaterialTheme.typography.titleLarge,
+            )
+            if (expanded) {
+                Text(
+                    text = stringResource(R.string.avoid_spectre_attacks_description),
+                    style = MaterialTheme.typography.bodyMedium,
+                )
+            }
+        }
+    }
+}
+
 /**
  * Displays previews for the spectre screen.
  */

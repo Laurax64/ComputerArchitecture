@@ -31,7 +31,7 @@ enum class Topic(val title: String, val navigationDestination: NavigationDestina
     NETWORKS("Networks", NetworksDestination),
     ENERGY_EFFICIENCY("Energy Efficiency", EnergyEfficiencyDestination),
     INSTRUCTION_SCHEDULING("Instruction Scheduling", InstructionSchedulingDestination),
-    JUMP_PREDICTION("Branch Prediction", BranchPredictionDestination),
+    BRANCH_PREDICTION("Branch Prediction", BranchPredictionDestination),
     MEMORY_HIERARCHY("Memory Hierarchy", MemoryHierarchyDestination),
     CACHING("Caching", CachingDestination),
     SPECTRE("Spectre", SpectreDestination),
