@@ -1,6 +1,6 @@
 package com.example.computerarchitecture.ui.screens
 
-import androidx.compose.foundation.clickable
+
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
+import androidx.compose.material3.Checkbox
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -21,6 +22,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -44,6 +46,7 @@ import com.example.computerarchitecture.data.Topic.NETWORKS
 import com.example.computerarchitecture.data.Topic.OPENMP
 import com.example.computerarchitecture.data.Topic.PIPELINE
 import com.example.computerarchitecture.data.Topic.SPECTRE
+import com.example.computerarchitecture.ui.screens.multiprocessorsystems.MultiprocessorSystemsContent
 import com.example.computerarchitecture.ui.screens.multithreading.MultithreadingScreenContent
 import com.example.computerarchitecture.ui.theme.ComputerArchitectureTheme
 import com.example.computerarchitecture.ui.viewmodels.TopicsViewModel
@@ -66,6 +69,7 @@ fun TopicsScreen(
     topicsViewModel: TopicsViewModel = hiltViewModel<TopicsViewModel>()
 ) {
     val isStudyMode by topicsViewModel.isStudyMode.collectAsStateWithLifecycle()
+    val memorizedTopics by topicsViewModel.memorizedTopics.collectAsStateWithLifecycle()
     var checked by rememberSaveable { mutableStateOf(isStudyMode) }
     Scaffold(
         modifier = modifier,
@@ -81,7 +85,7 @@ fun TopicsScreen(
                     TextButton(
                         onClick = {
                             checked = !isStudyMode
-                            topicsViewModel.saveStudyModePreference(checked)
+                            topicsViewModel.updateStudyModePreference(checked)
                         }
                     ) {
                         Text(
@@ -98,13 +102,19 @@ fun TopicsScreen(
         when (windowWidthSizeClass) {
             WindowWidthSizeClass.Compact -> {
                 TopicsList(
+                    isStudyMode,
+                    memorizedTopics,
+                    topicsViewModel::updateMemorizedTopics,
                     Modifier
                         .padding(it)
                         .padding(start = 16.dp, end = 16.dp)
                 ) { topic: Topic -> navigateTo(topic.navigationDestination.screenRoute) }
             }
+
             else -> {
                 TopicsListAndDetail(
+                    memorizedTopics,
+                    topicsViewModel::updateMemorizedTopics,
                     isStudyMode,
                     Modifier
                         .padding(it)
@@ -119,28 +129,49 @@ fun TopicsScreen(
  * Displays a scrollable list of topics that the user can click on to navigate to other screens
  *
  * @param modifier The modifier for the layout
+ * @param memorizedTopics The list of topics that the user has memorized
+ * @param updateMemorizedTopics The function to update the list of memorized topics
  * @param navigateTo The function to navigate to another composable function
  */
 @Composable
 private fun TopicsList(
+    isStudyMode: Boolean,
+    memorizedTopics: List<Topic>,
+    updateMemorizedTopics: (List<Topic>) -> Unit,
     modifier: Modifier = Modifier,
     navigateTo: (Topic) -> Unit
 ) {
-    Column(
-        modifier = modifier.verticalScroll(rememberScrollState()),
-        verticalArrangement = Arrangement.spacedBy(8.dp)
-    ) {
-        Topic.entries.forEach {
+    Column(modifier.verticalScroll(rememberScrollState()), Arrangement.spacedBy(8.dp)) {
+        Topic.entries.forEach { topic ->
             Card(
-                Modifier
-                    .clickable { navigateTo(it) }
-                    .fillMaxWidth()
+                { navigateTo(topic) }, Modifier.fillMaxWidth()
             ) {
-                Text(
-                    text = it.title,
-                    modifier = Modifier.padding(16.dp),
-                    style = MaterialTheme.typography.titleMedium,
-                )
+                Row(Modifier.fillMaxWidth(), Arrangement.SpaceBetween, Alignment.CenterVertically) {
+                    Text(
+                        text = topic.title,
+                        modifier = Modifier.padding(8.dp),
+                        style = MaterialTheme.typography.titleLarge,
+                    )
+                    if (isStudyMode) {
+                        var checked by rememberSaveable {
+                            mutableStateOf(
+                                memorizedTopics.contains(
+                                    topic
+                                )
+                            )
+                        }
+                        Checkbox(checked = checked, onCheckedChange =
+                        {
+                            checked = it
+                            if (it) {
+                                updateMemorizedTopics(memorizedTopics + topic)
+                            } else {
+                                updateMemorizedTopics(memorizedTopics - topic)
+                            }
+                        }
+                        )
+                    }
+                }
             }
         }
     }
@@ -149,21 +180,30 @@ private fun TopicsList(
 /**
  * Displays the topics list and the detail screen for the selected topic.
  *
+ * @param memorizedTopics The list of topics that the user has memorized
+ * @param updateMemorizedTopics The function to update the list of memorized topics
  * @param isStudyMode Whether the user is in study mode
  * @param modifier The modifier for the layout
  */
 @Composable
 private fun TopicsListAndDetail(
+    memorizedTopics: List<Topic>,
+    updateMemorizedTopics: (List<Topic>) -> Unit,
     isStudyMode: Boolean,
     modifier: Modifier = Modifier
 ) {
     var selectedTopic by rememberSaveable { mutableStateOf(MULTITHREADING) }
-    val navController = rememberNavController()
+    rememberNavController()
     Row(modifier, horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-        TopicsList(Modifier.weight(0.5f)) { selectedTopic = it }
+        TopicsList(
+            isStudyMode,
+            memorizedTopics,
+            updateMemorizedTopics,
+            Modifier.weight(0.5f)
+        ) { selectedTopic = it }
         when (selectedTopic) {
             MULTITHREADING -> MultithreadingScreenContent(isStudyMode, Modifier.weight(1f))
-            MULTIPROCESSOR_SYSTEMS -> TODO()
+            MULTIPROCESSOR_SYSTEMS -> MultiprocessorSystemsContent(isStudyMode, Modifier.weight(1f))
             GRAPHICS_PROCESSING_UNITS -> TODO()
             OPENMP -> TODO()
             MPI -> TODO()

@@ -24,7 +24,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewScreenSizes
 import androidx.compose.ui.unit.dp
@@ -42,7 +41,7 @@ import com.example.computerarchitecture.ui.theme.ComputerArchitectureTheme
 fun HardwareLayer(modifier: Modifier = Modifier, isStudyMode: Boolean) {
     Column(
         modifier = modifier.verticalScroll(rememberScrollState()),
-        verticalArrangement = Arrangement.spacedBy(12.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         CGMT(Modifier.fillMaxWidth(), isStudyMode)
         FGMT(Modifier.fillMaxWidth(), isStudyMode)
@@ -63,7 +62,6 @@ private fun CGMT(modifier: Modifier, isStudyMode: Boolean) {
         Text(
             text = stringResource(R.string.coarse_grained_multithreading),
             modifier = Modifier.padding(start = 8.dp, end = 8.dp, top = 8.dp),
-            fontWeight = FontWeight.Bold,
             style = MaterialTheme.typography.titleLarge,
         )
         if (expanded) {
@@ -113,7 +111,6 @@ private fun FGMT(modifier: Modifier, isStudyMode: Boolean) {
         Text(
             text = stringResource(R.string.fine_grained_multithreading),
             modifier = Modifier.padding(start = 8.dp, end = 8.dp, top = 8.dp),
-            fontWeight = FontWeight.Bold,
             style = MaterialTheme.typography.titleLarge,
         )
         if (expanded) {
@@ -164,7 +161,6 @@ private fun SMT(modifier: Modifier = Modifier, isStudyMode: Boolean) {
         Text(
             text = stringResource(R.string.simultaneous_multithreading),
             modifier = Modifier.padding(start = 8.dp, end = 8.dp, top = 8.dp),
-            fontWeight = FontWeight.Bold,
             style = MaterialTheme.typography.titleLarge,
         )
         if (expanded) {

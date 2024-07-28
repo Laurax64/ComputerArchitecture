@@ -9,9 +9,9 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -42,7 +42,6 @@ fun BranchPredictionScreen(
     navigateBack: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-
     Scaffold(
         modifier = modifier,
         topBar = {
@@ -96,6 +95,11 @@ private fun LocalPredictors(modifier: Modifier = Modifier) {
     }
 }
 
+/**
+ * Displays a card with information about two bit predictors.
+ *
+ * @param modifier The modifier for the layout
+ */
 @Composable
 private fun OneBitPredictors(modifier: Modifier = Modifier) {
     Card(modifier) {
@@ -183,7 +187,7 @@ private fun BranchTargetBuffer(modifier: Modifier = Modifier) {
             Text(stringResource(R.string.branch_target_buffer_description))
             val painter = painterResource(id = R.drawable.branch_target_buffer_steps)
             val zoomState = rememberZoomState(contentSize = painter.intrinsicSize)
-            OutlinedButton(onClick = { showPipeline = true }) {
+            TextButton({ showPipeline = true }) {
                 Text(stringResource(R.string.steps_in_the_pipeline))
             }
             if (showPipeline) {

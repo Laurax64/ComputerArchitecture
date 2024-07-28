@@ -2,13 +2,20 @@ package com.example.computerarchitecture.ui.screens.branchprediction
 
 import android.graphics.Paint
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
@@ -21,6 +28,7 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Dialog
 import com.example.computerarchitecture.R
 import kotlin.math.PI
 import kotlin.math.atan2
@@ -34,21 +42,34 @@ import kotlin.math.sin
  */
 @Composable
 fun TwoBitPredictors(modifier: Modifier = Modifier) {
+    var showDialog by rememberSaveable { mutableStateOf(false) }
     val screenWidth = LocalConfiguration.current.screenWidthDp
     val graphSize = when (screenWidth) {
-        in 0..599 -> 150.dp
-        in 600..841 -> 150.dp
-        else -> 250.dp
+        in 0..599 -> 200.dp
+        in 600..841 -> 200.dp
+        else -> 350.dp
     }
     Card(modifier) {
         Column(Modifier.padding(8.dp)) {
             Text(
                 text = stringResource(R.string.two_bit_predictors), fontWeight = FontWeight.Bold
             )
-            TwoBitPredictionGraph(
-                modifier = Modifier.size(graphSize)
-            )
-
+            TextButton(onClick = { showDialog = !showDialog }) {
+                Text(stringResource(R.string.moore_machine))
+            }
+        }
+        if (showDialog) {
+            Dialog(
+                onDismissRequest = { showDialog = false }
+            ) {
+                TwoBitPredictionGraph(
+                    modifier =
+                    Modifier
+                        .size(graphSize)
+                        .background(MaterialTheme.colorScheme.surface)
+                        .align(Alignment.CenterHorizontally)
+                )
+            }
         }
     }
 }
@@ -68,7 +89,6 @@ private fun TwoBitPredictionGraph(modifier: Modifier = Modifier) {
     val lineStrokeWidth = 4f
     val arrowLength = 20f
     val arrowAngle = 30f
-
     Canvas(modifier) {
         val states = listOf(
             Triple("10", statePositions["10"]!!, "P_T"),

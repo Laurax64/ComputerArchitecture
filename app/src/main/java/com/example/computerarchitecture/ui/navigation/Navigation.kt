@@ -21,6 +21,7 @@ import com.example.computerarchitecture.ui.screens.instructionscheduling.Instruc
 import com.example.computerarchitecture.ui.screens.memoryhierarchy.MemoryHierarchyScreen
 import com.example.computerarchitecture.ui.screens.multiprocessorsystems.MultiprocessorSystemsScreen
 import com.example.computerarchitecture.ui.screens.multithreading.MultithreadingScreen
+import com.example.computerarchitecture.ui.viewmodels.MultiprocessorSystemsViewModel
 import com.example.computerarchitecture.ui.viewmodels.MultithreadingViewModel
 
 /**
@@ -43,11 +44,14 @@ fun ComputerArchitectureNavHost(
         composable(MultithreadingDestination.screenRoute) {
             MultithreadingScreen(
                 navController::popBackStack,
-                multithreadingViewModel = hiltViewModel<MultithreadingViewModel>()
+                hiltViewModel<MultithreadingViewModel>()
             )
         }
         composable(MultiprocessorSystemsDestination.screenRoute) {
-            MultiprocessorSystemsScreen(navController::popBackStack)
+            MultiprocessorSystemsScreen(
+                navController::popBackStack,
+                hiltViewModel<MultiprocessorSystemsViewModel>()
+            )
         }
         composable(GraphicsProcessingUnitsDestination.screenRoute) {
             GPUsScreen(navController::popBackStack)

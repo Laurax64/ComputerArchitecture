@@ -17,6 +17,7 @@ import androidx.compose.material3.Tab
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -36,17 +37,40 @@ import androidx.compose.ui.unit.dp
 import com.example.computerarchitecture.R
 import com.example.computerarchitecture.ui.components.TopicTopBar
 import com.example.computerarchitecture.ui.theme.ComputerArchitectureTheme
-import kotlin.math.roundToInt
+import com.example.computerarchitecture.ui.viewmodels.MultiprocessorSystemsViewModel
 
 /**
  * Displays the multiprocessor systems screen with an app scaffold.
  *
  * @param navigateBack The function to navigate back
+ * @param multiprocessorSystemsViewModel The view model for the multiprocessor systems screen
  * @param modifier The modifier for the layout
  */
 @Composable
 fun MultiprocessorSystemsScreen(
     navigateBack: () -> Unit,
+    multiprocessorSystemsViewModel: MultiprocessorSystemsViewModel,
+    modifier: Modifier = Modifier,
+) {
+    val isStudyMode = multiprocessorSystemsViewModel.isStudyMode.collectAsState().value
+    MultiprocessorSystemsScreen(
+        navigateBack,
+        isStudyMode,
+        modifier
+    )
+}
+
+/**
+ * Displays the multiprocessor systems screen with an app scaffold.
+ *
+ * @param navigateBack The function to navigate back
+ * @param isStudyMode Whether the user is in study mode
+ * @param modifier The modifier for the layout
+ */
+@Composable
+internal fun MultiprocessorSystemsScreen(
+    navigateBack: () -> Unit,
+    isStudyMode: Boolean,
     modifier: Modifier = Modifier,
 ) {
     Scaffold(
@@ -58,7 +82,8 @@ fun MultiprocessorSystemsScreen(
             )
         },
     ) { paddingValues ->
-        MultiprocessorSystemsScreen(
+        MultiprocessorSystemsContent(
+            isStudyMode,
             Modifier
                 .padding(paddingValues)
                 .padding(start = 16.dp, end = 16.dp)
@@ -67,12 +92,13 @@ fun MultiprocessorSystemsScreen(
 }
 
 /**
- * Displays the multiprocessor systems screen.
+ * Displays the multiprocessor systems screen content.
  *
+ * @param isStudyMode Whether the user is in study mode
  * @param modifier The modifier for the layout
  */
 @Composable
-fun MultiprocessorSystemsScreen(modifier: Modifier = Modifier) {
+fun MultiprocessorSystemsContent(isStudyMode: Boolean, modifier: Modifier = Modifier) {
     var state by rememberSaveable { mutableIntStateOf(0) }
     val titles = listOf(
         R.string.speedup,
@@ -100,24 +126,28 @@ fun MultiprocessorSystemsScreen(modifier: Modifier = Modifier) {
         }
         when (state) {
             0 -> SpeedupTab(
+                isStudyMode,
                 Modifier
                     .fillMaxWidth()
                     .padding(16.dp)
             )
 
             1 -> NumaTab(
+                isStudyMode,
                 Modifier
                     .fillMaxWidth()
                     .padding(16.dp)
             )
 
             2 -> FlynnsTaxonomy(
+                isStudyMode,
                 Modifier
                     .fillMaxWidth()
                     .padding(16.dp)
             )
 
             3 -> CacheCoherence(
+                isStudyMode,
                 Modifier
                     .fillMaxWidth()
                     .padding(16.dp)
@@ -130,13 +160,14 @@ fun MultiprocessorSystemsScreen(modifier: Modifier = Modifier) {
 /**
  * Displays the speedup tab.
  *
+ * @param isStudyMode Whether the user is in study mode
  * @param modifier The modifier for the layout
  */
 @Composable
-fun SpeedupTab(modifier: Modifier = Modifier) {
+fun SpeedupTab(isStudyMode: Boolean, modifier: Modifier = Modifier) {
     Column(modifier, Arrangement.spacedBy(8.dp)) {
-        AmdahlsLaw(Modifier.fillMaxWidth())
-        GustafsonsLaw(Modifier.fillMaxWidth())
+        AmdahlsLaw(isStudyMode, Modifier.fillMaxWidth())
+        GustafsonsLaw(isStudyMode, Modifier.fillMaxWidth())
         SpeedupCalculator(Modifier.fillMaxWidth())
     }
 }
@@ -144,22 +175,25 @@ fun SpeedupTab(modifier: Modifier = Modifier) {
 /**
  * Displays a card with information about Amdahl's Law.
  *
+ * @param isStudyMode Whether the user is in study mode
  * @param modifier The modifier for the layout
  */
 @Composable
-private fun AmdahlsLaw(modifier: Modifier = Modifier) {
-    Card(modifier) {
+private fun AmdahlsLaw(isStudyMode: Boolean, modifier: Modifier = Modifier) {
+    var expanded by rememberSaveable { mutableStateOf(!isStudyMode) }
+    Card({ expanded = !expanded }, modifier) {
         Column(Modifier.padding(8.dp)) {
             Text(
                 text = stringResource(R.string.amdahls_law),
-                style = MaterialTheme.typography.titleLarge,
-                fontWeight = FontWeight.Bold
+                style = MaterialTheme.typography.titleLarge
             )
-            Text(
-                text = stringResource(R.string.amdahls_law_formula),
-                fontWeight = FontWeight.Bold
-            )
-            Text(stringResource(R.string.amdahls_law_description))
+            if (expanded) {
+                Text(
+                    text = stringResource(R.string.amdahls_law_formula),
+                    fontWeight = FontWeight.Bold
+                )
+                Text(stringResource(R.string.amdahls_law_description))
+            }
         }
     }
 }
@@ -167,22 +201,25 @@ private fun AmdahlsLaw(modifier: Modifier = Modifier) {
 /**
  * Displays a card with information about Gustafson's Law
  *
+ * @param isStudyMode Whether the user is in study mode
  * @param modifier The modifier for the layout
  */
 @Composable
-private fun GustafsonsLaw(modifier: Modifier = Modifier) {
-    Card(modifier) {
+private fun GustafsonsLaw(isStudyMode: Boolean, modifier: Modifier = Modifier) {
+    var expanded by rememberSaveable { mutableStateOf(!isStudyMode) }
+    Card({ expanded = !expanded }, modifier) {
         Column(Modifier.padding(8.dp)) {
             Text(
                 text = stringResource(R.string.gustafsons_law),
-                style = MaterialTheme.typography.titleLarge,
-                fontWeight = FontWeight.Bold
+                style = MaterialTheme.typography.titleLarge
             )
-            Text(
-                text = stringResource(R.string.gustafsons_law_formula),
-                fontWeight = FontWeight.Bold
-            )
-            Text(stringResource(R.string.gustafsons_law_description))
+            if (expanded) {
+                Text(
+                    text = stringResource(R.string.gustafsons_law_formula),
+                    fontWeight = FontWeight.Bold
+                )
+                Text(stringResource(R.string.gustafsons_law_description))
+            }
         }
     }
 }
@@ -200,14 +237,16 @@ private fun SpeedupCalculator(modifier: Modifier = Modifier) {
         mutableStateOf(amdahlsLaw(processors.toDouble(), parallelizedCode.toDouble()).toString())
     }
     var speedupGustavson by rememberSaveable {
-        mutableStateOf(gustavsonsLaw(processors.toDouble(), parallelizedCode.toDouble()).toString())
+        mutableStateOf(
+            gustafsonsLaw(processors.toDouble(), parallelizedCode.toDouble())
+                .toString()
+        )
     }
     Card(modifier) {
         Column(Modifier.padding(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
             Text(
                 text = stringResource(R.string.speedup_calculator),
-                style = MaterialTheme.typography.titleLarge,
-                fontWeight = FontWeight.Bold
+                style = MaterialTheme.typography.titleLarge
             )
 
             TextField(
@@ -233,7 +272,7 @@ private fun SpeedupCalculator(modifier: Modifier = Modifier) {
 
                 )
             TextField(
-                value = gustavsonsLaw(
+                value = gustafsonsLaw(
                     processors.toDouble(),
                     parallelizedCode.toDouble()
                 ).toString(),
@@ -249,47 +288,53 @@ private fun SpeedupCalculator(modifier: Modifier = Modifier) {
 
 /**
  * Calculates the speedup of a program given the number of cores and the percentage of the program
- * that can be parallelized using Amdahl's Law
+ * that can be parallelized using Amdahl's law
  *
  * @param n The number of processors
  * @param p The percentage of the program that can be parallelized
  */
-private fun amdahlsLaw(n: Double, p: Double): Int {
-    return (1 / ((1 - p) + (p / n))).roundToInt()
+private fun amdahlsLaw(n: Double, p: Double): Double {
+    val speedup = 1 / ((1 - p) + (p / n))
+    return String.format("%.3f", speedup).toDouble()
 }
 
 /**
  * Calculates the speedup of a program given the number of cores and the percentage of the program
- * that can be parallelized using Gustavson's Law
+ * that can be parallelized using Gustafson's law
  *
  * @param n The number of processors
  * @param p The percentage of the program that can be parallelized
  */
-private fun gustavsonsLaw(n: Double, p: Double): Int {
-    return (1 - p + p * n).roundToInt()
+private fun gustafsonsLaw(n: Double, p: Double): Double {
+    val speedup = (1 - p + p * n)
+    return String.format("%.3f", speedup).toDouble()
 }
 
 /**
  * Displays the numa tab.
  *
+ * @param isStudyMode Whether the user is in study mode
  * @param modifier The modifier for the layout
  */
 @Composable
-fun NumaTab(modifier: Modifier = Modifier) {
-    Column(
-        modifier
-            .fillMaxWidth()
-            .verticalScroll(rememberScrollState()),
-        Arrangement.spacedBy(12.dp)
-    ) {
-        Text(stringResource(R.string.numa_title_long), fontWeight = FontWeight.Bold)
-        Image(
-            painter = painterResource(R.drawable.numa),
-            contentDescription = "Numa",
-            modifier = Modifier.fillMaxWidth(),
-            contentScale = ContentScale.FillWidth
-        )
-        Text(stringResource(R.string.numa_runtime_description))
+fun NumaTab(isStudyMode: Boolean, modifier: Modifier = Modifier) {
+    var expanded by rememberSaveable { mutableStateOf(!isStudyMode) }
+    Card({ expanded = !expanded }, modifier.verticalScroll(rememberScrollState())) {
+        Column(Modifier.padding(8.dp)) {
+            Text(
+                text = stringResource(R.string.numa_title_long),
+                style = MaterialTheme.typography.titleLarge
+            )
+            if (expanded) {
+                Image(
+                    painter = painterResource(R.drawable.numa),
+                    contentDescription = "Numa",
+                    modifier = Modifier.fillMaxWidth(),
+                    contentScale = ContentScale.FillWidth
+                )
+                Text(stringResource(R.string.numa_runtime_description))
+            }
+        }
     }
 }
 
@@ -301,8 +346,9 @@ fun NumaTab(modifier: Modifier = Modifier) {
 @Composable
 fun MultiprocessorSystemsScreenPreview() {
     ComputerArchitectureTheme(true) {
-        MultiprocessorSystemsScreen(
-            navigateBack = {},
+        MultiprocessorSystemsContent(
+            isStudyMode = false,
+            modifier = Modifier.padding(16.dp)
         )
     }
 }

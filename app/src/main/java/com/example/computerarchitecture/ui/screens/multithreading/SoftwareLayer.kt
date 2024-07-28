@@ -13,6 +13,10 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -41,29 +45,33 @@ fun SoftwareLayer(modifier: Modifier = Modifier, isStudyMode: Boolean) {
             style = MaterialTheme.typography.titleLarge,
             fontWeight = FontWeight.Bold
         )
-        ThreadManagement()
-        MutexVariables()
-        ConditionVariables()
+        ThreadManagement(isStudyMode, Modifier.fillMaxWidth())
+        MutexVariables(isStudyMode, Modifier.fillMaxWidth())
+        ConditionVariables(isStudyMode, Modifier.fillMaxWidth())
     }
 }
 
 /**
  * Displays a card with information about POSIX thread management.
  *
+ * @param isStudyMode Whether the user is in study mode
  * @param modifier The modifier for the layout
  */
 @Composable
-private fun ThreadManagement(modifier: Modifier = Modifier) {
-    Card(modifier) {
-        Column(Modifier.padding(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+private fun ThreadManagement(isStudyMode: Boolean, modifier: Modifier = Modifier) {
+    var expanded by rememberSaveable { mutableStateOf(!isStudyMode) }
+    Card({ expanded = !expanded }, modifier) {
+        Column(Modifier.padding(8.dp), Arrangement.spacedBy(8.dp)) {
             Text(
                 text = stringResource(R.string.thread_management),
                 style = MaterialTheme.typography.titleLarge
             )
-            PThreadCreation(Modifier.fillMaxWidth())
-            PThreadExit(Modifier.fillMaxWidth())
-            PThreadJoin(Modifier.fillMaxWidth())
-            PthreadCancel(Modifier.fillMaxWidth())
+            if (expanded) {
+                PThreadCreation(Modifier.fillMaxWidth())
+                PThreadExit(Modifier.fillMaxWidth())
+                PThreadJoin(Modifier.fillMaxWidth())
+                PthreadCancel(Modifier.fillMaxWidth())
+            }
         }
     }
 }
@@ -72,20 +80,24 @@ private fun ThreadManagement(modifier: Modifier = Modifier) {
 /**
  * Displays a card with information about mutex variables.
  *
+ * @param isStudyMode Whether the user is in study mode
  * @param modifier The modifier for the layout
  */
 @Composable
-private fun MutexVariables(modifier: Modifier = Modifier) {
-    Card(modifier) {
-        Column(Modifier.padding(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+private fun MutexVariables(isStudyMode: Boolean, modifier: Modifier = Modifier) {
+    var expanded by rememberSaveable { mutableStateOf(!isStudyMode) }
+    Card({ expanded = !expanded }, modifier) {
+        Column(Modifier.padding(8.dp), Arrangement.spacedBy(8.dp)) {
             Text(
                 text = stringResource(R.string.mutex_variables),
                 style = MaterialTheme.typography.titleLarge
             )
-            PthreadMutexInit(Modifier.fillMaxWidth())
-            PthreadMutexDestroy(Modifier.fillMaxWidth())
-            PthreadMutexLock(Modifier.fillMaxWidth())
-            PthreadMutexUnlock(Modifier.fillMaxWidth())
+            if (expanded) {
+                PthreadMutexInit(Modifier.fillMaxWidth())
+                PthreadMutexDestroy(Modifier.fillMaxWidth())
+                PthreadMutexLock(Modifier.fillMaxWidth())
+                PthreadMutexUnlock(Modifier.fillMaxWidth())
+            }
         }
     }
 }
@@ -93,19 +105,23 @@ private fun MutexVariables(modifier: Modifier = Modifier) {
 /**
  * Displays a card with information about condition variables.
  *
+ * @param isStudyMode Whether the user is in study mode
  * @param modifier The modifier for the layout
  */
 @Composable
-private fun ConditionVariables(modifier: Modifier = Modifier) {
-    Card(modifier) {
-        Column(Modifier.padding(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+private fun ConditionVariables(isStudyMode: Boolean, modifier: Modifier = Modifier) {
+    var expanded by rememberSaveable { mutableStateOf(!isStudyMode) }
+    Card({ expanded = !expanded }, modifier) {
+        Column(Modifier.padding(8.dp), Arrangement.spacedBy(8.dp)) {
             Text(
                 text = stringResource(R.string.condition_variables),
                 style = MaterialTheme.typography.titleLarge
             )
-            PthreadConditionInit(Modifier.fillMaxWidth())
-            PthreadConditionSignal(Modifier.fillMaxWidth())
-            PthreadConditionWait(Modifier.fillMaxWidth())
+            if (expanded) {
+                PthreadConditionInit(Modifier.fillMaxWidth())
+                PthreadConditionSignal(Modifier.fillMaxWidth())
+                PthreadConditionWait(Modifier.fillMaxWidth())
+            }
         }
     }
 }

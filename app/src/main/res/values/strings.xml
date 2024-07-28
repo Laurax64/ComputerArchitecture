@@ -473,4 +473,5 @@
     <string name="open_cl_enqueue_map_buffer_description">Enqueues a command to map a region of the buffer object given by buffer into the host address space and returns a pointer to this mapped region.</string>
     <string name="study_mode">Study Mode</string>
     <string name="normal_mode">Normal Mode</string>
+    <string name="moore_machine">Moore Machine</string>
 </resources>

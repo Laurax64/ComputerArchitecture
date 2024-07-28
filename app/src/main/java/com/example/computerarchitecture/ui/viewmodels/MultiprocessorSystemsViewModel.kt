@@ -9,19 +9,19 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
+
 /**
- * The view model for the multithreading screen
+ * The view model for the multiprocessor systems screen
  *
  * @param userPreferencesRepository The repository for user preferences
  */
 @HiltViewModel
-class MultithreadingViewModel @Inject constructor(
+class MultiprocessorSystemsViewModel @Inject constructor(
     private val userPreferencesRepository: UserPreferencesRepository
 ) : ViewModel() {
-    var isStudyMode: StateFlow<Boolean> = userPreferencesRepository.isStudyMode
-        .stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5_000),
-            initialValue = false
-        )
+    val isStudyMode: StateFlow<Boolean> = userPreferencesRepository.isStudyMode.stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5_000),
+        initialValue = false
+    )
 }
