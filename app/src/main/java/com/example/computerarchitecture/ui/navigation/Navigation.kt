@@ -15,8 +15,10 @@ import com.example.computerarchitecture.ui.screens.MPIScreen
 import com.example.computerarchitecture.ui.screens.NetworksScreen
 import com.example.computerarchitecture.ui.screens.OpenMPScreen
 import com.example.computerarchitecture.ui.screens.TopicsScreen
+import com.example.computerarchitecture.ui.screens.branchprediction.BranchPredictionScreen
 import com.example.computerarchitecture.ui.screens.caching.CachingScreen
 import com.example.computerarchitecture.ui.screens.instructionscheduling.InstructionSchedulingScreen
+import com.example.computerarchitecture.ui.screens.memoryhierarchy.MemoryHierarchyScreen
 import com.example.computerarchitecture.ui.screens.multiprocessorsystems.MultiprocessorSystemsScreen
 import com.example.computerarchitecture.ui.screens.multithreading.MultithreadingScreen
 import com.example.computerarchitecture.ui.viewmodels.MultithreadingViewModel
@@ -64,6 +66,12 @@ fun ComputerArchitectureNavHost(
         }
         composable(InstructionSchedulingDestination.screenRoute) {
             InstructionSchedulingScreen(navController::popBackStack)
+        }
+        composable(BranchPredictionDestination.screenRoute) {
+            BranchPredictionScreen(navController::popBackStack)
+        }
+        composable(MemoryHierarchyDestination.screenRoute) {
+            MemoryHierarchyScreen(navController::popBackStack)
         }
         composable(CachingDestination.screenRoute) {
             CachingScreen(navController::popBackStack)
