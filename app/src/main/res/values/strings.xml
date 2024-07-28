@@ -320,7 +320,7 @@
         if i provides data that j requires.</string>
     <string name="write_after_read">Write after read (WAR)</string>
     <string name="write_after_read_description">An instruction i is called anti-data-dependent from a subsequent
-        instruction j if j describes a memory cell that still has to be read by i.</string>
+        instruction j if j writes  a memory cell that still has to be read by i.</string>
     <string name="write_after_write">Write after write (WAW)</string>
     <string name="write_after_write_description">Two instructions i and j are called output-dependent if i and j write
         to the same memory cell.</string>
@@ -328,7 +328,7 @@
     <string name="data_dependencies_code">add x12,x2,x3\nsub x4,x5,x12\nand x6,x12,x7\nor x12,x12,x9\nxor x10,x12,x11
     </string>
     <string name="raw_example_description">The last 4 instructions are data-dependent on the add instruction because of x12.</string>
-    <string name="war_example_description">sub and and are antidata-dependent on the or command because of x12.</string>
+    <string name="war_example_description">sub and and are antidata-dependent on the or instruction because of x12.</string>
     <string name="waw_example_description">add and or are output-dependent on each other.</string>
     <string name="hierarchy_levels">Hierarchy Levels</string>
     <string name="memory_address">Memory Address</string>
