@@ -74,8 +74,8 @@ fun MultithreadingContent(
             }
         }
         when (state) {
-            1 -> HardwareLayer(Modifier.padding(8.dp), isStudyMode)
-            0 -> SoftwareLayer(Modifier.padding(8.dp), isStudyMode)
+            0 -> HardwareLayer(Modifier.padding(8.dp), isStudyMode)
+            1 -> SoftwareLayer(Modifier.padding(8.dp), isStudyMode)
         }
     }
 }

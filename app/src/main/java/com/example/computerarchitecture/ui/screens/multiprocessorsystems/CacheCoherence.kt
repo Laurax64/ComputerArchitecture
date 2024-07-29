@@ -49,7 +49,7 @@ fun CacheCoherence(isStudyMode: Boolean, modifier: Modifier = Modifier) {
 @Composable
 private fun Definition(isStudyMode: Boolean, modifier: Modifier = Modifier) {
     var expanded by rememberSaveable { mutableStateOf(!isStudyMode) }
-    Card(modifier) {
+    Card({ expanded = !expanded }, modifier) {
         Column(Modifier.padding(8.dp)) {
             Text(
                 text = stringResource(R.string.cache_definition),
@@ -71,7 +71,7 @@ private fun Definition(isStudyMode: Boolean, modifier: Modifier = Modifier) {
 @Composable
 private fun Maintenance(isStudyMode: Boolean, modifier: Modifier = Modifier) {
     var expanded by rememberSaveable { mutableStateOf(!isStudyMode) }
-    Card(modifier) {
+    Card({ expanded = !expanded }, modifier) {
         Column(Modifier.padding(8.dp), Arrangement.spacedBy(8.dp)) {
             Text(
                 text = stringResource(R.string.maintenance),
@@ -146,7 +146,7 @@ private fun DirectoryBasedCoherence(modifier: Modifier = Modifier) {
 private fun MSIProtocol(isStudyMode: Boolean, modifier: Modifier = Modifier) {
     var expanded by rememberSaveable { mutableStateOf(!isStudyMode) }
     var showStateMachine by rememberSaveable { mutableStateOf(false) }
-    Card(modifier) {
+    Card({ expanded = !expanded }, modifier) {
         Column(Modifier.padding(8.dp)) {
             Text(
                 text = stringResource(R.string.msi_protocol),
