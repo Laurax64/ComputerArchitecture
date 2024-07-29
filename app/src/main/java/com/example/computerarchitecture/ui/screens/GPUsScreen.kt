@@ -139,7 +139,6 @@ private fun MemoryModel(isStudyMode: Boolean, modifier: Modifier = Modifier) {
                     painter = painterResource(
                         id = R.drawable.open_cl_memory_model
                     ),
-                    modifier = Modifier.weight(1f),
                     contentDescription = null
                 )
             }
