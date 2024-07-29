@@ -187,7 +187,7 @@ private fun PThreadJoin(modifier: Modifier = Modifier) {
                 fontWeight = FontWeight.Bold,
             )
             Text(stringResource(R.string.pthread_join_description))
-            TextButton({ openWebsite("https://www.onlinegdb.com/?dest_fid=50346396", context) }) {
+            TextButton({ openWebsite("https://onlinegdb.com/VkWQD-JDr", context) }) {
                 Text(stringResource(R.string.example))
             }
 
