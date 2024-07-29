@@ -110,6 +110,7 @@ private fun MutexVariables(isStudyMode: Boolean, modifier: Modifier = Modifier) 
  */
 @Composable
 private fun ConditionVariables(isStudyMode: Boolean, modifier: Modifier = Modifier) {
+    val context = LocalContext.current
     var expanded by rememberSaveable { mutableStateOf(!isStudyMode) }
     Card({ expanded = !expanded }, modifier) {
         Column(Modifier.padding(8.dp), Arrangement.spacedBy(8.dp)) {
@@ -121,6 +122,9 @@ private fun ConditionVariables(isStudyMode: Boolean, modifier: Modifier = Modifi
                 PthreadConditionInit(Modifier.fillMaxWidth())
                 PthreadConditionSignal(Modifier.fillMaxWidth())
                 PthreadConditionWait(Modifier.fillMaxWidth())
+                TextButton({ openWebsite("https://onlinegdb.com/dQ0pXnZVv", context) }) {
+                    Text(stringResource(R.string.example))
+                }
             }
         }
     }
@@ -312,7 +316,7 @@ private fun PthreadMutexUnlock(modifier: Modifier = Modifier) {
  */
 @Composable
 private fun PthreadConditionInit(modifier: Modifier = Modifier) {
-    Card(modifier.clickable {}) {
+    Card(modifier) {
         Column(Modifier.padding(8.dp)) {
             Text(
                 text = stringResource(R.string.pthread_cond_init),
