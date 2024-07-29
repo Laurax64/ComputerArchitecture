@@ -35,17 +35,18 @@ import com.example.computerarchitecture.ui.theme.ComputerArchitectureTheme
 /**
  * Displays a card with information about block replacement.
  *
+ * @param isStudyMode Whether the user is in study mode
  * @param modifier The modifier for the layout
  */
 @Composable
-fun BlockReplacement(modifier: Modifier = Modifier) {
+fun BlockReplacement(isStudyMode: Boolean, modifier: Modifier = Modifier) {
+    var expanded by rememberSaveable { mutableStateOf(!isStudyMode) }
     val focusManager = LocalFocusManager.current
-    Card(modifier
-        .pointerInput(Unit) {
-            detectTapGestures(onTap = {
-                focusManager.clearFocus()
-            })
-        }
+    Card({ expanded = !expanded }, modifier.pointerInput(Unit) {
+        detectTapGestures(onTap = {
+            focusManager.clearFocus()
+        })
+    }
     )
     {
         Column(Modifier.padding(8.dp), Arrangement.spacedBy(8.dp)) {
@@ -53,15 +54,16 @@ fun BlockReplacement(modifier: Modifier = Modifier) {
                 text = stringResource(R.string.block_replacement),
                 style = MaterialTheme.typography.titleLarge,
             )
-            Text(stringResource(R.string.block_replacement_question))
-
-            DirectMapping(Modifier.fillMaxWidth())
-            SetAssociativeMapping(Modifier.fillMaxWidth())
-            AssociativeMapping(Modifier.fillMaxWidth())
-            Random(Modifier.fillMaxWidth())
-            LRU(Modifier.fillMaxWidth())
-            FIFO(Modifier.fillMaxWidth())
-            Clock(Modifier.fillMaxWidth())
+            if (expanded) {
+                Text(stringResource(R.string.block_replacement_question))
+                DirectMapping(Modifier.fillMaxWidth())
+                SetAssociativeMapping(Modifier.fillMaxWidth())
+                AssociativeMapping(Modifier.fillMaxWidth())
+                Random(Modifier.fillMaxWidth())
+                LRU(Modifier.fillMaxWidth())
+                FIFO(Modifier.fillMaxWidth())
+                Clock(Modifier.fillMaxWidth())
+            }
         }
     }
 }
@@ -164,9 +166,9 @@ private fun LRU(modifier: Modifier = Modifier) {
                 text = stringResource(R.string.lru),
                 style = MaterialTheme.typography.titleMedium
             )
-                Text(
-                    text = stringResource(R.string.lru_description),
-                )
+            Text(
+                text = stringResource(R.string.lru_description),
+            )
             LinkedList()
             TriangularMatrix()
         }
@@ -230,7 +232,7 @@ private fun TriangularMatrix(modifier: Modifier = Modifier) {
                 Text(stringResource(R.string.triangular_matrix_description))
                 Operations(Modifier.fillMaxWidth())
                 LRUCacheMatrix(Modifier.fillMaxWidth())
-                }
+            }
         }
     }
 }
@@ -266,8 +268,8 @@ private fun Operations(modifier: Modifier = Modifier) {
             )
             Text(stringResource(R.string.triangular_matrix_cache_miss_description))
         }
-        }
     }
+}
 
 /**
  * Displays a card with information about LRU cache matrix.
@@ -285,11 +287,11 @@ fun LRUCacheMatrix(modifier: Modifier = Modifier) {
         )
     }
     Column(modifier, Arrangement.spacedBy(8.dp), Alignment.CenterHorizontally) {
-            MatrixDisplay(Modifier, matrix)
-            CacheControls(Modifier, matrix) { updatedMatrix ->
-                matrix = updatedMatrix
-            }
+        MatrixDisplay(Modifier, matrix)
+        CacheControls(Modifier, matrix) { updatedMatrix ->
+            matrix = updatedMatrix
         }
+    }
 
 }
 
@@ -427,6 +429,6 @@ private fun Clock(modifier: Modifier = Modifier) {
 @Composable
 private fun BlockReplacementPreviews() {
     ComputerArchitectureTheme {
-        BlockReplacement()
+        BlockReplacement(false)
     }
 }

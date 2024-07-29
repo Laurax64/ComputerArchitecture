@@ -1,4 +1,4 @@
-package com.example.computerarchitecture.ui
+package com.example.computerarchitecture.ui.screens
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -25,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import com.example.computerarchitecture.R
 import com.example.computerarchitecture.ui.components.TopicTopBar
 import com.example.computerarchitecture.ui.theme.ComputerArchitectureTheme
+import com.example.computerarchitecture.ui.viewmodels.PipelineViewModel
 
 /**
  * Displays a screen with information about the pipeline.
@@ -35,6 +36,7 @@ import com.example.computerarchitecture.ui.theme.ComputerArchitectureTheme
 @Composable
 fun PipelineScreen(
     navigateBack: () -> Unit,
+    pipelineViewModel: PipelineViewModel,
     modifier: Modifier = Modifier,
 ) {
     Scaffold(
@@ -47,6 +49,7 @@ fun PipelineScreen(
         },
     ) {
         PipelineScreen(
+            isStudyMode = pipelineViewModel.isStudyMode,
             Modifier
                 .padding(it)
                 .padding(start = 16.dp, end = 16.dp)
@@ -57,31 +60,36 @@ fun PipelineScreen(
 /**
  * Displays a screen with information about the pipeline.
  *
+ * @param isStudyMode Whether the user is in study mode
  * @param modifier The modifier for the layout
  */
 @Composable
-fun PipelineScreen(modifier: Modifier = Modifier) {
+fun PipelineScreen(isStudyMode: Boolean, modifier: Modifier = Modifier) {
     Column(modifier.verticalScroll(rememberScrollState()), Arrangement.spacedBy(8.dp)) {
-        DataDependencies(Modifier.fillMaxWidth())
+        DataDependencies(isStudyMode, Modifier.fillMaxWidth())
     }
 }
 
 /**
  * Displays a card with information about data dependencies.
  *
+ * @param isStudyMode Whether the user is in study mode
  * @param modifier The modifier for the layout
  */
 @Composable
-fun DataDependencies(modifier: Modifier = Modifier) {
-    Card(modifier) {
+fun DataDependencies(isStudyMode: Boolean, modifier: Modifier = Modifier) {
+    var expanded by rememberSaveable { mutableStateOf(!isStudyMode) }
+    Card({ expanded = !expanded }, modifier) {
         Column(Modifier.padding(8.dp), Arrangement.spacedBy(8.dp)) {
             Text(
                 text = stringResource(R.string.data_dependencies),
                 style = MaterialTheme.typography.titleLarge,
-                )
-            RAWDependencies(Modifier.fillMaxWidth())
-            WARDependencies(Modifier.fillMaxWidth())
-            WAWDependencies(Modifier.fillMaxWidth())
+            )
+            if (expanded) {
+                RAWDependencies(Modifier.fillMaxWidth())
+                WARDependencies(Modifier.fillMaxWidth())
+                WAWDependencies(Modifier.fillMaxWidth())
+            }
         }
     }
 }
@@ -221,6 +229,6 @@ private fun WAWDependencies(modifier: Modifier = Modifier) {
 @Composable
 fun PipelineScreenPreview() {
     ComputerArchitectureTheme {
-        PipelineScreen(navigateBack = {})
+        PipelineScreen(false)
     }
 }

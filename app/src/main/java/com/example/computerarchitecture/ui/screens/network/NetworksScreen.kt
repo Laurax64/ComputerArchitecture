@@ -1,4 +1,4 @@
-package com.example.computerarchitecture.ui.screens
+package com.example.computerarchitecture.ui.screens.network
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
@@ -18,20 +18,20 @@ import androidx.compose.ui.tooling.preview.PreviewScreenSizes
 import androidx.compose.ui.unit.dp
 import com.example.computerarchitecture.R
 import com.example.computerarchitecture.ui.components.TopicTopBar
-import com.example.computerarchitecture.ui.screens.network.Routing
-import com.example.computerarchitecture.ui.screens.network.Switches
-import com.example.computerarchitecture.ui.screens.network.Topologies
 import com.example.computerarchitecture.ui.theme.ComputerArchitectureTheme
+import com.example.computerarchitecture.ui.viewmodels.NetworksViewModel
 
 /**
  * Displays the networks screen.
  *
  * @param navigateBack The function to navigate back
+ * @param networksViewModel The view model for the networks screen
  * @param modifier The modifier for the layout
  */
 @Composable
 fun NetworksScreen(
     navigateBack: () -> Unit,
+    networksViewModel: NetworksViewModel,
     modifier: Modifier = Modifier,
 ) {
     Scaffold(
@@ -44,6 +44,7 @@ fun NetworksScreen(
         },
     ) {
         NetworksScreen(
+            networksViewModel.isStudyMode,
             Modifier
                 .padding(it)
                 .padding(start = 16.dp, end = 16.dp)
@@ -54,10 +55,11 @@ fun NetworksScreen(
 /**
  * Displays the flash memory screen.
  *
+ * @param isStudyMode Whether the user is in study mode
  * @param modifier The modifier for the layout
  */
 @Composable
-fun NetworksScreen(modifier: Modifier = Modifier) {
+fun NetworksScreen(isStudyMode: Boolean, modifier: Modifier = Modifier) {
     val titles = listOf(R.string.topologies, R.string.switches, R.string.routing)
     var selectedTabIndex by rememberSaveable { mutableIntStateOf(0) }
     Column(modifier) {
@@ -71,9 +73,9 @@ fun NetworksScreen(modifier: Modifier = Modifier) {
             }
         }
         when (selectedTabIndex) {
-            0 -> Topologies(Modifier.padding(8.dp))
-            1 -> Switches(Modifier.padding(8.dp))
-            2 -> Routing(Modifier.padding(8.dp))
+            0 -> Topologies(isStudyMode, Modifier.padding(8.dp))
+            1 -> Switches(isStudyMode, Modifier.padding(8.dp))
+            2 -> Routing(isStudyMode, Modifier.padding(8.dp))
         }
     }
 }
@@ -86,6 +88,6 @@ fun NetworksScreen(modifier: Modifier = Modifier) {
 @Composable
 fun NetworksScreenPreview() {
     ComputerArchitectureTheme {
-        NetworksScreen(navigateBack = {})
+        NetworksScreen(false)
     }
 }

@@ -15,6 +15,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
@@ -25,16 +26,19 @@ import androidx.compose.ui.unit.dp
 import com.example.computerarchitecture.R
 import com.example.computerarchitecture.ui.components.TopicTopBar
 import com.example.computerarchitecture.ui.theme.ComputerArchitectureTheme
+import com.example.computerarchitecture.ui.viewmodels.InstructionSchedulingViewModel
 
 /**
  * Displays the instruction scheduling screen.
  *
  * @param navigateBack The function to navigate back
+ * @param instructionSchedulingViewModel The view model for the instruction scheduling screen
  * @param modifier The modifier for the layout
  */
 @Composable
 fun InstructionSchedulingScreen(
     navigateBack: () -> Unit,
+    instructionSchedulingViewModel: InstructionSchedulingViewModel,
     modifier: Modifier = Modifier,
 ) {
     Scaffold(
@@ -47,7 +51,8 @@ fun InstructionSchedulingScreen(
         },
     ) {
         InstructionSchedulingScreen(
-            Modifier
+            isStudyMode = instructionSchedulingViewModel.isStudyMode,
+            modifier = Modifier
                 .padding(it)
                 .padding(start = 16.dp, end = 16.dp)
         )
@@ -57,24 +62,26 @@ fun InstructionSchedulingScreen(
 /**
  * Displays the instruction scheduling screen.
  *
+ * @param isStudyMode Whether the user is in study mode
  * @param modifier The modifier for the layout
  */
 @Composable
-fun InstructionSchedulingScreen(modifier: Modifier = Modifier) {
+fun InstructionSchedulingScreen(isStudyMode: Boolean, modifier: Modifier = Modifier) {
     var state by rememberSaveable { mutableIntStateOf(0) }
     val titles = listOf(R.string.static_scheduling, R.string.dynamic_scheduling)
     Column(modifier, Arrangement.spacedBy(8.dp)) {
-        TabRow(state) {
+        TabRow(selectedTabIndex = state) {
             titles.forEachIndexed { index, title ->
                 Tab(
                     selected = state == index,
                     onClick = { state = index },
-                    text = { Text(text = stringResource(title)) })
+                    text = { Text(text = stringResource(title)) }
+                )
             }
         }
         when (state) {
-            0 -> StaticScheduling(Modifier.fillMaxWidth())
-            1 -> DynamicScheduling(Modifier.fillMaxWidth())
+            0 -> StaticScheduling(isStudyMode, Modifier.fillMaxWidth())
+            1 -> DynamicScheduling(isStudyMode, Modifier.fillMaxWidth())
         }
     }
 }
@@ -82,30 +89,35 @@ fun InstructionSchedulingScreen(modifier: Modifier = Modifier) {
 /**
  * Displays a column with information about static scheduling.
  *
+ * @param isStudyMode Whether the user is in study mode
  * @param modifier The modifier for the layout
  */
 @Composable
-private fun StaticScheduling(modifier: Modifier = Modifier) {
+private fun StaticScheduling(isStudyMode: Boolean, modifier: Modifier = Modifier) {
     Column(modifier, Arrangement.spacedBy(8.dp)) {
-        StaticSchedulingParallelism(Modifier.fillMaxWidth())
-        StaticSchedulingExecutionOrder(Modifier.fillMaxWidth())
+        StaticSchedulingParallelism(isStudyMode, Modifier.fillMaxWidth())
+        StaticSchedulingExecutionOrder(isStudyMode, Modifier.fillMaxWidth())
     }
 }
 
 /**
  * Displays a card with information about static scheduling parallelism.
  *
+ * @param isStudyMode Whether the user is in study mode
  * @param modifier The modifier for the layout
  */
 @Composable
-private fun StaticSchedulingParallelism(modifier: Modifier = Modifier) {
-    Card(modifier) {
+private fun StaticSchedulingParallelism(isStudyMode: Boolean, modifier: Modifier = Modifier) {
+    var expanded by rememberSaveable { mutableStateOf(!isStudyMode) }
+    Card({ expanded = !expanded }, modifier = modifier) {
         Column(Modifier.padding(8.dp)) {
             Text(
                 text = stringResource(R.string.parallelism),
                 style = MaterialTheme.typography.titleLarge
             )
-            Text(stringResource(R.string.static_scheduling_parallelism_description))
+            if (expanded) {
+                Text(stringResource(R.string.static_scheduling_parallelism_description))
+            }
         }
     }
 }
@@ -113,17 +125,21 @@ private fun StaticSchedulingParallelism(modifier: Modifier = Modifier) {
 /**
  * Displays a card with information about static scheduling execution order.
  *
+ * @param isStudyMode Whether the user is in study mode
  * @param modifier The modifier for the layout
  */
 @Composable
-private fun StaticSchedulingExecutionOrder(modifier: Modifier = Modifier) {
-    Card(modifier) {
+private fun StaticSchedulingExecutionOrder(isStudyMode: Boolean, modifier: Modifier = Modifier) {
+    var expanded by rememberSaveable { mutableStateOf(!isStudyMode) }
+    Card({ expanded = !expanded }, modifier = modifier) {
         Column(Modifier.padding(8.dp)) {
             Text(
                 text = stringResource(R.string.execution_order),
                 style = MaterialTheme.typography.titleLarge
             )
-            Text(stringResource(R.string.static_scheduling_execution_order_description))
+            if (expanded) {
+                Text(stringResource(R.string.static_scheduling_execution_order_description))
+            }
         }
     }
 }
@@ -131,48 +147,63 @@ private fun StaticSchedulingExecutionOrder(modifier: Modifier = Modifier) {
 /**
  * Displays a column with information about dynamic scheduling.
  *
+ * @param isStudyMode Whether the user is in study mode
  * @param modifier The modifier for the layout
  */
 @Composable
-private fun DynamicScheduling(modifier: Modifier = Modifier) {
+private fun DynamicScheduling(isStudyMode: Boolean, modifier: Modifier = Modifier) {
     Column(modifier, Arrangement.spacedBy(8.dp)) {
-        DynamicSchedulingParallelism(Modifier.fillMaxWidth())
-        DynamicSchedulingExecutionOrder(Modifier.fillMaxWidth())
-        Scorboarding(Modifier.fillMaxWidth())
-        TomasulosAlgorithm(Modifier.fillMaxWidth())
+        DynamicSchedulingParallelism(isStudyMode, Modifier.fillMaxWidth())
+        DynamicSchedulingExecutionOrder(isStudyMode, Modifier.fillMaxWidth())
+        Scorboarding(isStudyMode, Modifier.fillMaxWidth())
+        TomasulosAlgorithm(isStudyMode, Modifier.fillMaxWidth())
     }
 }
 
 /**
  * Displays a card with information about dynamic scheduling parallelism.
  *
+ * @param isStudyMode Whether the user is in study mode
  * @param modifier The modifier for the layout
  */
 @Composable
-private fun DynamicSchedulingParallelism(modifier: Modifier = Modifier) {
-    Card(modifier) {
+private fun DynamicSchedulingParallelism(isStudyMode: Boolean, modifier: Modifier = Modifier) {
+    var expanded by rememberSaveable { mutableStateOf(!isStudyMode) }
+    Card({ expanded = !expanded }, modifier = modifier) {
         Column(
             Modifier
                 .padding(8.dp)
-                .horizontalScroll(rememberScrollState())) {
+                .horizontalScroll(rememberScrollState())
+        ) {
             Text(
                 text = stringResource(R.string.parallelism),
-                style = MaterialTheme.typography.titleLarge,
+                style = MaterialTheme.typography.titleLarge
             )
-            Text(stringResource(R.string.dynamic_scheduling_parallelism_description))
+            if (expanded) {
+                Text(stringResource(R.string.dynamic_scheduling_parallelism_description))
+            }
         }
     }
 }
 
+/**
+ * Displays a card with information about dynamic scheduling execution order.
+ *
+ * @param isStudyMode Whether the user is in study mode
+ * @param modifier The modifier for the layout
+ */
 @Composable
-private fun DynamicSchedulingExecutionOrder(modifier: Modifier = Modifier) {
-    Card(modifier) {
+private fun DynamicSchedulingExecutionOrder(isStudyMode: Boolean, modifier: Modifier = Modifier) {
+    var expanded by rememberSaveable { mutableStateOf(!isStudyMode) }
+    Card({ expanded = !expanded }, modifier = modifier) {
         Column(Modifier.padding(8.dp)) {
             Text(
                 text = stringResource(R.string.execution_order),
                 style = MaterialTheme.typography.titleLarge
             )
-            Text(stringResource(R.string.dynamic_scheduling_execution_order_description))
+            if (expanded) {
+                Text(stringResource(R.string.dynamic_scheduling_execution_order_description))
+            }
         }
     }
 }
@@ -180,35 +211,43 @@ private fun DynamicSchedulingExecutionOrder(modifier: Modifier = Modifier) {
 /**
  * Displays a card with information about scorboarding.
  *
+ * @param isStudyMode Whether the user is in study mode
  * @param modifier The modifier for the layout
  */
 @Composable
-private fun Scorboarding(modifier: Modifier = Modifier) {
-    Card(modifier) {
+private fun Scorboarding(isStudyMode: Boolean, modifier: Modifier = Modifier) {
+    var expanded by rememberSaveable { mutableStateOf(!isStudyMode) }
+    Card({ expanded = !expanded }, modifier = modifier) {
         Column(Modifier.padding(8.dp)) {
             Text(
                 text = stringResource(R.string.scorboarding),
                 style = MaterialTheme.typography.titleLarge
             )
-            Text(stringResource(R.string.scorboarding_description))
+            if (expanded) {
+                Text(stringResource(R.string.scorboarding_description))
+            }
         }
     }
 }
 
 /**
- * Displays a card with information about multiprocessor systems.
+ * Displays a card with information about Tomasulo's algorithm.
  *
+ * @param isStudyMode Whether the user is in study mode
  * @param modifier The modifier for the layout
  */
 @Composable
-private fun TomasulosAlgorithm(modifier: Modifier = Modifier) {
-    Card(modifier) {
+private fun TomasulosAlgorithm(isStudyMode: Boolean, modifier: Modifier = Modifier) {
+    var expanded by rememberSaveable { mutableStateOf(!isStudyMode) }
+    Card({ expanded = !expanded }, modifier) {
         Column(Modifier.padding(8.dp)) {
             Text(
                 text = stringResource(R.string.tomasulos_algorithm),
                 style = MaterialTheme.typography.titleLarge
             )
-            Text(stringResource(R.string.tomasulo_algorithm_description))
+            if (expanded) {
+                Text(stringResource(R.string.tomasulo_algorithm_description))
+            }
         }
     }
 }
@@ -221,6 +260,6 @@ private fun TomasulosAlgorithm(modifier: Modifier = Modifier) {
 @Composable
 fun InstructionSchedulingScreenPreview() {
     ComputerArchitectureTheme {
-        InstructionSchedulingScreen(navigateBack = {})
+        InstructionSchedulingScreen(isStudyMode = false)
     }
 }

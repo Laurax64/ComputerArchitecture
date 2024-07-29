@@ -1,4 +1,4 @@
-package com.example.computerarchitecture.ui.screens.caching
+package com.example.computerarchitecture.ui.screens
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -24,16 +24,19 @@ import androidx.compose.ui.unit.dp
 import com.example.computerarchitecture.R
 import com.example.computerarchitecture.ui.components.TopicTopBar
 import com.example.computerarchitecture.ui.theme.ComputerArchitectureTheme
+import com.example.computerarchitecture.ui.viewmodels.CachingViewModel
 
 /**
  * Displays the caching screen.
  *
  * @param navigateBack The function to navigate back
+ * @param cachingViewModel The caching view model
  * @param modifier The modifier for the layout
  */
 @Composable
 fun CachingScreen(
     navigateBack: () -> Unit,
+    cachingViewModel: CachingViewModel,
     modifier: Modifier = Modifier,
 ) {
     Scaffold(
@@ -45,6 +48,7 @@ fun CachingScreen(
         },
     ) { paddingValues ->
         CachingScreen(
+            cachingViewModel.isStudyMode,
             Modifier
                 .padding(paddingValues)
                 .padding(start = 16.dp, end = 16.dp)
@@ -55,26 +59,28 @@ fun CachingScreen(
 /**
  * Displays the caching screen.
  *
+ * @param isStudyMode Whether the user is in study mode
  * @param modifier The modifier for the layout
  */
 @Composable
-fun CachingScreen(modifier: Modifier = Modifier) {
+fun CachingScreen(isStudyMode: Boolean, modifier: Modifier = Modifier) {
     Column(modifier.verticalScroll(rememberScrollState()), Arrangement.spacedBy(8.dp)) {
-        ReduceCacheMisses(Modifier.fillMaxWidth())
-        ReduceHitTime(Modifier.fillMaxWidth())
-        IncreaseMemoryBandwidth(Modifier.fillMaxWidth())
-        ReduceMissPenalty(Modifier.fillMaxWidth())
+        ReduceCacheMisses(isStudyMode, Modifier.fillMaxWidth())
+        ReduceHitTime(isStudyMode, Modifier.fillMaxWidth())
+        IncreaseMemoryBandwidth(isStudyMode, Modifier.fillMaxWidth())
+        ReduceMissPenalty(isStudyMode, Modifier.fillMaxWidth())
     }
 }
 
 /**
  * Displays a card with information about reducing cache misses.
  *
+ * @param isStudyMode Whether the user is in study mode
  * @param modifier The modifier for the layout.
  */
 @Composable
-private fun ReduceCacheMisses(modifier: Modifier = Modifier) {
-    var expanded by rememberSaveable { mutableStateOf(false) }
+private fun ReduceCacheMisses(isStudyMode: Boolean, modifier: Modifier = Modifier) {
+    var expanded by rememberSaveable { mutableStateOf(!isStudyMode) }
     Card({ expanded = !expanded }, modifier) {
         Column(Modifier.padding(8.dp), Arrangement.spacedBy(8.dp)) {
             Text(
@@ -166,11 +172,12 @@ private fun HigherAssociativity(modifier: Modifier = Modifier) {
 /**
  * Displays a card with information about reducing hit time.
  *
+ * @param isStudyMode Whether the user is in study mode.
  * @param modifier The modifier for the layout.
  */
 @Composable
-private fun ReduceHitTime(modifier: Modifier = Modifier) {
-    var expanded by rememberSaveable { mutableStateOf(false) }
+private fun ReduceHitTime(isStudyMode: Boolean, modifier: Modifier = Modifier) {
+    var expanded by rememberSaveable { mutableStateOf(!isStudyMode) }
     Card({ expanded = !expanded }, modifier) {
         Column(Modifier.padding(8.dp), Arrangement.spacedBy(8.dp)) {
             Text(
@@ -225,9 +232,15 @@ private fun NoAddressTranslationOnCacheAccess(modifier: Modifier = Modifier) {
     }
 }
 
+/**
+ * Displays a card with information about increasing memory bandwidth.
+ *
+ * @param isStudyMode Whether the user is in study mode.
+ * @param modifier The modifier for the layout.
+ */
 @Composable
-private fun IncreaseMemoryBandwidth(modifier: Modifier = Modifier) {
-    var expanded by rememberSaveable { mutableStateOf(false) }
+private fun IncreaseMemoryBandwidth(isStudyMode: Boolean, modifier: Modifier = Modifier) {
+    var expanded by rememberSaveable { mutableStateOf(!isStudyMode) }
     Card({ expanded = !expanded }, modifier) {
         Column(Modifier.padding(8.dp), Arrangement.spacedBy(8.dp)) {
             Text(
@@ -288,12 +301,12 @@ fun PipelinedCacheAccess(modifier: Modifier = Modifier) {
 /**
  * Displays a card with information about reducing miss penalty.
  *
+ * @param isStudyMode Whether the user is in study mode.
  * @param modifier The modifier for the layout.
-
  */
 @Composable
-private fun ReduceMissPenalty(modifier: Modifier = Modifier) {
-    var expanded by rememberSaveable { mutableStateOf(false) }
+private fun ReduceMissPenalty(isStudyMode: Boolean, modifier: Modifier = Modifier) {
+    var expanded by rememberSaveable { mutableStateOf(!isStudyMode) }
     Card({ expanded = !expanded }, modifier) {
         Column(Modifier.padding(8.dp), Arrangement.spacedBy(8.dp)) {
             Text(
@@ -446,8 +459,6 @@ private fun Prefetching(modifier: Modifier = Modifier) {
 @Composable
 private fun CachingScreenPreview() {
     ComputerArchitectureTheme {
-        CachingScreen(
-            navigateBack = {},
-        )
+        CachingScreen(false)
     }
 }

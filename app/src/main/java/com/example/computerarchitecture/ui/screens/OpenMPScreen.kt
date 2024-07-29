@@ -29,17 +29,20 @@ import androidx.compose.ui.unit.dp
 import com.example.computerarchitecture.R
 import com.example.computerarchitecture.ui.components.TopicTopBar
 import com.example.computerarchitecture.ui.theme.ComputerArchitectureTheme
+import com.example.computerarchitecture.ui.viewmodels.OpenMPViewModel
 
 
 /**
  * Displays the OpenMP screen.
  *
  * @param navigateBack The function to navigate back
+ * @param openMPViewModel The view model for the OpenMP screen
  * @param modifier The modifier for the layout
  */
 @Composable
 fun OpenMPScreen(
     navigateBack: () -> Unit,
+    openMPViewModel: OpenMPViewModel,
     modifier: Modifier = Modifier,
 ) {
     Scaffold(
@@ -52,6 +55,7 @@ fun OpenMPScreen(
         },
     ) {
         OpenMPScreen(
+            openMPViewModel.isStudyMode,
             modifier
                 .padding(it)
                 .padding(start = 24.dp, end = 24.dp)
@@ -62,18 +66,19 @@ fun OpenMPScreen(
 /**
  * Displays the OpenMP screen.
  *
+ * @param isStudyMode Whether the user is in study mode
  * @param modifier The modifier for the layout
  */
 @Composable
-fun OpenMPScreen(modifier: Modifier = Modifier) {
+fun OpenMPScreen(isStudyMode: Boolean, modifier: Modifier = Modifier) {
     Column(
         modifier = modifier.verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
-        Syntax(Modifier.fillMaxWidth())
-        Constructs(Modifier.fillMaxWidth())
-        Clauses(Modifier.fillMaxWidth())
-        Functions(Modifier.fillMaxWidth())
+        Syntax(isStudyMode, Modifier.fillMaxWidth())
+        Constructs(isStudyMode, Modifier.fillMaxWidth())
+        Clauses(isStudyMode, Modifier.fillMaxWidth())
+        Functions(isStudyMode, Modifier.fillMaxWidth())
     }
 }
 
@@ -83,14 +88,17 @@ fun OpenMPScreen(modifier: Modifier = Modifier) {
  * @param modifier The modifier for the layout
  */
 @Composable
-private fun Syntax(modifier: Modifier = Modifier) {
-    Card(modifier) {
+private fun Syntax(isStudyMode: Boolean, modifier: Modifier = Modifier) {
+    var expanded by rememberSaveable { mutableStateOf(!isStudyMode) }
+    Card({ expanded = !expanded }, modifier) {
         Column(Modifier.padding(8.dp)) {
             Text(
                 text = stringResource(R.string.syntax),
                 style = MaterialTheme.typography.titleLarge,
             )
-            Pragma(Modifier.fillMaxWidth())
+            if (expanded) {
+                Pragma(Modifier.fillMaxWidth())
+            }
         }
     }
 }
@@ -103,38 +111,44 @@ private fun Syntax(modifier: Modifier = Modifier) {
  */
 @Composable
 private fun Pragma(modifier: Modifier = Modifier) {
-            Text(
-                buildAnnotatedString {
-                    withStyle(SpanStyle(fontWeight = FontWeight.Bold)) {
-                        append("#pragma omp ")
-                    }
-                    append("construct clauses")
-                },
-                modifier
-            )
+    Text(
+        buildAnnotatedString {
+            withStyle(SpanStyle(fontWeight = FontWeight.Bold)) {
+                append("#pragma omp ")
+            }
+            append("construct clauses")
+        },
+        modifier
+    )
 }
 
 
 /**
  * Displays a card with information about OpenMP constructs.
+ *
+ * @param isStudyMode Whether the user is in study mode
+ * @param modifier The modifier for the layout
  */
 @Composable
-private fun Constructs(modifier: Modifier = Modifier) {
-    Card(modifier) {
+private fun Constructs(isStudyMode: Boolean, modifier: Modifier = Modifier) {
+    var expanded by rememberSaveable { mutableStateOf(!isStudyMode) }
+    Card({ expanded = !expanded }, modifier) {
         Column(Modifier.padding(8.dp)) {
             Text(
                 stringResource(R.string.constructs),
                 style = MaterialTheme.typography.titleLarge,
             )
-            Parallel(Modifier.fillMaxWidth())
-            Critical(Modifier.fillMaxWidth())
-            Barrier(Modifier.fillMaxWidth())
-            Atomic(Modifier.fillMaxWidth())
-            Ordered(Modifier.fillMaxWidth())
-            Single(Modifier.fillMaxWidth())
-            Master(Modifier.fillMaxWidth())
-            For(Modifier.fillMaxWidth())
-            Sections(Modifier.fillMaxWidth())
+            if (expanded) {
+                Parallel(Modifier.fillMaxWidth())
+                Critical(Modifier.fillMaxWidth())
+                Barrier(Modifier.fillMaxWidth())
+                Atomic(Modifier.fillMaxWidth())
+                Ordered(Modifier.fillMaxWidth())
+                Single(Modifier.fillMaxWidth())
+                Master(Modifier.fillMaxWidth())
+                For(Modifier.fillMaxWidth())
+                Sections(Modifier.fillMaxWidth())
+            }
         }
     }
 }
@@ -319,7 +333,7 @@ private fun Sections(modifier: Modifier = Modifier) {
         Column(Modifier.padding(8.dp)) {
             Text("sections", fontWeight = FontWeight.Bold)
             if (expanded) {
-            Text(stringResource(R.string.sections_description))
+                Text(stringResource(R.string.sections_description))
                 Image(painterResource(R.drawable.open_mp_sections_example), null)
             }
         }
@@ -329,16 +343,19 @@ private fun Sections(modifier: Modifier = Modifier) {
 /**
  * Displays a card with information about OpenMP clauses.
  *
+ * @param isStudyMode Whether the user is in study mode
  * @param modifier The modifier for the layout
  */
 @Composable
-private fun Clauses(modifier: Modifier = Modifier) {
-    Card(modifier) {
+private fun Clauses(isStudyMode: Boolean, modifier: Modifier = Modifier) {
+    var expanded by rememberSaveable { mutableStateOf(!isStudyMode) }
+    Card({ expanded = !expanded }, modifier) {
         Column(Modifier.padding(8.dp)) {
             Text(
                 stringResource(R.string.clauses),
                 style = MaterialTheme.typography.titleLarge
             )
+            if (expanded) {
                 Default(Modifier.fillMaxWidth())
                 Shared(Modifier.fillMaxWidth())
                 Private(Modifier.fillMaxWidth())
@@ -346,6 +363,7 @@ private fun Clauses(modifier: Modifier = Modifier) {
                 NoWait(Modifier.fillMaxWidth())
                 NumThread(Modifier.fillMaxWidth())
                 Schedule(Modifier.fillMaxWidth())
+            }
         }
     }
 }
@@ -428,7 +446,7 @@ private fun Reduction(modifier: Modifier = Modifier) {
                 fontWeight = FontWeight.Bold
             )
             if (expanded) {
-            Text(stringResource(R.string.reduction_description))
+                Text(stringResource(R.string.reduction_description))
                 Image(painter = painterResource(R.drawable.open_mp_reduction_example), null)
             }
         }
@@ -501,21 +519,25 @@ private fun Schedule(modifier: Modifier = Modifier) {
 /**
  * Displays a card with information about the OpenMP functions.
  *
+ * @param isStudyMode Whether the user is in study mode
  * @param modifier The modifier for the layout
  */
 @Composable
-private fun Functions(modifier: Modifier = Modifier) {
-    Card(modifier) {
+private fun Functions(isStudyMode: Boolean, modifier: Modifier = Modifier) {
+    var expanded by rememberSaveable { mutableStateOf(!isStudyMode) }
+    Card({ expanded = !expanded }, modifier) {
         Column(Modifier.padding(8.dp)) {
             Text(
                 text = stringResource(R.string.functions),
                 style = MaterialTheme.typography.titleLarge,
             )
+            if (expanded) {
                 SetNumThreads(Modifier.fillMaxWidth())
                 GetNumThreads(Modifier.fillMaxWidth())
                 GetThreadNum(Modifier.fillMaxWidth())
             }
         }
+    }
 }
 
 /**
@@ -533,7 +555,7 @@ private fun SetNumThreads(modifier: Modifier = Modifier) {
                 fontWeight = FontWeight.Bold,
             )
             if (expanded) {
-            Text(stringResource(R.string.set_num_threads_description))
+                Text(stringResource(R.string.set_num_threads_description))
             }
         }
     }
@@ -590,8 +612,6 @@ private fun GetThreadNum(modifier: Modifier = Modifier) {
 @Composable
 private fun OpenMPScreenPreview() {
     ComputerArchitectureTheme {
-        OpenMPScreen(
-            navigateBack = {},
-        )
+        OpenMPScreen(false)
     }
 }

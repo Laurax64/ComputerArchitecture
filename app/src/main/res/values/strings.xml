@@ -281,11 +281,11 @@
         otherwise illegal memory access speculatively, and then extract data via a hidden channel.
     </string>
     <string name="spectre_attacks_step_one">1.Speculative Access</string>
-    <string name="spectre_attacks_step_one_example"><![CDATA[const otherArray = [\'notPrivate\', \'privateData1\'];\nif (i < 1) {\n  // Will be executed speculatively even when i >= 1\n  someVariable = someArray[i];\n  tmp = otherArray[(someVariable>>bit)&1];\n}]]></string>
+    <string name="spectre_attacks_step_one_example"><![CDATA[const otherArray = [\'data\', \'privateData\'];\nif (i < 1) {\n  // Will be executed speculatively even when i >= 1\n  someVariable = someArray[i];\n  tmp = otherArray[(someVariable>>bit)&1];\n}]]></string>
     <string name="spectre_attacks_step_two">2.Secret-dependent Memory Access</string>
-    <string name="spectre_attacks_step_two_example"><![CDATA[const otherArray = [\'notPrivate\', \'privateData1\'];\nif (i < 1) {\n  someVariable = someArray[i];\n  //Extracts one bit of the read value\n  tmp = otherArray[(someVariable>>bit)&1];\n}]]></string>
+    <string name="spectre_attacks_step_two_example"><![CDATA[const otherArray = [\'data\', \'privateData\'];\nif (i < 1) {\n  someVariable = someArray[i];\n  //Extracts one bit of the read value\n  tmp = otherArray[(someVariable>>bit)&1];\n}]]></string>
     <string name="spectre_attacks_step_three">3.Reading out the transmitted Data</string>
-    <string name="spectre_attacks_step_three_example"><![CDATA[//Cache hit in case that the extracted bit was 0.\ntime = rdtsc();\nmemory_access(&otherArray[0]);\nvar delta0 = rdtsc() - time;\n//Cache hit in case that the extracted bit was 1.\ntime = rdtsc();\nmemory_access(&otherArray[1]);\nvar delta1 = rdtsc() - time;]]></string>
+    <string name="spectre_attacks_step_three_example"><![CDATA[//Cache hit in case that the extracted bit was 0.\ntime = rdtsc();\nmemory_access(&otherArray[0]);\nvar deltaOne = rdtsc() - time;\n//Cache hit in case that the extracted bit was 1.\ntime = rdtsc();\nmemory_access(&otherArray[1]);\nvar deltaZero = rdtsc() - time;]]></string>
     <string name="pthread_exit_description">Terminates the calling thread.</string>
     <string name="pthread_join_description">Suspends execution of the calling thread until the target thread terminates.</string>
     <string name="pthread_cancel_description">Requests thread to be canceled.</string>
@@ -328,7 +328,7 @@
     <string name="data_dependencies_code">add x12,x2,x3\nsub x4,x5,x12\nand x6,x12,x7\nor x12,x12,x9\nxor x10,x12,x11
     </string>
     <string name="raw_example_description">The last 4 instructions are data-dependent on the add instruction because of x12.</string>
-    <string name="war_example_description">sub and and are antidata-dependent on the or instruction because of x12.</string>
+    <string name="war_example_description">sub &amp; and are anti data-dependent on the or instruction because of x12.</string>
     <string name="waw_example_description">add and or are output-dependent on each other.</string>
     <string name="hierarchy_levels">Hierarchy Levels</string>
     <string name="memory_address">Memory Address</string>
@@ -472,6 +472,6 @@
     <string name="memory_flags">Memory Flags</string>
     <string name="open_cl_enqueue_map_buffer_description">Enqueues a command to map a region of the buffer object given by buffer into the host address space and returns a pointer to this mapped region.</string>
     <string name="study_mode">Study Mode</string>
-    <string name="normal_mode">Normal Mode</string>
+    <string name="view_mode">View Mode</string>
     <string name="moore_machine">Moore Machine</string>
 </resources>

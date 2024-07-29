@@ -11,6 +11,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -20,16 +24,19 @@ import androidx.compose.ui.unit.dp
 import com.example.computerarchitecture.R
 import com.example.computerarchitecture.ui.components.TopicTopBar
 import com.example.computerarchitecture.ui.theme.ComputerArchitectureTheme
+import com.example.computerarchitecture.ui.viewmodels.MPIViewModel
 
 /**
  * Displays the MPI screen.
  *
  * @param navigateBack The function to navigate back
+ * @param mpiViewModel The view model for the MPI screen
  * @param modifier The modifier for the layout
  */
 @Composable
 fun MPIScreen(
     navigateBack: () -> Unit,
+    mpiViewModel: MPIViewModel,
     modifier: Modifier = Modifier
 ) {
     Scaffold(
@@ -42,54 +49,56 @@ fun MPIScreen(
         },
     ) {
         MPIScreen(
+            mpiViewModel.isStudyMode,
             Modifier
                 .padding(it)
                 .padding(start = 16.dp, end = 16.dp)
         )
     }
-
 }
 
 /**
  * Displays the MPI screen.
  *
+ * @param isStudyMode Whether the user is in study mode
  * @param modifier The modifier for the layout
  */
 @Composable
-fun MPIScreen(modifier: Modifier = Modifier) {
+fun MPIScreen(isStudyMode: Boolean, modifier: Modifier = Modifier) {
     Column(
         modifier = modifier.verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
-        Send(Modifier.fillMaxWidth())
-        Receive(Modifier.fillMaxWidth())
-        DataTypes(Modifier.fillMaxWidth())
-        DerivedDataTypes(Modifier.fillMaxWidth())
-        CommunicationPatterns(Modifier.fillMaxWidth())
+        Send(isStudyMode, Modifier.fillMaxWidth())
+        Receive(isStudyMode, Modifier.fillMaxWidth())
+        DataTypes(isStudyMode, Modifier.fillMaxWidth())
+        DerivedDataTypes(isStudyMode, Modifier.fillMaxWidth())
+        CommunicationPatterns(isStudyMode, Modifier.fillMaxWidth())
     }
 }
 
 /**
  * Displays a card with information about MPI_Send.
  *
+ * @param isStudyMode Whether the user is in study mode
  * @param modifier The modifier for the layout
  */
 @Composable
-private fun Send(modifier: Modifier = Modifier) {
-    Card(modifier) {
+private fun Send(isStudyMode: Boolean, modifier: Modifier = Modifier) {
+    var expanded by rememberSaveable { mutableStateOf(!isStudyMode) }
+    Card(onClick = { expanded = !expanded }, modifier = modifier) {
         Column(Modifier.padding(8.dp), Arrangement.spacedBy(8.dp)) {
             Text(
                 text = stringResource(R.string.send_api),
                 style = MaterialTheme.typography.titleLarge,
-                fontWeight = FontWeight.Bold
             )
-
-            Text(
-                text = stringResource(R.string.send_syntax),
-                fontWeight = FontWeight.Bold
-            )
-            Text(stringResource(R.string.send_description))
-
+            if (expanded) {
+                Text(
+                    text = stringResource(R.string.send_syntax),
+                    fontWeight = FontWeight.Bold
+                )
+                Text(stringResource(R.string.send_description))
+            }
         }
     }
 }
@@ -97,42 +106,47 @@ private fun Send(modifier: Modifier = Modifier) {
 /**
  * Displays a card with information about MPI_Receive.
  *
+ * @param isStudyMode Whether the user is in study mode
  * @param modifier The modifier for the layout
  */
 @Composable
-private fun Receive(modifier: Modifier = Modifier) {
-    Card(modifier) {
-        Column(Modifier.padding(8.dp), Arrangement.spacedBy(8.dp)) {
+private fun Receive(isStudyMode: Boolean, modifier: Modifier = Modifier) {
+    var expanded by rememberSaveable { mutableStateOf(!isStudyMode) }
+    Card(onClick = { expanded = !expanded }, modifier = modifier) {
+        Column(Modifier.padding(8.dp)) {
             Text(
                 text = stringResource(R.string.receive_api),
-                style = MaterialTheme.typography.titleLarge,
-                fontWeight = FontWeight.Bold
+                style = MaterialTheme.typography.titleLarge
             )
-            Text(
-                text = stringResource(R.string.receive_syntax),
-                fontWeight = FontWeight.Bold
-            )
-            Text(stringResource(R.string.receive_description))
+            if (expanded) {
+                Text(
+                    text = stringResource(R.string.receive_syntax),
+                    fontWeight = FontWeight.Bold
+                )
+                Text(stringResource(R.string.receive_description))
+            }
         }
-
     }
 }
 
 /**
  * Displays a card with information about MPI data types.
  *
+ * @param isStudyMode Whether the user is in study mode
  * @param modifier The modifier for the layout
  */
 @Composable
-private fun DataTypes(modifier: Modifier = Modifier) {
-    Card(modifier) {
+private fun DataTypes(isStudyMode: Boolean, modifier: Modifier = Modifier) {
+    var expanded by rememberSaveable { mutableStateOf(!isStudyMode) }
+    Card(onClick = { expanded = !expanded }, modifier = modifier) {
         Column(Modifier.padding(8.dp)) {
             Text(
                 text = stringResource(R.string.data_types),
-                style = MaterialTheme.typography.titleLarge,
-                fontWeight = FontWeight.Bold
+                style = MaterialTheme.typography.titleLarge
             )
-            Text(stringResource(R.string.data_types_description))
+            if (expanded) {
+                Text(stringResource(R.string.data_types_description))
+            }
         }
     }
 }
@@ -140,18 +154,21 @@ private fun DataTypes(modifier: Modifier = Modifier) {
 /**
  * Displays a card with information about derived MPI data types.
  *
+ * @param isStudyMode Whether the user is in study mode
  * @param modifier The modifier for the layout
  */
 @Composable
-private fun DerivedDataTypes(modifier: Modifier = Modifier) {
-    Card(modifier) {
+private fun DerivedDataTypes(isStudyMode: Boolean, modifier: Modifier = Modifier) {
+    var expanded by rememberSaveable { mutableStateOf(!isStudyMode) }
+    Card(onClick = { expanded = !expanded }, modifier = modifier) {
         Column(Modifier.padding(8.dp)) {
             Text(
                 text = stringResource(R.string.derived_data_types),
-                style = MaterialTheme.typography.titleLarge,
-                fontWeight = FontWeight.Bold
+                style = MaterialTheme.typography.titleLarge
             )
-            Text(stringResource(R.string.derived_data_types_description))
+            if (expanded) {
+                Text(stringResource(R.string.derived_data_types_description))
+            }
         }
     }
 }
@@ -159,24 +176,27 @@ private fun DerivedDataTypes(modifier: Modifier = Modifier) {
 /**
  * Displays a card with information about MPI communication patterns.
  *
+ * @param isStudyMode Whether the user is in study mode
  * @param modifier The modifier for the layout
  */
 @Composable
-private fun CommunicationPatterns(modifier: Modifier = Modifier) {
-    Card(modifier) {
-        Column(Modifier.padding(8.dp), Arrangement.spacedBy(8.dp)) {
+private fun CommunicationPatterns(isStudyMode: Boolean, modifier: Modifier = Modifier) {
+    var expanded by rememberSaveable { mutableStateOf(!isStudyMode) }
+    Card(onClick = { expanded = !expanded }, modifier = modifier) {
+        Column(Modifier.padding(8.dp)) {
             Text(
                 text = stringResource(R.string.communication_patterns),
-                style = MaterialTheme.typography.titleLarge,
-                fontWeight = FontWeight.Bold
+                style = MaterialTheme.typography.titleLarge
             )
-            MPIBcast(Modifier.fillMaxWidth())
-            MPIReduce(Modifier.fillMaxWidth())
-            MPIScatter(Modifier.fillMaxWidth())
-            MPIGather(Modifier.fillMaxWidth())
-            MPIAllReduce(Modifier.fillMaxWidth())
-            MPIAllGather(Modifier.fillMaxWidth())
-            MPIBarrier(Modifier.fillMaxWidth())
+            if (expanded) {
+                MPIBcast(Modifier.fillMaxWidth())
+                MPIReduce(Modifier.fillMaxWidth())
+                MPIScatter(Modifier.fillMaxWidth())
+                MPIGather(Modifier.fillMaxWidth())
+                MPIAllReduce(Modifier.fillMaxWidth())
+                MPIAllGather(Modifier.fillMaxWidth())
+                MPIBarrier(Modifier.fillMaxWidth())
+            }
         }
     }
 }
@@ -254,9 +274,9 @@ private fun MPIGather(modifier: Modifier = Modifier) {
 }
 
 /**
- * Displays a card with information about MPI_AllReduce
+ * Displays a card with information about MPI_AllReduce.
  *
- *  @param modifier The modifier for the layout
+ * @param modifier The modifier for the layout
  */
 @Composable
 private fun MPIAllReduce(modifier: Modifier = Modifier) {
@@ -272,9 +292,9 @@ private fun MPIAllReduce(modifier: Modifier = Modifier) {
 }
 
 /**
- * Displays a card with information about MPI_AllGather
+ * Displays a card with information about MPI_AllGather.
  *
- *  @param modifier The modifier for the layout
+ * @param modifier The modifier for the layout
  */
 @Composable
 private fun MPIAllGather(modifier: Modifier = Modifier) {
@@ -290,9 +310,9 @@ private fun MPIAllGather(modifier: Modifier = Modifier) {
 }
 
 /**
- * Displays a card with information about MPI_Barrier
+ * Displays a card with information about MPI_Barrier.
  *
- *  @param modifier The modifier for the layout
+ * @param modifier The modifier for the layout
  */
 @Composable
 private fun MPIBarrier(modifier: Modifier = Modifier) {
@@ -315,7 +335,6 @@ private fun MPIBarrier(modifier: Modifier = Modifier) {
 @Composable
 fun PreviewMPIScreen() {
     ComputerArchitectureTheme {
-        MPIScreen()
+        MPIScreen(false)
     }
-
 }

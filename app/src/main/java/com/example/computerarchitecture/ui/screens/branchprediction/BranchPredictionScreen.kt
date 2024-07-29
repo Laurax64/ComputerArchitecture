@@ -28,6 +28,7 @@ import androidx.compose.ui.window.Dialog
 import com.example.computerarchitecture.R
 import com.example.computerarchitecture.ui.components.TopicTopBar
 import com.example.computerarchitecture.ui.theme.ComputerArchitectureTheme
+import com.example.computerarchitecture.ui.viewmodels.BranchPredictionViewModel
 import net.engawapg.lib.zoomable.rememberZoomState
 import net.engawapg.lib.zoomable.zoomable
 
@@ -35,11 +36,13 @@ import net.engawapg.lib.zoomable.zoomable
  * Displays the jump prediction screen with an app scaffold.
  *
  * @param navigateBack The function to navigate back
+ * @param branchPredictionViewModel The view model for the branch prediction screen
  * @param modifier The modifier for the layout
  */
 @Composable
 fun BranchPredictionScreen(
     navigateBack: () -> Unit,
+    branchPredictionViewModel: BranchPredictionViewModel,
     modifier: Modifier = Modifier,
 ) {
     Scaffold(
@@ -51,6 +54,7 @@ fun BranchPredictionScreen(
         },
     ) { paddingValues ->
         BranchPredictionScreen(
+            branchPredictionViewModel.isStudyMode,
             modifier
                 .padding(paddingValues)
                 .padding(start = 24.dp, end = 24.dp)
@@ -61,36 +65,41 @@ fun BranchPredictionScreen(
 /**
  * Displays the jump prediction screen.
  *
+ * @param isStudyMode Whether the user is in study mode
  * @param modifier The modifier for the layout
  */
 @Composable
-fun BranchPredictionScreen(modifier: Modifier = Modifier) {
+fun BranchPredictionScreen(isStudyMode: Boolean, modifier: Modifier = Modifier) {
     Column(modifier.verticalScroll(rememberScrollState()), Arrangement.spacedBy(8.dp)) {
-        LocalPredictors(Modifier.fillMaxWidth())
-        CorrelatingPredictors(Modifier.fillMaxWidth())
-        TournamentPredictors(Modifier.fillMaxWidth())
-        BranchTargetBuffer(Modifier.fillMaxWidth())
-        ReturnAddressBuffer(Modifier.fillMaxWidth())
+        LocalPredictors(isStudyMode, Modifier.fillMaxWidth())
+        CorrelatingPredictors(isStudyMode, Modifier.fillMaxWidth())
+        TournamentPredictors(isStudyMode, Modifier.fillMaxWidth())
+        BranchTargetBuffer(isStudyMode, Modifier.fillMaxWidth())
+        ReturnAddressBuffer(isStudyMode, Modifier.fillMaxWidth())
     }
 }
 
 /**
  * Displays a card with information about local predictors.
  *
+ * @param isStudyMode Whether the user is in study mode
  * @param modifier The modifier for the layout
  */
 @Composable
-private fun LocalPredictors(modifier: Modifier = Modifier) {
-    Card(modifier) {
+private fun LocalPredictors(isStudyMode: Boolean, modifier: Modifier = Modifier) {
+    var expanded by rememberSaveable { mutableStateOf(!isStudyMode) }
+    Card({ expanded = !expanded }, modifier) {
         Column(Modifier.padding(8.dp), Arrangement.spacedBy(8.dp)) {
             Text(
                 text = stringResource(R.string.local_predictors),
                 style = MaterialTheme.typography.titleLarge,
                 fontWeight = FontWeight.Bold
             )
-            OneBitPredictors(Modifier.fillMaxWidth())
-            TwoBitPredictors(Modifier.fillMaxWidth())
-            NBitPredictors(Modifier.fillMaxWidth())
+            if (expanded) {
+                OneBitPredictors(Modifier.fillMaxWidth())
+                TwoBitPredictors(Modifier.fillMaxWidth())
+                NBitPredictors(Modifier.fillMaxWidth())
+            }
         }
     }
 }
@@ -133,19 +142,22 @@ private fun NBitPredictors(modifier: Modifier = Modifier) {
 /**
  * Displays a card with information about correlating predictors.
  *
+ * @param isStudyMode Whether the user is in study mode
  * @param modifier The modifier for the layout
  */
 @Composable
-private fun CorrelatingPredictors(modifier: Modifier = Modifier) {
-    Card(modifier) {
+private fun CorrelatingPredictors(isStudyMode: Boolean, modifier: Modifier = Modifier) {
+    var expanded by rememberSaveable { mutableStateOf(!isStudyMode) }
+    Card({ expanded = !expanded }, modifier) {
         Column(Modifier.padding(8.dp), Arrangement.spacedBy(8.dp)) {
             Text(
                 text = stringResource(R.string.correlating_predictors),
                 style = MaterialTheme.typography.titleLarge,
                 fontWeight = FontWeight.Bold
             )
-            Text(stringResource(R.string.correlating_predictors_description))
-
+            if (expanded) {
+                Text(stringResource(R.string.correlating_predictors_description))
+            }
         }
     }
 }
@@ -153,18 +165,22 @@ private fun CorrelatingPredictors(modifier: Modifier = Modifier) {
 /**
  * Displays a card with information about tournament predictors.
  *
+ * @param isStudyMode Whether the user is in study mode
  * @param modifier The modifier for the layout
  */
 @Composable
-private fun TournamentPredictors(modifier: Modifier = Modifier) {
-    Card(modifier) {
+private fun TournamentPredictors(isStudyMode: Boolean, modifier: Modifier = Modifier) {
+    var expanded by rememberSaveable { mutableStateOf(!isStudyMode) }
+    Card({ expanded = !expanded }, modifier) {
         Column(Modifier.padding(8.dp), Arrangement.spacedBy(8.dp)) {
             Text(
                 text = stringResource(R.string.tournament_predictors),
                 style = MaterialTheme.typography.titleLarge,
                 fontWeight = FontWeight.Bold
             )
-            Text(stringResource(R.string.tournament_predictors_description))
+            if (expanded) {
+                Text(stringResource(R.string.tournament_predictors_description))
+            }
         }
     }
 }
@@ -172,49 +188,62 @@ private fun TournamentPredictors(modifier: Modifier = Modifier) {
 /**
  * Displays a card with information about the branch target buffer.
  *
+ * @param isStudyMode Whether the user is in study mode
  * @param modifier The modifier for the layout
  */
 @Composable
-private fun BranchTargetBuffer(modifier: Modifier = Modifier) {
+private fun BranchTargetBuffer(isStudyMode: Boolean, modifier: Modifier = Modifier) {
     var showPipeline by rememberSaveable { mutableStateOf(false) }
-    Card(modifier) {
+    var expanded by rememberSaveable { mutableStateOf(!isStudyMode) }
+    Card({ expanded = !expanded }, modifier) {
         Column(Modifier.padding(8.dp), Arrangement.spacedBy(8.dp)) {
             Text(
                 text = stringResource(R.string.branch_target_buffer),
                 style = MaterialTheme.typography.titleLarge,
                 fontWeight = FontWeight.Bold
             )
-            Text(stringResource(R.string.branch_target_buffer_description))
-            val painter = painterResource(id = R.drawable.branch_target_buffer_steps)
-            val zoomState = rememberZoomState(contentSize = painter.intrinsicSize)
-            TextButton({ showPipeline = true }) {
-                Text(stringResource(R.string.steps_in_the_pipeline))
-            }
-            if (showPipeline) {
-                Dialog({ showPipeline = false }) {
-                    Image(
-                        painter = painter,
-                        contentDescription = null, // TODO add content description
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .zoomable(zoomState)
-                    )
+            if (expanded) {
+                Text(stringResource(R.string.branch_target_buffer_description))
+                val painter = painterResource(id = R.drawable.branch_target_buffer_steps)
+                val zoomState = rememberZoomState(contentSize = painter.intrinsicSize)
+                TextButton({ showPipeline = true }) {
+                    Text(stringResource(R.string.steps_in_the_pipeline))
+                }
+                if (showPipeline) {
+                    Dialog({ showPipeline = false }) {
+                        Image(
+                            painter = painter,
+                            contentDescription = null,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .zoomable(zoomState)
+                        )
+                    }
                 }
             }
         }
     }
 }
 
+/**
+ * Displays a card with information about the return address buffer.
+ *
+ * @param isStudyMode Whether the user is in study mode
+ * @param modifier The modifier for the layout
+ */
 @Composable
-private fun ReturnAddressBuffer(modifier: Modifier = Modifier) {
-    Card(modifier) {
+private fun ReturnAddressBuffer(isStudyMode: Boolean, modifier: Modifier = Modifier) {
+    var expanded by rememberSaveable { mutableStateOf(!isStudyMode) }
+    Card({ expanded = !expanded }, modifier) {
         Column(Modifier.padding(8.dp), Arrangement.spacedBy(8.dp)) {
             Text(
                 text = stringResource(R.string.return_address_buffer),
                 style = MaterialTheme.typography.titleLarge,
                 fontWeight = FontWeight.Bold
             )
-            Text(stringResource(R.string.return_address_buffer_description))
+            if (expanded) {
+                Text(stringResource(R.string.return_address_buffer_description))
+            }
         }
     }
 }
@@ -227,8 +256,6 @@ private fun ReturnAddressBuffer(modifier: Modifier = Modifier) {
 @Composable
 private fun BranchPredictionScreenPreview() {
     ComputerArchitectureTheme {
-        BranchPredictionScreen(
-            navigateBack = {},
-        )
+        BranchPredictionScreen(false)
     }
 }

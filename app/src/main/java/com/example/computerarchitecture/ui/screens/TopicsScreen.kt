@@ -25,10 +25,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewLightDark
+import androidx.compose.ui.tooling.preview.PreviewScreenSizes
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.compose.rememberNavController
 import com.example.computerarchitecture.R
@@ -47,7 +46,7 @@ import com.example.computerarchitecture.data.Topic.OPENMP
 import com.example.computerarchitecture.data.Topic.PIPELINE
 import com.example.computerarchitecture.data.Topic.SPECTRE
 import com.example.computerarchitecture.ui.screens.multiprocessorsystems.MultiprocessorSystemsContent
-import com.example.computerarchitecture.ui.screens.multithreading.MultithreadingScreenContent
+import com.example.computerarchitecture.ui.screens.multithreading.MultithreadingContent
 import com.example.computerarchitecture.ui.theme.ComputerArchitectureTheme
 import com.example.computerarchitecture.ui.viewmodels.TopicsViewModel
 
@@ -57,16 +56,16 @@ import com.example.computerarchitecture.ui.viewmodels.TopicsViewModel
  *
  * @param navigateTo The function to navigate to another composable function
  * @param windowWidthSizeClass The window size class of the device
- * @param modifier The modifier for the layout
  * @param topicsViewModel The view model for the topics screen
+ * @param modifier The modifier for the layout
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TopicsScreen(
     navigateTo: (String) -> Unit,
     windowWidthSizeClass: WindowWidthSizeClass,
+    topicsViewModel: TopicsViewModel,
     modifier: Modifier = Modifier,
-    topicsViewModel: TopicsViewModel = hiltViewModel<TopicsViewModel>()
 ) {
     val isStudyMode by topicsViewModel.isStudyMode.collectAsStateWithLifecycle()
     val memorizedTopics by topicsViewModel.memorizedTopics.collectAsStateWithLifecycle()
@@ -89,7 +88,7 @@ fun TopicsScreen(
                         }
                     ) {
                         Text(
-                            text = stringResource(if (isStudyMode) R.string.study_mode else R.string.normal_mode),
+                            text = stringResource(if (isStudyMode) R.string.study_mode else R.string.view_mode),
                             style = MaterialTheme.typography.labelSmall,
                             modifier = Modifier.padding(end = 8.dp)
                         )
@@ -110,7 +109,6 @@ fun TopicsScreen(
                         .padding(start = 16.dp, end = 16.dp)
                 ) { topic: Topic -> navigateTo(topic.navigationDestination.screenRoute) }
             }
-
             else -> {
                 TopicsListAndDetail(
                     memorizedTopics,
@@ -202,9 +200,9 @@ private fun TopicsListAndDetail(
             Modifier.weight(0.5f)
         ) { selectedTopic = it }
         when (selectedTopic) {
-            MULTITHREADING -> MultithreadingScreenContent(isStudyMode, Modifier.weight(1f))
+            MULTITHREADING -> MultithreadingContent(isStudyMode, Modifier.weight(1f))
             MULTIPROCESSOR_SYSTEMS -> MultiprocessorSystemsContent(isStudyMode, Modifier.weight(1f))
-            GRAPHICS_PROCESSING_UNITS -> TODO()
+            GRAPHICS_PROCESSING_UNITS -> GPUsContent(isStudyMode, Modifier.weight(1f))
             OPENMP -> TODO()
             MPI -> TODO()
             NETWORKS -> TODO()
@@ -220,43 +218,15 @@ private fun TopicsListAndDetail(
 }
 
 /**
- * Displays previews for the topics screen for compact screens.
+ * Displays a preview for the topics list.
+ *
  */
+@PreviewScreenSizes
 @PreviewLightDark
 @Composable
-private fun TopicsScreenPreview() {
+fun TopicsListPreview() {
     ComputerArchitectureTheme {
-        TopicsScreen(
-            navigateTo = {},
-            windowWidthSizeClass = WindowWidthSizeClass.Compact
-        )
-    }
-}
-
-/**
- * Displays previews for the topics screen for medium screens.
- */
-@Preview(widthDp = 800, heightDp = 800)
-@Composable
-private fun TopicsScreenMediumPreview() {
-    ComputerArchitectureTheme {
-        TopicsScreen(
-            navigateTo = {},
-            windowWidthSizeClass = WindowWidthSizeClass.Medium
-        )
-    }
-}
-
-/**
- * Displays previews for the topics screen for expanded screens.
- */
-@Preview(widthDp = 1100, heightDp = 1100)
-@Composable
-private fun TopicsScreenExpandedPreview() {
-    ComputerArchitectureTheme {
-        TopicsScreen(
-            navigateTo = {},
-            windowWidthSizeClass = WindowWidthSizeClass.Expanded
-        )
+        TopicsList(isStudyMode = false, memorizedTopics = listOf(), updateMemorizedTopics = {}) {
+        }
     }
 }

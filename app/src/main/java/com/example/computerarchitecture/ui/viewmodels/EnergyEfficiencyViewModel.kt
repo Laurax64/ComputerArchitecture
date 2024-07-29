@@ -8,12 +8,12 @@ import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
 /**
- * The view model for the multithreading screen
+ * The view model for the energy efficiency screen
  *
  * @param userPreferencesRepository The repository for user preferences
  */
 @HiltViewModel
-class MultithreadingViewModel @Inject constructor(
+class EnergyEfficiencyViewModel @Inject constructor(
     private val userPreferencesRepository: UserPreferencesRepository
 ) : ViewModel() {
     val isStudyMode: Boolean = runBlocking { userPreferencesRepository.isStudyMode.first() }

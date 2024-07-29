@@ -1,9 +1,12 @@
 package com.example.computerarchitecture.ui.screens.network
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -20,28 +23,30 @@ import androidx.compose.ui.unit.dp
 import com.example.computerarchitecture.R
 
 /**
- * Displays a card with information about switches.
+ * Displays a column with information about switches.
  *
+ * @param isStudyMode Whether the user is in study mode
  * @param modifier The modifier for the layout.
  */
 @Composable
-fun Switches(modifier: Modifier = Modifier) {
-    Column(modifier) {
-        CrossBar(Modifier.fillMaxWidth())
-        OmegaNetwork(Modifier.fillMaxWidth())
-        BenesNetwork(Modifier.fillMaxWidth())
+fun Switches(isStudyMode: Boolean, modifier: Modifier = Modifier) {
+    Column(modifier.verticalScroll(rememberScrollState()), Arrangement.spacedBy(8.dp)) {
+        CrossBar(isStudyMode, Modifier.fillMaxWidth())
+        OmegaNetwork(isStudyMode, Modifier.fillMaxWidth())
+        BenesNetwork(isStudyMode, Modifier.fillMaxWidth())
     }
 }
 
 /**
  * Displays a card with information about cross bars.
  *
+ * @param isStudyMode Whether the user is in study mode
  * @param modifier The modifier for the layout.
  */
 @Composable
-private fun CrossBar(modifier: Modifier = Modifier) {
-    var expanded by rememberSaveable { mutableStateOf(false) }
-    Card({ expanded = !expanded }, modifier) {
+private fun CrossBar(isStudyMode: Boolean, modifier: Modifier = Modifier) {
+    var expanded by rememberSaveable { mutableStateOf(!isStudyMode) }
+    Card(onClick = { expanded = !expanded }, modifier = modifier) {
         Column(Modifier.padding(8.dp)) {
             Text(stringResource(R.string.cross_bar), style = MaterialTheme.typography.titleLarge)
             if (expanded) {
@@ -63,12 +68,13 @@ private fun CrossBar(modifier: Modifier = Modifier) {
 /**
  * Displays a card with information about omega networks.
  *
+ * @param isStudyMode Whether the user is in study mode
  * @param modifier The modifier for the layout.
  */
 @Composable
-private fun OmegaNetwork(modifier: Modifier = Modifier) {
-    var expanded by rememberSaveable { mutableStateOf(false) }
-    Card({ expanded = !expanded }, modifier) {
+private fun OmegaNetwork(isStudyMode: Boolean, modifier: Modifier = Modifier) {
+    var expanded by rememberSaveable { mutableStateOf(!isStudyMode) }
+    Card(onClick = { expanded = !expanded }, modifier = modifier) {
         Column(Modifier.padding(8.dp)) {
             Text(
                 stringResource(R.string.omega_network),
@@ -93,12 +99,13 @@ private fun OmegaNetwork(modifier: Modifier = Modifier) {
 /**
  * Displays a card with information about Benes networks.
  *
+ * @param isStudyMode Whether the user is in study mode
  * @param modifier The modifier for the layout.
  */
 @Composable
-private fun BenesNetwork(modifier: Modifier = Modifier) {
-    var expanded by rememberSaveable { mutableStateOf(false) }
-    Card({ expanded = !expanded }, modifier) {
+private fun BenesNetwork(isStudyMode: Boolean, modifier: Modifier = Modifier) {
+    var expanded by rememberSaveable { mutableStateOf(!isStudyMode) }
+    Card(onClick = { expanded = !expanded }, modifier = modifier) {
         Column(Modifier.padding(8.dp)) {
             Text(
                 stringResource(R.string.benes_network),

@@ -8,6 +8,10 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
@@ -18,20 +22,24 @@ import com.example.computerarchitecture.ui.theme.ComputerArchitectureTheme
 /**
  * Displays a card with information about block identification.
  *
+ * @param isStudyMode Whether the user is in study mode
  * @param modifier The modifier for the layout
  */
 @Composable
-fun BlockIdentification(modifier: Modifier = Modifier) {
-    Card(modifier) {
+fun BlockIdentification(isStudyMode: Boolean, modifier: Modifier = Modifier) {
+    var expanded by rememberSaveable { mutableStateOf(!isStudyMode) }
+    Card({ expanded = !expanded }, modifier) {
         Column(Modifier.padding(8.dp), Arrangement.spacedBy(8.dp)) {
             Text(
                 text = stringResource(R.string.block_identification),
                 style = MaterialTheme.typography.titleLarge,
             )
-            Text(text = stringResource(R.string.block_identification_question))
-            DirectMapping(Modifier.fillMaxWidth())
-            SetAssociativeMapping(Modifier.fillMaxWidth())
-            AssociativeMapping(Modifier.fillMaxWidth())
+            if (expanded) {
+                Text(text = stringResource(R.string.block_identification_question))
+                DirectMapping(Modifier.fillMaxWidth())
+                SetAssociativeMapping(Modifier.fillMaxWidth())
+                AssociativeMapping(Modifier.fillMaxWidth())
+            }
         }
     }
 }
@@ -101,7 +109,6 @@ private fun AssociativeMapping(modifier: Modifier = Modifier) {
 }
 
 
-
 /**
  * Displays previews for the block identification card.
  */
@@ -109,6 +116,6 @@ private fun AssociativeMapping(modifier: Modifier = Modifier) {
 @Composable
 private fun BlockIdentificationPreview() {
     ComputerArchitectureTheme {
-        BlockIdentification()
+        BlockIdentification(false)
     }
 }

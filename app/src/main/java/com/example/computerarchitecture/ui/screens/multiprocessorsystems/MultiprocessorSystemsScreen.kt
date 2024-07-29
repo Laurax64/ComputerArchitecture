@@ -17,7 +17,6 @@ import androidx.compose.material3.Tab
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -38,6 +37,7 @@ import com.example.computerarchitecture.R
 import com.example.computerarchitecture.ui.components.TopicTopBar
 import com.example.computerarchitecture.ui.theme.ComputerArchitectureTheme
 import com.example.computerarchitecture.ui.viewmodels.MultiprocessorSystemsViewModel
+import java.util.Locale
 
 /**
  * Displays the multiprocessor systems screen with an app scaffold.
@@ -52,10 +52,10 @@ fun MultiprocessorSystemsScreen(
     multiprocessorSystemsViewModel: MultiprocessorSystemsViewModel,
     modifier: Modifier = Modifier,
 ) {
-    val isStudyMode = multiprocessorSystemsViewModel.isStudyMode.collectAsState().value
+
     MultiprocessorSystemsScreen(
         navigateBack,
-        isStudyMode,
+        multiprocessorSystemsViewModel.isStudyMode,
         modifier
     )
 }
@@ -295,7 +295,7 @@ private fun SpeedupCalculator(modifier: Modifier = Modifier) {
  */
 private fun amdahlsLaw(n: Double, p: Double): Double {
     val speedup = 1 / ((1 - p) + (p / n))
-    return String.format("%.3f", speedup).toDouble()
+    return String.format(Locale.getDefault(), "%.3f", speedup).toDouble()
 }
 
 /**
@@ -307,7 +307,7 @@ private fun amdahlsLaw(n: Double, p: Double): Double {
  */
 private fun gustafsonsLaw(n: Double, p: Double): Double {
     val speedup = (1 - p + p * n)
-    return String.format("%.3f", speedup).toDouble()
+    return String.format(Locale.getDefault(), "%.3f", speedup).toDouble()
 }
 
 /**

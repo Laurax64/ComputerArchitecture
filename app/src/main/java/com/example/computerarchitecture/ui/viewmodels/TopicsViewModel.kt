@@ -36,7 +36,6 @@ class TopicsViewModel @Inject constructor(
             initialValue = listOf()
         )
 
-
     /**
      * Updates the user's preference for the study mode layout
      *

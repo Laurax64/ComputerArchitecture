@@ -15,7 +15,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.computerarchitecture.R
 import com.example.computerarchitecture.ui.components.TopicTopBar
 import com.example.computerarchitecture.ui.theme.ComputerArchitectureTheme
@@ -34,7 +33,6 @@ fun MultithreadingScreen(
     multithreadingViewModel: MultithreadingViewModel,
     modifier: Modifier = Modifier,
 ) {
-    val isStudyMode by multithreadingViewModel.isStudyMode.collectAsStateWithLifecycle()
     Scaffold(
         modifier = modifier,
         topBar = {
@@ -44,8 +42,8 @@ fun MultithreadingScreen(
             )
         }
     ) {
-        MultithreadingScreenContent(
-            isStudyMode,
+        MultithreadingContent(
+            multithreadingViewModel.isStudyMode,
             Modifier
                 .padding(it)
                 .padding(start = 16.dp, end = 16.dp),
@@ -60,7 +58,7 @@ fun MultithreadingScreen(
  * @param isStudyMode Whether the user is in study mode
  */
 @Composable
-fun MultithreadingScreenContent(
+fun MultithreadingContent(
     isStudyMode: Boolean,
     modifier: Modifier = Modifier,
 ) {
@@ -89,7 +87,7 @@ fun MultithreadingScreenContent(
 @Composable
 private fun MultithreadingScreenPreview() {
     ComputerArchitectureTheme {
-        MultithreadingScreenContent(
+        MultithreadingContent(
             isStudyMode = false,
             modifier = Modifier.padding(16.dp)
         )

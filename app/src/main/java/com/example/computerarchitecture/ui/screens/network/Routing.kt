@@ -22,36 +22,40 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.computerarchitecture.R
 
-
 /**
  * Displays a column with information about routing.
  *
+ * @param isStudyMode Whether the user is in study mode
  * @param modifier The modifier for the layout
  */
 @Composable
-fun Routing(modifier: Modifier = Modifier) {
+fun Routing(isStudyMode: Boolean, modifier: Modifier = Modifier) {
     Column(modifier.verticalScroll(rememberScrollState()), Arrangement.spacedBy(8.dp)) {
-        RoutingMechanisms(Modifier.fillMaxWidth())
-        CollisionHandling(Modifier.fillMaxWidth())
-        ExclusiveChannelOccupation(Modifier.fillMaxWidth())
+        RoutingMechanisms(isStudyMode, Modifier.fillMaxWidth())
+        CollisionHandling(isStudyMode, Modifier.fillMaxWidth())
+        ExclusiveChannelOccupation(isStudyMode, Modifier.fillMaxWidth())
     }
 }
 
 /**
  * Displays a card with information about routing mechanisms.
  *
+ * @param isStudyMode Whether the user is in study mode
  * @param modifier The modifier for the layout.
  */
 @Composable
-private fun RoutingMechanisms(modifier: Modifier = Modifier) {
-    Card(modifier) {
+private fun RoutingMechanisms(isStudyMode: Boolean, modifier: Modifier = Modifier) {
+    var expanded by rememberSaveable { mutableStateOf(!isStudyMode) }
+    Card({ expanded = !expanded }, modifier) {
         Column(Modifier.padding(8.dp)) {
             Text(
                 stringResource(R.string.routing_mechanisms),
                 style = MaterialTheme.typography.titleLarge
             )
-            StoreAndForward(Modifier.fillMaxWidth())
-            CutThroughRouting(Modifier.fillMaxWidth())
+            if (expanded) {
+                StoreAndForward(isStudyMode, Modifier.fillMaxWidth())
+                CutThroughRouting(isStudyMode, Modifier.fillMaxWidth())
+            }
         }
     }
 }
@@ -59,12 +63,13 @@ private fun RoutingMechanisms(modifier: Modifier = Modifier) {
 /**
  * Displays a card with information about store-and-forward routing.
  *
+ * @param isStudyMode Whether the user is in study mode
  * @param modifier The modifier for the layout.
  */
 @Composable
-private fun StoreAndForward(modifier: Modifier = Modifier) {
-    var expanded by rememberSaveable { mutableStateOf(false) }
-    Card({ expanded = !expanded }, modifier) {
+private fun StoreAndForward(isStudyMode: Boolean, modifier: Modifier = Modifier) {
+    var expanded by rememberSaveable { mutableStateOf(!isStudyMode) }
+    Card(onClick = { expanded = !expanded }, modifier = modifier) {
         Column(Modifier.padding(8.dp)) {
             Text(stringResource(R.string.store_and_forward), fontWeight = FontWeight.Bold)
             if (expanded) {
@@ -82,12 +87,13 @@ private fun StoreAndForward(modifier: Modifier = Modifier) {
 /**
  * Displays a card with information about cut-through routing.
  *
+ * @param isStudyMode Whether the user is in study mode
  * @param modifier The modifier for the layout.
  */
 @Composable
-private fun CutThroughRouting(modifier: Modifier = Modifier) {
-    var expanded by rememberSaveable { mutableStateOf(false) }
-    Card({ expanded = !expanded }, modifier) {
+private fun CutThroughRouting(isStudyMode: Boolean, modifier: Modifier = Modifier) {
+    var expanded by rememberSaveable { mutableStateOf(!isStudyMode) }
+    Card(onClick = { expanded = !expanded }, modifier = modifier) {
         Column(Modifier.padding(8.dp)) {
             Text(stringResource(R.string.cut_through_routing), fontWeight = FontWeight.Bold)
             if (expanded) {
@@ -105,12 +111,13 @@ private fun CutThroughRouting(modifier: Modifier = Modifier) {
 /**
  * Displays a card with information about collision handling.
  *
+ * @param isStudyMode Whether the user is in study mode
  * @param modifier The Modifier for the layout
  */
 @Composable
-private fun CollisionHandling(modifier: Modifier = Modifier) {
-    var expanded by rememberSaveable { mutableStateOf(false) }
-    Card({ expanded = !expanded }, modifier) {
+private fun CollisionHandling(isStudyMode: Boolean, modifier: Modifier = Modifier) {
+    var expanded by rememberSaveable { mutableStateOf(!isStudyMode) }
+    Card(onClick = { expanded = !expanded }, modifier = modifier) {
         Column(Modifier.padding(8.dp)) {
             Text(
                 stringResource(R.string.collision_handling),
@@ -139,12 +146,13 @@ private fun CollisionHandling(modifier: Modifier = Modifier) {
 /**
  * Displays a card with information about exclusive channel occupation.
  *
+ * @param isStudyMode Whether the user is in study mode
  * @param modifier The Modifier for the layout
  */
 @Composable
-private fun ExclusiveChannelOccupation(modifier: Modifier = Modifier) {
-    var expanded by rememberSaveable { mutableStateOf(false) }
-    Card({ expanded = !expanded }, modifier) {
+private fun ExclusiveChannelOccupation(isStudyMode: Boolean, modifier: Modifier = Modifier) {
+    var expanded by rememberSaveable { mutableStateOf(!isStudyMode) }
+    Card(onClick = { expanded = !expanded }, modifier = modifier) {
         Column(Modifier.padding(8.dp)) {
             Text(
                 stringResource(R.string.exclusive_channel_occupation),

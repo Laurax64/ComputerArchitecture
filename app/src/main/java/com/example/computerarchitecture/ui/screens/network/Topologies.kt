@@ -25,32 +25,34 @@ import com.example.computerarchitecture.R
 /**
  * Displays a column with information about network topologies.
  *
+ * @param isStudyMode Whether the user is in study mode
  * @param modifier The modifier for the layout
  */
 @Composable
-fun Topologies(modifier: Modifier = Modifier) {
+fun Topologies(isStudyMode: Boolean, modifier: Modifier = Modifier) {
     Column(modifier.verticalScroll(rememberScrollState()), Arrangement.spacedBy(8.dp)) {
-        Definition(Modifier.fillMaxWidth())
-        EvaluationCriteria(Modifier.fillMaxWidth())
-        LinearArray(Modifier.fillMaxWidth())
-        RingTopology(Modifier.fillMaxWidth())
-        Mesh(Modifier.fillMaxWidth())
-        Torus(Modifier.fillMaxWidth())
-        Tree(Modifier.fillMaxWidth())
-        FatTree(Modifier.fillMaxWidth())
-        RedundantFatTree(Modifier.fillMaxWidth())
-        Hypercube(Modifier.fillMaxWidth())
+        Definition(isStudyMode, Modifier.fillMaxWidth())
+        EvaluationCriteria(isStudyMode, Modifier.fillMaxWidth())
+        LinearArray(isStudyMode, Modifier.fillMaxWidth())
+        RingTopology(isStudyMode, Modifier.fillMaxWidth())
+        Mesh(isStudyMode, Modifier.fillMaxWidth())
+        Torus(isStudyMode, Modifier.fillMaxWidth())
+        Tree(isStudyMode, Modifier.fillMaxWidth())
+        FatTree(isStudyMode, Modifier.fillMaxWidth())
+        RedundantFatTree(isStudyMode, Modifier.fillMaxWidth())
+        Hypercube(isStudyMode, Modifier.fillMaxWidth())
     }
 }
 
 /**
  * Displays a card with information about the definition of network topologies.
  *
+ * @param isStudyMode Whether the user is in study mode.
  * @param modifier The modifier for the layout.
  */
 @Composable
-private fun Definition(modifier: Modifier = Modifier) {
-    var expanded by rememberSaveable { mutableStateOf(false) }
+private fun Definition(isStudyMode: Boolean, modifier: Modifier = Modifier) {
+    var expanded by rememberSaveable { mutableStateOf(!isStudyMode) }
     Card({ expanded = !expanded }, modifier) {
         Column(Modifier.padding(8.dp)) {
             Text(stringResource(R.string.definition), style = MaterialTheme.typography.titleLarge)
@@ -64,11 +66,12 @@ private fun Definition(modifier: Modifier = Modifier) {
 /**
  * Displays a card with information about network evaluation criteria.
  *
+ * @param isStudyMode Whether the user is in study mode
  * @param modifier The modifier for the layout.
  */
 @Composable
-private fun EvaluationCriteria(modifier: Modifier = Modifier) {
-    var expanded by rememberSaveable { mutableStateOf(false) }
+private fun EvaluationCriteria(isStudyMode: Boolean, modifier: Modifier = Modifier) {
+    var expanded by rememberSaveable { mutableStateOf(!isStudyMode) }
     Card({ expanded = !expanded }, modifier) {
         Column(Modifier.padding(8.dp), Arrangement.spacedBy(8.dp)) {
             Text(
@@ -149,11 +152,12 @@ private fun BisectionBandwidth(modifier: Modifier = Modifier) {
 /**
  * Displays a card with information about linear arrays.
  *
+ * @param isStudyMode Whether the user is in study mode
  * @param modifier The modifier for the layout.
  */
 @Composable
-private fun LinearArray(modifier: Modifier = Modifier) {
-    var expanded by rememberSaveable { mutableStateOf(false) }
+private fun LinearArray(isStudyMode: Boolean, modifier: Modifier = Modifier) {
+    var expanded by rememberSaveable { mutableStateOf(!isStudyMode) }
     Card({ expanded = !expanded }, modifier) {
         Column(Modifier.padding(8.dp)) {
             Text(stringResource(R.string.linear_array), style = MaterialTheme.typography.titleLarge)
@@ -179,11 +183,12 @@ private fun LinearArray(modifier: Modifier = Modifier) {
 /**
  * Displays a card with information about ring topologies.
  *
+ * @param isStudyMode Whether the user is in study mode
  * @param modifier The modifier for the layout.
  */
 @Composable
-private fun RingTopology(modifier: Modifier = Modifier) {
-    var expanded by rememberSaveable { mutableStateOf(false) }
+private fun RingTopology(isStudyMode: Boolean, modifier: Modifier = Modifier) {
+    var expanded by rememberSaveable { mutableStateOf(!isStudyMode) }
     Card({ expanded = !expanded }, modifier) {
         Column(Modifier.padding(8.dp)) {
             Text(
@@ -212,11 +217,12 @@ private fun RingTopology(modifier: Modifier = Modifier) {
 /**
  * Displays a card with information about mesh topologies.
  *
+ * @param isStudyMode Whether the user is in study mode
  * @param modifier The modifier for the layout.
  */
 @Composable
-private fun Mesh(modifier: Modifier = Modifier) {
-    var expanded by rememberSaveable { mutableStateOf(false) }
+private fun Mesh(isStudyMode: Boolean, modifier: Modifier = Modifier) {
+    var expanded by rememberSaveable { mutableStateOf(!isStudyMode) }
     Card({ expanded = !expanded }, modifier) {
         Column(Modifier.padding(8.dp)) {
             Text(stringResource(R.string.mesh), style = MaterialTheme.typography.titleLarge)
@@ -241,11 +247,12 @@ private fun Mesh(modifier: Modifier = Modifier) {
 /**
  * Displays a card with information about torus topologies.
  *
+ * @param isStudyMode Whether the user is in study mode
  * @param modifier The modifier for the layout
  */
 @Composable
-private fun Torus(modifier: Modifier = Modifier) {
-    var expanded by rememberSaveable { mutableStateOf(false) }
+private fun Torus(isStudyMode: Boolean, modifier: Modifier = Modifier) {
+    var expanded by rememberSaveable { mutableStateOf(!isStudyMode) }
     Card({ expanded = !expanded }, modifier) {
         Column(Modifier.padding(8.dp)) {
             Text(stringResource(R.string.torus), style = MaterialTheme.typography.titleLarge)
@@ -270,11 +277,12 @@ private fun Torus(modifier: Modifier = Modifier) {
 /**
  * Displays a card with information about tree topologies.
  *
+ * @param isStudyMode Whether the user is in study mode
  * @param modifier The modifier for the layout
  */
 @Composable
-private fun Tree(modifier: Modifier = Modifier) {
-    var expanded by rememberSaveable { mutableStateOf(false) }
+private fun Tree(isStudyMode: Boolean, modifier: Modifier = Modifier) {
+    var expanded by rememberSaveable { mutableStateOf(!isStudyMode) }
     Card({ expanded = !expanded }, modifier) {
         Column(Modifier.padding(8.dp)) {
             Text(stringResource(R.string.tree), style = MaterialTheme.typography.titleLarge)
@@ -298,11 +306,12 @@ private fun Tree(modifier: Modifier = Modifier) {
 /**
  * Displays a card with information about fat tree topologies.
  *
+ * @param isStudyMode Whether the user is in study mode
  * @param modifier The modifier for the layout
  */
 @Composable
-private fun FatTree(modifier: Modifier = Modifier) {
-    var expanded by rememberSaveable { mutableStateOf(false) }
+private fun FatTree(isStudyMode: Boolean, modifier: Modifier = Modifier) {
+    var expanded by rememberSaveable { mutableStateOf(!isStudyMode) }
     Card({ expanded = !expanded }, modifier) {
         Column(Modifier.padding(8.dp)) {
             Text(stringResource(R.string.fat_tree), style = MaterialTheme.typography.titleLarge)
@@ -326,11 +335,12 @@ private fun FatTree(modifier: Modifier = Modifier) {
 /**
  * Displays a card with information about redundant fat tree topologies.
  *
+ * @param isStudyMode Whether the user is in study mode
  * @param modifier The modifier for the layout
  */
 @Composable
-private fun RedundantFatTree(modifier: Modifier = Modifier) {
-    var expanded by rememberSaveable { mutableStateOf(false) }
+private fun RedundantFatTree(isStudyMode: Boolean, modifier: Modifier = Modifier) {
+    var expanded by rememberSaveable { mutableStateOf(!isStudyMode) }
     Card({ expanded = !expanded }, modifier) {
         Column(Modifier.padding(8.dp)) {
             Text(
@@ -352,11 +362,12 @@ private fun RedundantFatTree(modifier: Modifier = Modifier) {
 /**
  * Displays information about hypercube topologies.
  *
+ * @param isStudyMode Whether the user is in study mode
  * @param modifier The modifier for the layout
  */
 @Composable
-private fun Hypercube(modifier: Modifier = Modifier) {
-    var expanded by rememberSaveable { mutableStateOf(false) }
+private fun Hypercube(isStudyMode: Boolean, modifier: Modifier = Modifier) {
+    var expanded by rememberSaveable { mutableStateOf(!isStudyMode) }
     Card({ expanded = !expanded }, modifier) {
         Column(Modifier.padding(8.dp)) {
             Text(

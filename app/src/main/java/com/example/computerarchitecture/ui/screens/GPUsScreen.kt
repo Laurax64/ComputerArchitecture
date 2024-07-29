@@ -33,16 +33,19 @@ import com.example.computerarchitecture.R
 import com.example.computerarchitecture.openWebsite
 import com.example.computerarchitecture.ui.components.TopicTopBar
 import com.example.computerarchitecture.ui.theme.ComputerArchitectureTheme
+import com.example.computerarchitecture.ui.viewmodels.GPUsViewModel
 
 /**
  * Displays the graphics processing units (GPUs) screen with an app scaffold.
  *
  * @param navigateBack The function to navigate back
+ * @param gPUsViewModel The view model for the GPUs screen
  * @param modifier The modifier for the layout
  */
 @Composable
 fun GPUsScreen(
     navigateBack: () -> Unit,
+    gPUsViewModel: GPUsViewModel,
     modifier: Modifier = Modifier,
 ) {
     Scaffold(
@@ -54,17 +57,18 @@ fun GPUsScreen(
             )
         },
     ) { paddingValues ->
-        GPUsScreen(modifier.padding(paddingValues))
+        GPUsContent(gPUsViewModel.isStudyMode, Modifier.padding(paddingValues))
     }
 }
 
 /**
- * Displays the GPUs screen.
+ * Displays the GPUs screen content.
  *
+ * @param isStudyMode Whether the user is in study mode
  * @param modifier The modifier for the layout
  */
 @Composable
-fun GPUsScreen(modifier: Modifier = Modifier) {
+fun GPUsContent(isStudyMode: Boolean, modifier: Modifier = Modifier) {
     var state by rememberSaveable { mutableIntStateOf(0) }
     val titles = listOf(R.string.open_cl, R.string.gpus_vs_cpus)
 
@@ -78,13 +82,15 @@ fun GPUsScreen(modifier: Modifier = Modifier) {
             }
         }
         when (state) {
-            0 -> OpenCLTab(
+            0 -> OpenCL(
+                isStudyMode,
                 Modifier
                     .fillMaxWidth()
                     .padding(24.dp)
             )
 
             1 -> GPUsVsCPUs(
+                isStudyMode,
                 Modifier
                     .fillMaxWidth()
                     .padding(24.dp)
@@ -94,50 +100,82 @@ fun GPUsScreen(modifier: Modifier = Modifier) {
 }
 
 /**
- * Displays the OpenCL tab.
+ * Displays a column with information about OpenCL.
  *
  * @param modifier The modifier for the layout
  */
 @Composable
-fun OpenCLTab(modifier: Modifier = Modifier) {
+fun OpenCL(isStudyMode: Boolean, modifier: Modifier = Modifier) {
     Column(modifier.verticalScroll(rememberScrollState()), Arrangement.spacedBy(8.dp)) {
-        MemoryModel(Modifier.fillMaxWidth())
-        OpenCLComputationModel(Modifier.fillMaxWidth())
-        OpenCLProgramComponents(Modifier.fillMaxWidth())
-        FunctionQualifiers(Modifier.fillMaxWidth())
-        ExecutingKernels(Modifier.fillMaxWidth())
-        Functions(Modifier.fillMaxWidth())
-        SynchronizationAccrossWorkGroups(Modifier.fillMaxWidth())
-        Portability(Modifier.fillMaxWidth())
-        Flags(Modifier.fillMaxWidth())
+        MemoryModel(isStudyMode, Modifier.fillMaxWidth())
+        OpenCLComputationModel(isStudyMode, Modifier.fillMaxWidth())
+        OpenCLProgramComponents(isStudyMode, Modifier.fillMaxWidth())
+        FunctionQualifiers(isStudyMode, Modifier.fillMaxWidth())
+        ExecutingKernels(isStudyMode, Modifier.fillMaxWidth())
+        Functions(isStudyMode, Modifier.fillMaxWidth())
+        SynchronizationAcrossWorkGroups(isStudyMode, Modifier.fillMaxWidth())
+        Portability(isStudyMode, Modifier.fillMaxWidth())
+        Flags(isStudyMode, Modifier.fillMaxWidth())
+    }
+}
+
+/**
+ * Displays a card with information about the memory model of OpenCL.
+ *
+ * @param isStudyMode Whether the user is in study mode
+ * @param modifier The modifier for the layout
+ */
+@Composable
+private fun MemoryModel(isStudyMode: Boolean, modifier: Modifier = Modifier) {
+    var expanded by rememberSaveable { mutableStateOf(!isStudyMode) }
+    Card({ expanded = !expanded }, modifier) {
+        Column(Modifier.padding(8.dp), Arrangement.spacedBy(8.dp)) {
+            Text(
+                text = stringResource(R.string.memory_model),
+                style = MaterialTheme.typography.titleLarge,
+            )
+            if (expanded) {
+                Image(
+                    painter = painterResource(
+                        id = R.drawable.open_cl_memory_model
+                    ),
+                    modifier = Modifier.weight(1f),
+                    contentDescription = null
+                )
+            }
+        }
     }
 }
 
 /**
  * Displays a card with information about synchronization across work groups in OpenCL.
  *
+ * @param isStudyMode Whether the user is in study mode
  * @param modifier The modifier for the layout
  */
 @Composable
-private fun OpenCLComputationModel(modifier: Modifier = Modifier) {
-    Card(modifier) {
+private fun OpenCLComputationModel(isStudyMode: Boolean, modifier: Modifier = Modifier) {
+    var expanded by rememberSaveable { mutableStateOf(!isStudyMode) }
+    Card({ expanded = !expanded }, modifier) {
         Column(Modifier.padding(8.dp), Arrangement.spacedBy(8.dp)) {
             Text(
                 text = stringResource(R.string.computation_model),
                 style = MaterialTheme.typography.titleLarge,
             )
-            Row(Modifier.fillMaxWidth(), Arrangement.spacedBy(8.dp)) {
-                Image(
-                    painter = painterResource(
-                        id = R.drawable.open_cl_computation_model
-                    ),
-                    modifier = Modifier.weight(1f),
-                    contentDescription = null, // decorative
-                )
-                Text(
-                    text = stringResource(R.string.open_cl_computation_model_description),
-                    modifier = Modifier.weight(1f),
-                )
+            if (expanded) {
+                Row(Modifier.fillMaxWidth(), Arrangement.spacedBy(8.dp)) {
+                    Image(
+                        painter = painterResource(
+                            id = R.drawable.open_cl_computation_model
+                        ),
+                        modifier = Modifier.weight(1f),
+                        contentDescription = null, // decorative
+                    )
+                    Text(
+                        text = stringResource(R.string.open_cl_computation_model_description),
+                        modifier = Modifier.weight(1f),
+                    )
+                }
             }
         }
     }
@@ -146,21 +184,25 @@ private fun OpenCLComputationModel(modifier: Modifier = Modifier) {
 /**
  * Displays a card with information about clEnqueueNDRangeKernel.
  *
+ * @param studyMode Whether the user is in study mode
  * @param modifier The modifier for the layout
  */
 @Composable
-private fun ExecutingKernels(modifier: Modifier = Modifier) {
-    Card(modifier) {
+private fun ExecutingKernels(studyMode: Boolean, modifier: Modifier = Modifier) {
+    var expanded by rememberSaveable { mutableStateOf(!studyMode) }
+    Card({ expanded = !expanded }, modifier) {
         Column(Modifier.padding(8.dp)) {
             Text(
                 text = stringResource(R.string.executing_kernels),
                 style = MaterialTheme.typography.titleLarge,
             )
-            Text(
-                text = stringResource(R.string.cl_enqueue_nd_range_kernel),
-                fontWeight = FontWeight.Bold,
-            )
-            Text(stringResource(R.string.cl_enqueue_nd_range_kernel_description))
+            if (expanded) {
+                Text(
+                    text = stringResource(R.string.cl_enqueue_nd_range_kernel),
+                    fontWeight = FontWeight.Bold,
+                )
+                Text(stringResource(R.string.cl_enqueue_nd_range_kernel_description))
+            }
         }
     }
 }
@@ -168,24 +210,28 @@ private fun ExecutingKernels(modifier: Modifier = Modifier) {
 /**
  * Displays a card with information about function qualifiers in OpenCL.
  *
+ * @param studyMode Whether the user is in study mode
  * @param modifier The modifier for the layout
  */
 @Composable
-private fun FunctionQualifiers(modifier: Modifier = Modifier) {
-    Card(modifier) {
+private fun FunctionQualifiers(studyMode: Boolean, modifier: Modifier = Modifier) {
+    var expanded by rememberSaveable { mutableStateOf(!studyMode) }
+    Card({ expanded = !expanded }, modifier) {
         Column(Modifier.padding(8.dp)) {
             Text(
                 text = stringResource(R.string.function_qualifiers),
                 style = MaterialTheme.typography.titleLarge,
             )
-            Text(
-                text = stringResource(R.string.kernel),
-                style = MaterialTheme.typography.titleMedium,
-            )
+            if (expanded) {
+                Text(
+                    text = stringResource(R.string.kernel),
+                    style = MaterialTheme.typography.titleMedium,
+                )
 
-            Text(
-                text = stringResource(R.string.kernel_description),
-            )
+                Text(
+                    text = stringResource(R.string.kernel_description),
+                )
+            }
         }
     }
 }
@@ -193,22 +239,25 @@ private fun FunctionQualifiers(modifier: Modifier = Modifier) {
 /**
  * Displays a card with information about the work-item functions in OpenCL.
  *
+ * @param studyMode Whether the user is in study mode
  * @param modifier The modifier for the layout
  */
 @Composable
-private fun Functions(modifier: Modifier = Modifier) {
-    val context = LocalContext.current
-    Card(modifier) {
+private fun Functions(studyMode: Boolean, modifier: Modifier = Modifier) {
+    var expanded by rememberSaveable { mutableStateOf(!studyMode) }
+    Card({ expanded = !expanded }, modifier) {
         Column(Modifier.padding(8.dp), Arrangement.spacedBy(8.dp)) {
             Text(
                 text = stringResource(R.string.functions),
                 style = MaterialTheme.typography.titleLarge,
             )
-            GetGlobalId(Modifier.fillMaxWidth())
-            Barrier(Modifier.fillMaxWidth())
-            MemFence(Modifier.fillMaxWidth())
-            CreateBuffer(Modifier.fillMaxWidth())
-            EnqueueMapBuffer(Modifier.fillMaxWidth())
+            if (expanded) {
+                GetGlobalId(Modifier.fillMaxWidth())
+                Barrier(Modifier.fillMaxWidth())
+                MemFence(Modifier.fillMaxWidth())
+                CreateBuffer(Modifier.fillMaxWidth())
+                EnqueueMapBuffer(Modifier.fillMaxWidth())
+            }
         }
     }
 }
@@ -274,19 +323,23 @@ fun GetGlobalId(modifier: Modifier = Modifier) {
 /**
  * Displays a card with information about portability of OpenCL programs.
  *
+ * @param isStudyMode Whether the user is in study mode
  * @param modifier The modifier for the layout
  */
 @Composable
-private fun Portability(modifier: Modifier = Modifier) {
-    Card(modifier) {
+private fun Portability(isStudyMode: Boolean, modifier: Modifier = Modifier) {
+    var expanded by rememberSaveable { mutableStateOf(!isStudyMode) }
+    Card({ expanded = !expanded }, modifier) {
         Column(Modifier.padding(8.dp)) {
             Text(
                 text = stringResource(R.string.portability),
                 style = MaterialTheme.typography.titleLarge,
             )
-            Text(
-                text = stringResource(R.string.open_cl_portability_description)
-            )
+            if (expanded) {
+                Text(
+                    text = stringResource(R.string.open_cl_portability_description)
+                )
+            }
         }
     }
 }
@@ -301,7 +354,7 @@ private fun CreateBuffer(modifier: Modifier = Modifier) {
     Card(modifier) {
         Column(Modifier.padding(8.dp)) {
             Text(
-                text = "clCreateBuffer(context, flags, size, host_ptr, errcode_ret)",
+                text = "clCreateBuffer(context, flags, size, host_ptr, err_code_ret)",
                 fontWeight = FontWeight.Bold,
             )
             Text(
@@ -333,46 +386,24 @@ private fun EnqueueMapBuffer(modifier: Modifier = Modifier) {
 }
 
 
-
 /**
  * Displays a card with information about the program components of an OpenCL program.
+ *
+ * @param isStudyMode Whether the user is in study mode
+ * @param modifier The modifier for the layout
  */
 @Composable
-private fun OpenCLProgramComponents(modifier: Modifier) {
-    Card(modifier) {
+private fun OpenCLProgramComponents(isStudyMode: Boolean, modifier: Modifier) {
+    var expanded by rememberSaveable { mutableStateOf(!isStudyMode) }
+    Card({ expanded = !expanded }, modifier) {
         Column(Modifier.padding(8.dp)) {
             Text(
                 text = stringResource(R.string.open_cl_program_components),
                 style = MaterialTheme.typography.titleLarge,
             )
-            Text(
-                text = stringResource(R.string.open_cl_program_components_description),
-            )
-        }
-    }
-}
-
-
-/**
- * Displays a card with information about the memory model of OpenCL.
- *
- * @param modifier The modifier for the layout
- */
-@Composable
-private fun MemoryModel(modifier: Modifier = Modifier) {
-    Card(modifier) {
-        Column(Modifier.padding(8.dp), Arrangement.spacedBy(8.dp)) {
-            Text(
-                text = stringResource(R.string.memory_model),
-                style = MaterialTheme.typography.titleLarge,
-            )
-            Row(Modifier.fillMaxWidth(), Arrangement.spacedBy(8.dp)) {
-                Image(
-                    painter = painterResource(
-                        id = R.drawable.open_cl_memory_model
-                    ),
-                    modifier = Modifier.weight(1f),
-                    contentDescription = null, // TODO add description
+            if (expanded) {
+                Text(
+                    text = stringResource(R.string.open_cl_program_components_description),
                 )
             }
         }
@@ -382,19 +413,23 @@ private fun MemoryModel(modifier: Modifier = Modifier) {
 /**
  * Displays a card with information about synchronization across work groups in OpenCL.
  *
+ * @param isStudyMode Whether the user is in study mode
  * @param modifier The modifier for the layout
  */
 @Composable
-private fun SynchronizationAccrossWorkGroups(modifier: Modifier) {
-    Card(modifier) {
+private fun SynchronizationAcrossWorkGroups(isStudyMode: Boolean, modifier: Modifier = Modifier) {
+    var expanded by rememberSaveable { mutableStateOf(!isStudyMode) }
+    Card({ expanded = !expanded }, modifier) {
         Column(Modifier.padding(8.dp)) {
             Text(
                 text = stringResource(R.string.synchronization_across_work_groups),
                 style = MaterialTheme.typography.titleLarge,
             )
-            Text(
-                text = stringResource(R.string.synchronization_across_work_groups_description),
-            )
+            if (expanded) {
+                Text(
+                    text = stringResource(R.string.synchronization_across_work_groups_description),
+                )
+            }
         }
     }
 }
@@ -405,13 +440,15 @@ private fun SynchronizationAccrossWorkGroups(modifier: Modifier) {
  * @param modifier The modifier for the layout
  */
 @Composable
-private fun GPUsVsCPUs(modifier: Modifier = Modifier) {
-    Card(modifier) {
+private fun GPUsVsCPUs(isStudyMode: Boolean, modifier: Modifier = Modifier) {
+    var expanded by rememberSaveable { mutableStateOf(!isStudyMode) }
+    Card({ expanded = !expanded }, modifier) {
         Column(Modifier.padding(8.dp)) {
             Text(
                 text = stringResource(R.string.gpus_vs_cpus),
                 style = MaterialTheme.typography.titleLarge,
             )
+            if (expanded) {
             Text(
                 text = stringResource(R.string.gpu),
                 fontWeight = FontWeight.Bold,
@@ -427,16 +464,20 @@ private fun GPUsVsCPUs(modifier: Modifier = Modifier) {
                 text = stringResource(R.string.cpu_description),
             )
         }
+        }
     }
 }
 
 /**
  * Displays a card with information about flags.
+ *
+ * @param isStudyMode Whether the user is in study mode
+ * @param modifier The modifier for the layout
  */
 @Composable
-private fun Flags(modifier: Modifier = Modifier) {
+private fun Flags(isStudyMode: Boolean, modifier: Modifier = Modifier) {
     val context = LocalContext.current
-    var expanded by rememberSaveable { mutableStateOf(true) }
+    var expanded by rememberSaveable { mutableStateOf(!isStudyMode) }
     Card({ expanded = !expanded }, modifier) {
         Column(Modifier.padding(8.dp), Arrangement.spacedBy(8.dp)) {
             Text(
@@ -456,20 +497,16 @@ private fun Flags(modifier: Modifier = Modifier) {
             }
         }
     }
-
 }
 
-
 /**
- * Displays a previews for the GPUs screen.
+ * Displays previews for the GPUs screen.
  */
 @PreviewLightDark
 @PreviewScreenSizes
 @Composable
 private fun GPUsScreenPreview() {
     ComputerArchitectureTheme {
-        GPUsScreen(
-            navigateBack = {},
-        )
+        GPUsContent(false)
     }
 }

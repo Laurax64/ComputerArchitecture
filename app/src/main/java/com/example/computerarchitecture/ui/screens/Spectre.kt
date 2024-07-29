@@ -1,4 +1,4 @@
-package com.example.computerarchitecture.ui
+package com.example.computerarchitecture.ui.screens
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -26,16 +26,19 @@ import androidx.compose.ui.unit.dp
 import com.example.computerarchitecture.R
 import com.example.computerarchitecture.ui.components.TopicTopBar
 import com.example.computerarchitecture.ui.theme.ComputerArchitectureTheme
+import com.example.computerarchitecture.ui.viewmodels.SpectreViewModel
 
 /**
  * Displays a screen with information about spectre.
  *
  * @param navigateBack The function to navigate back
+ * @param spectreViewModel The view model for the spectre screen
  * @param modifier The modifier for the layout
  */
 @Composable
 fun SpectreScreen(
     navigateBack: () -> Unit,
+    spectreViewModel: SpectreViewModel,
     modifier: Modifier = Modifier,
 ) {
     Scaffold(
@@ -48,6 +51,7 @@ fun SpectreScreen(
         },
     ) {
         SpectreScreen(
+            spectreViewModel.isStudyMode,
             Modifier
                 .padding(it)
                 .padding(start = 16.dp, end = 16.dp)
@@ -58,35 +62,41 @@ fun SpectreScreen(
 /**
  * Displays a screen with information about spectre.
  *
+ * @param isStudyMode Whether the user is in study mode
  * @param modifier The modifier for the layout
  */
 @Composable
-fun SpectreScreen(modifier: Modifier = Modifier) {
+fun SpectreScreen(isStudyMode: Boolean, modifier: Modifier = Modifier) {
     Column(modifier.verticalScroll(rememberScrollState()), Arrangement.spacedBy(8.dp)) {
-        SpectreAttacks(Modifier.fillMaxWidth())
+        SpectreAttacks(isStudyMode, Modifier.fillMaxWidth())
+        AvoidSpectreAttacks(isStudyMode, Modifier.fillMaxWidth())
     }
 }
 
 /**
  * Displays a card with information about spectre attacks.
  *
+ * @param isStudyMode Whether the user is in study mode
  * @param modifier The modifier for the layout
  */
 @Composable
-private fun SpectreAttacks(modifier: Modifier = Modifier) {
-    Card(modifier) {
+private fun SpectreAttacks(isStudyMode: Boolean, modifier: Modifier = Modifier) {
+    var expanded by rememberSaveable { mutableStateOf(!isStudyMode) }
+    Card({ expanded = !expanded }, modifier) {
         Column(Modifier.padding(8.dp), Arrangement.spacedBy(8.dp)) {
             Text(
                 text = stringResource(R.string.spectre_attacks),
                 style = MaterialTheme.typography.titleLarge,
             )
-            Text(
-                text = stringResource(R.string.spectre_attacks_description),
-                style = MaterialTheme.typography.bodyMedium,
-            )
-            SpectreAttacksStepOne(Modifier.fillMaxWidth())
-            SpectreAttacksStepTwo(Modifier.fillMaxWidth())
-            SpectreAttacksStepThree(Modifier.fillMaxWidth())
+            if (expanded) {
+                Text(
+                    text = stringResource(R.string.spectre_attacks_description),
+                    style = MaterialTheme.typography.bodyMedium,
+                )
+                SpectreAttacksStepOne(Modifier.fillMaxWidth())
+                SpectreAttacksStepTwo(Modifier.fillMaxWidth())
+                SpectreAttacksStepThree(Modifier.fillMaxWidth())
+            }
         }
     }
 }
@@ -164,9 +174,15 @@ private fun SpectreAttacksStepThree(modifier: Modifier = Modifier) {
     }
 }
 
+/**
+ * Displays a card with information about how to avoid spectre attacks.
+ *
+ * @param isStudyMode Whether the user is in study mode
+ * @param modifier The modifier for the layout
+ */
 @Composable
-private fun AvoidSpectreAttacks(modifier: Modifier = Modifier) {
-    var expanded by rememberSaveable { mutableStateOf(false) }
+private fun AvoidSpectreAttacks(isStudyMode: Boolean, modifier: Modifier = Modifier) {
+    var expanded by rememberSaveable { mutableStateOf(!isStudyMode) }
     OutlinedCard({ expanded = !expanded }, modifier) {
         Column(Modifier.padding(8.dp), Arrangement.spacedBy(8.dp)) {
             Text(
@@ -191,6 +207,6 @@ private fun AvoidSpectreAttacks(modifier: Modifier = Modifier) {
 @Composable
 fun SpectreScreenPreview() {
     ComputerArchitectureTheme {
-        SpectreScreen(navigateBack = {})
+        SpectreScreen(false)
     }
 }
