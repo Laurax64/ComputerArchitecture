@@ -158,9 +158,9 @@
     <string name="default_syntax">default (shared | private | none)</string>
     <string name="default_description">shared: All variables shared by default.\nprivate: All variables private by default.\nnone: Sharing mode for each variable must be explicitly stated.</string>
     <string name="shared_syntax">shared (list)</string>
-    <string name="shared_description">Variables in list are shared between threads or explicit tasks executing the construct.</string>
+    <string name="shared_description">All threads read/write to same memory location. No (automatic) protection by OpenMP. </string>
     <string name="private_syntax">private (list)</string>
-    <string name="private_description">Creates a new variable for each item in list that is private to each thread or explicit task. The private variable is not given an initial value.</string>
+    <string name="private_description">Each thread gets an uninitialized copy of the variable. Only visible to the respective thread.</string>
     <string name="reduction_clause">Reduction Clause</string>
     <string name="reduction_syntax">reduction (operator:var_name)</string>
     <string name="reduction_description">At join, local variables are combined and assigned to shared variable.
@@ -253,7 +253,6 @@
     <string name="directory_based_coherence_description">A centralized directory holds information about state/whereabouts of data items.</string>
     <string name="cache_definition">Definition</string>
     <string name="computation_model">Computation Model</string>
-    <string name="open_cl_computation_model_description">Kernels that execute on one or more OpenCL devices and a host program that executes on the host</string>
     <string name="open_cl_program_components">Program Components</string>
     <string name="open_cl_program_components_description">Kernels, auxiliary functions and constant data</string>
     <string name="portability">Portability</string>
@@ -271,7 +270,6 @@
     <string name="msi_protocol">MSI Protocol</string>
     <string name="data_parallelism">Dara Parallelism</string>
     <string name="executing_kernels">Executing Kernels</string>
-    <string name="cl_enqueue_nd_range_kernel">clEnqueueNDRangeKernel</string>
     <string name="cl_enqueue_nd_range_kernel_description">Enqueues a command to execute a kernel on a device.</string>
     <string name="get_global_id">get_global_id(uint dimindx)</string>
     <string name="get_global_id_description">Returns the unique global work-item ID for the specified dimension dimindx.</string>
@@ -355,7 +353,7 @@
     <string name="static_scheduling_execution_order_description">In-order: sequence of instructions in memory, apart from jumps; hinders fast execution.</string>
     <string name="dynamic_scheduling_execution_order_description">Out-of-order execution: e.g., scoreboarding, Tomasulo\'s algorithm</string>
     <string name="scorboarding">Scoreboarding</string>
-    <string name="scorboarding_description">Stages: issue, read operands, execution, write results\nPhysical registers\nCentral acquisition\nWAR, WAW -> stall></string>
+    <string name="scorboarding_description">Stages: issue, read operands, execution, write results\nPhysical registers\nCentral acquisition\nWAR, WAW -> stall</string>
     <string name="tomasulos_algorithm">Tomasulo\'s algorithm</string>
     <string name="tomasulo_algorithm_description">Stages: issue, execution, write results\nLogical registers\nReservation stations\nWAR, WAW solved</string>
     <string name="num_threads_syntax">num_threads (nthreads)</string>
@@ -368,15 +366,15 @@
     <string name="cross_bar_disadvantages">Extremely high hardware complexity</string>
     <string name="switches">Switches</string>
     <string name="omega_network">Omega Network</string>
-    <string name="omega_network_description">A circuit of connections of all possible node pairs in several stages.\n
-        Multistage interconnection network (MIN).</string>
+    <string name="omega_network_description">A circuit of connections of all possible node pairs in several stages.
+        \nMultistage interconnection network (MIN).</string>
     <string name="omega_network_benefits">Less hardware complexity than cross bar</string>
     <string name="omega_network_disadvantages">Forwarding of data requires several sub-steps.\nMutual blocking of data paths is possible.</string>
     <string name="benes_network">Benes Network</string>
     <string name="benes_network_description">Consists of two backward-connected butterfly networks\nAll permutations of pairwise node connections can be switched (for offline calculation of routes)\nCan be converted into a redundant tree structure by folding</string>
     <string name="routing_mechanisms">Routing Mechanisms</string>
     <string name="store_and_forward">Store-and-Forward</string>
-    <string name="store_and_forward_description">Packages are only forwarded when received completely</string>
+    <string name="store_and_forward_description">Packages are only forwarded after they have been received completely</string>
     <string name="cut_through_routing">Cut-Through Routing</string>
     <string name="cut_through_routing_description">Flits of a packet are forwarded individually; decision for routing
         to the next node is already made when the packet header is known\n=> Reduced transmission latency similar
@@ -412,7 +410,7 @@
     <string name="degree_of_nodes_fat_tree">1 for leaf nodes</string>
     <string name="redundant_fat_tree_description">Further improvement of redundancy through replication of communication nodes in the tree and connection to all successor nodes</string>
     <string name="hypercube">Hypercube</string>
-    <string name="package_discarding">Discarding the Package</string>
+    <string name="package_discarding">Discarding the package</string>
     <string name="package_discarding_description">Network protocol must detect loss and initiate retransmission.</string>
     <string name="buffering_blocked_transmission">Buffering blocked transmission</string>
     <string name="buffering_blocked_transmission_description">In conjunction with cut-through routing: virtual cut-through, buffer size may be problematic</string>
@@ -464,9 +462,9 @@
     <string name="avoid_spectre_attacks">Avoid Spectre Attacks</string>
     <string name="gpus_vs_cpus">GPUs vs CPUs</string>
     <string name="gpu">GPU</string>
-    <string name="gpu_description">data parallelism\n- lightweight thread\n- 10,000s of threads on 100s of cores\n- threads scheduled in batches\n- all threads run same code</string>
+    <string name="gpu_description">data parallelism\n- lightweight threads\n- 10,000s of threads on 100s of cores\n- threads scheduled in batches\n- all threads run same code</string>
     <string name="cpu">CPU</string>
-    <string name="cpu_description">task parallelism\n- relatively heavyweight\n- 10s of threads on 10s of cores\n- each thread managed explicitly\n- threads run different code</string>
+    <string name="cpu_description">task parallelism\n- relatively heavyweight threads\n- 10s of threads on 10s of cores\n- each thread managed explicitly\n- threads run different code</string>
     <string name="open_cl_create_buffer_description">Creates a buffer object.</string>
     <string name="flags">Flags</string>
     <string name="memory_flags">Memory Flags</string>
@@ -474,4 +472,6 @@
     <string name="study_mode">Study Mode</string>
     <string name="view_mode">View Mode</string>
     <string name="moore_machine">Moore Machine</string>
+    <string name="butterfly_network">Butterfly Network</string>
+    <string name="butterfly_network_description">Principle comparable to Omega network\nCommunication paths follow the principle of bit reversal\nRecursive structure:\n- Elementary switching element corresponds to 2x2 butterfly\nLogarithmic depth</string>
 </resources>

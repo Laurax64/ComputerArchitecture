@@ -166,7 +166,7 @@ private fun LinearArray(isStudyMode: Boolean, modifier: Modifier = Modifier) {
                 Text(stringResource(R.string.degree_of_nodes_linear_array))
                 Text(stringResource(R.string.diameter), fontWeight = FontWeight.Bold)
                 Text("N-1")
-                Text(stringResource(R.string.bisection_bandwidth))
+                Text(stringResource(R.string.bisection_bandwidth), fontWeight = FontWeight.Bold)
                 Text("1")
                 Text(stringResource(R.string.scalability), fontWeight = FontWeight.Bold)
                 Text(stringResource(R.string.scalability_linear_array))
@@ -200,7 +200,7 @@ private fun RingTopology(isStudyMode: Boolean, modifier: Modifier = Modifier) {
                 Text("2")
                 Text(stringResource(R.string.diameter), fontWeight = FontWeight.Bold)
                 Text(stringResource(R.string.diameter_ring_topology))
-                Text(stringResource(R.string.bisection_bandwidth))
+                Text(stringResource(R.string.bisection_bandwidth), fontWeight = FontWeight.Bold)
                 Text("2")
                 Text(stringResource(R.string.scalability), fontWeight = FontWeight.Bold)
                 Text(stringResource(R.string.scalability_ring_topology))
@@ -257,7 +257,7 @@ private fun Torus(isStudyMode: Boolean, modifier: Modifier = Modifier) {
         Column(Modifier.padding(8.dp)) {
             Text(stringResource(R.string.torus), style = MaterialTheme.typography.titleLarge)
             if (expanded) {
-                Text(stringResource(R.string.degree_of_nodes))
+                Text(stringResource(R.string.degree_of_nodes), fontWeight = FontWeight.Bold)
                 Text("2k")
                 Text(stringResource(R.string.diameter), fontWeight = FontWeight.Bold)
                 Text("k⌊√[k](N/2)⌋")
@@ -287,7 +287,7 @@ private fun Tree(isStudyMode: Boolean, modifier: Modifier = Modifier) {
         Column(Modifier.padding(8.dp)) {
             Text(stringResource(R.string.tree), style = MaterialTheme.typography.titleLarge)
             if (expanded) {
-                Text(stringResource(R.string.degree_of_nodes))
+                Text(stringResource(R.string.degree_of_nodes), fontWeight = FontWeight.Bold)
                 Text(stringResource(R.string.degree_of_nodes_tree))
                 Text(stringResource(R.string.diameter), fontWeight = FontWeight.Bold)
                 Text("2⌊log_2 N⌋")
@@ -321,7 +321,7 @@ private fun FatTree(isStudyMode: Boolean, modifier: Modifier = Modifier) {
                 Text(stringResource(R.string.diameter), fontWeight = FontWeight.Bold)
                 Text("2⌊log_2 N⌋")
                 Text(stringResource(R.string.bisection_bandwidth), fontWeight = FontWeight.Bold)
-                Text("1")
+                Text("N/2")
                 Image(
                     painter = painterResource(R.drawable.fat_tree),
                     contentDescription = null,

@@ -111,7 +111,6 @@ fun OpenCL(isStudyMode: Boolean, modifier: Modifier = Modifier) {
         OpenCLComputationModel(isStudyMode, Modifier.fillMaxWidth())
         OpenCLProgramComponents(isStudyMode, Modifier.fillMaxWidth())
         FunctionQualifiers(isStudyMode, Modifier.fillMaxWidth())
-        ExecutingKernels(isStudyMode, Modifier.fillMaxWidth())
         Functions(isStudyMode, Modifier.fillMaxWidth())
         SynchronizationAcrossWorkGroups(isStudyMode, Modifier.fillMaxWidth())
         Portability(isStudyMode, Modifier.fillMaxWidth())
@@ -170,37 +169,7 @@ private fun OpenCLComputationModel(isStudyMode: Boolean, modifier: Modifier = Mo
                         modifier = Modifier.weight(1f),
                         contentDescription = null, // decorative
                     )
-                    Text(
-                        text = stringResource(R.string.open_cl_computation_model_description),
-                        modifier = Modifier.weight(1f),
-                    )
                 }
-            }
-        }
-    }
-}
-
-/**
- * Displays a card with information about clEnqueueNDRangeKernel.
- *
- * @param studyMode Whether the user is in study mode
- * @param modifier The modifier for the layout
- */
-@Composable
-private fun ExecutingKernels(studyMode: Boolean, modifier: Modifier = Modifier) {
-    var expanded by rememberSaveable { mutableStateOf(!studyMode) }
-    Card({ expanded = !expanded }, modifier) {
-        Column(Modifier.padding(8.dp)) {
-            Text(
-                text = stringResource(R.string.executing_kernels),
-                style = MaterialTheme.typography.titleLarge,
-            )
-            if (expanded) {
-                Text(
-                    text = stringResource(R.string.cl_enqueue_nd_range_kernel),
-                    fontWeight = FontWeight.Bold,
-                )
-                Text(stringResource(R.string.cl_enqueue_nd_range_kernel_description))
             }
         }
     }
@@ -251,12 +220,32 @@ private fun Functions(studyMode: Boolean, modifier: Modifier = Modifier) {
                 style = MaterialTheme.typography.titleLarge,
             )
             if (expanded) {
+                ExecutingKernels(Modifier.fillMaxWidth())
                 GetGlobalId(Modifier.fillMaxWidth())
                 Barrier(Modifier.fillMaxWidth())
                 MemFence(Modifier.fillMaxWidth())
                 CreateBuffer(Modifier.fillMaxWidth())
                 EnqueueMapBuffer(Modifier.fillMaxWidth())
             }
+        }
+    }
+}
+
+/**
+ * Displays a card with information about clEnqueueNDRangeKernel.
+ *
+ * @param modifier The modifier for the layout
+ */
+@Composable
+private fun ExecutingKernels(modifier: Modifier = Modifier) { //TODO rename
+    Card(modifier) {
+        Column(Modifier.padding(8.dp)) {
+            Text(
+                "clEnqueueNDRangeKernel(command_queue, kernel, work_dim, global_work_offset, global_work_size, " +
+                        "local_work_size, num_events_in_wait_list, event_wait_list, event)",
+                fontWeight = FontWeight.Bold,
+            )
+            Text(stringResource(R.string.cl_enqueue_nd_range_kernel_description))
         }
     }
 }
@@ -448,21 +437,21 @@ private fun GPUsVsCPUs(isStudyMode: Boolean, modifier: Modifier = Modifier) {
                 style = MaterialTheme.typography.titleLarge,
             )
             if (expanded) {
-            Text(
-                text = stringResource(R.string.gpu),
-                fontWeight = FontWeight.Bold,
-            )
-            Text(
-                text = stringResource(R.string.gpu_description),
-            )
-            Text(
-                text = stringResource(R.string.cpu),
-                fontWeight = FontWeight.Bold,
-            )
-            Text(
-                text = stringResource(R.string.cpu_description),
-            )
-        }
+                Text(
+                    text = stringResource(R.string.gpu),
+                    fontWeight = FontWeight.Bold,
+                )
+                Text(
+                    text = stringResource(R.string.gpu_description),
+                )
+                Text(
+                    text = stringResource(R.string.cpu),
+                    fontWeight = FontWeight.Bold,
+                )
+                Text(
+                    text = stringResource(R.string.cpu_description),
+                )
+            }
         }
     }
 }

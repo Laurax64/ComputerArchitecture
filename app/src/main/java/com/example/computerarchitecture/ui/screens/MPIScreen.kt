@@ -183,7 +183,7 @@ private fun DerivedDataTypes(isStudyMode: Boolean, modifier: Modifier = Modifier
 private fun CommunicationPatterns(isStudyMode: Boolean, modifier: Modifier = Modifier) {
     var expanded by rememberSaveable { mutableStateOf(!isStudyMode) }
     Card(onClick = { expanded = !expanded }, modifier = modifier) {
-        Column(Modifier.padding(8.dp)) {
+        Column(Modifier.padding(8.dp), Arrangement.spacedBy(8.dp)) {
             Text(
                 text = stringResource(R.string.communication_patterns),
                 style = MaterialTheme.typography.titleLarge

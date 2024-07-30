@@ -33,6 +33,7 @@ fun Switches(isStudyMode: Boolean, modifier: Modifier = Modifier) {
     Column(modifier.verticalScroll(rememberScrollState()), Arrangement.spacedBy(8.dp)) {
         CrossBar(isStudyMode, Modifier.fillMaxWidth())
         OmegaNetwork(isStudyMode, Modifier.fillMaxWidth())
+        ButterflyNetwork(isStudyMode, Modifier.fillMaxWidth())
         BenesNetwork(isStudyMode, Modifier.fillMaxWidth())
     }
 }
@@ -88,6 +89,33 @@ private fun OmegaNetwork(isStudyMode: Boolean, modifier: Modifier = Modifier) {
                 Text(stringResource(R.string.omega_network_disadvantages))
                 Image(
                     painter = painterResource(R.drawable.omega_network),
+                    contentDescription = null,
+                    modifier = Modifier.fillMaxWidth()
+                )
+            }
+        }
+    }
+}
+
+/**
+ * Displays a card with information about butterfly networks.
+ *
+ * @param isStudyMode Whether the user is in study mode
+ * @param modifier The modifier for the layout.
+ */
+@Composable
+private fun ButterflyNetwork(isStudyMode: Boolean, modifier: Modifier = Modifier) {
+    var expanded by rememberSaveable { mutableStateOf(!isStudyMode) }
+    Card(onClick = { expanded = !expanded }, modifier = modifier) {
+        Column(Modifier.padding(8.dp)) {
+            Text(
+                stringResource(R.string.butterfly_network),
+                style = MaterialTheme.typography.titleLarge
+            )
+            if (expanded) {
+                Text(stringResource(R.string.butterfly_network_description))
+                Image(
+                    painter = painterResource(R.drawable.butterfly_network),
                     contentDescription = null,
                     modifier = Modifier.fillMaxWidth()
                 )

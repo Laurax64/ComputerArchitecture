@@ -133,7 +133,7 @@ private fun Pragma(modifier: Modifier = Modifier) {
 private fun Constructs(isStudyMode: Boolean, modifier: Modifier = Modifier) {
     var expanded by rememberSaveable { mutableStateOf(!isStudyMode) }
     Card({ expanded = !expanded }, modifier) {
-        Column(Modifier.padding(8.dp)) {
+        Column(Modifier.padding(8.dp), Arrangement.spacedBy(8.dp)) {
             Text(
                 stringResource(R.string.constructs),
                 style = MaterialTheme.typography.titleLarge,
@@ -350,7 +350,7 @@ private fun Sections(modifier: Modifier = Modifier) {
 private fun Clauses(isStudyMode: Boolean, modifier: Modifier = Modifier) {
     var expanded by rememberSaveable { mutableStateOf(!isStudyMode) }
     Card({ expanded = !expanded }, modifier) {
-        Column(Modifier.padding(8.dp)) {
+        Column(Modifier.padding(8.dp), Arrangement.spacedBy(8.dp)) {
             Text(
                 stringResource(R.string.clauses),
                 style = MaterialTheme.typography.titleLarge
@@ -526,7 +526,7 @@ private fun Schedule(modifier: Modifier = Modifier) {
 private fun Functions(isStudyMode: Boolean, modifier: Modifier = Modifier) {
     var expanded by rememberSaveable { mutableStateOf(!isStudyMode) }
     Card({ expanded = !expanded }, modifier) {
-        Column(Modifier.padding(8.dp)) {
+        Column(Modifier.padding(8.dp), Arrangement.spacedBy(8.dp)) {
             Text(
                 text = stringResource(R.string.functions),
                 style = MaterialTheme.typography.titleLarge,
