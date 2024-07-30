@@ -2,7 +2,6 @@ package com.example.computerarchitecture.ui.screens.memoryhierarchy
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -11,20 +10,20 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Card
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.input.pointer.pointerInput
-import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.PreviewLightDark
@@ -41,13 +40,7 @@ import com.example.computerarchitecture.ui.theme.ComputerArchitectureTheme
 @Composable
 fun BlockReplacement(isStudyMode: Boolean, modifier: Modifier = Modifier) {
     var expanded by rememberSaveable { mutableStateOf(!isStudyMode) }
-    val focusManager = LocalFocusManager.current
-    Card({ expanded = !expanded }, modifier.pointerInput(Unit) {
-        detectTapGestures(onTap = {
-            focusManager.clearFocus()
-        })
-    }
-    )
+    Card({ expanded = !expanded }, modifier)
     {
         Column(Modifier.padding(8.dp), Arrangement.spacedBy(8.dp)) {
             Text(
@@ -337,22 +330,36 @@ fun CacheControls(
     matrix: List<List<String>>,
     onMatrixUpdate: (List<List<String>>) -> Unit
 ) {
-    var inputValue by remember { mutableStateOf("") }
-    TextField(
-        value = inputValue,
-        onValueChange = {
-            inputValue = it
-            val entry = inputValue.toIntOrNull()
-            if (entry != null && entry in 0..2) {
-                val updatedMatrix = updateMatrix(matrix, entry)
-                onMatrixUpdate(updatedMatrix)
+    var expanded by remember { mutableStateOf(false) }
+    var selectedValue by remember { mutableIntStateOf(0) }
+    Column(modifier) {
+        TextButton(
+            onClick = { expanded = true },
+        ) {
+            Text(
+                text = stringResource(id = R.string.access_entry) + ": " + selectedValue
+            )
+        }
+        // Dropdown menu
+        DropdownMenu(
+            expanded = expanded,
+            onDismissRequest = { expanded = false }
+        ) {
+            listOf(0, 1, 2).forEach { value ->
+                DropdownMenuItem(
+                    text = { Text(text = value.toString()) },
+                    onClick = {
+                        selectedValue = value
+                        expanded = false
+                        // Assuming updateMatrix is a function you have defined elsewhere
+                        val updatedMatrix = updateMatrix(matrix, selectedValue)
+                        onMatrixUpdate(updatedMatrix)
+                    })
             }
-        },
-        modifier = modifier,
-        label = { Text(stringResource(id = R.string.access_entry)) }
-    )
-
+        }
+    }
 }
+
 
 /**
  * Updates the LRU cache matrix with the most recent entry.

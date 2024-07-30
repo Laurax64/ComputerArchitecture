@@ -118,8 +118,8 @@
     <string name="clock_description">Search for block with used bit = \'0\' and reset the bit at the same time. Stop
         after max. 1 round.</string>
     <string name="write_allocate">Write allocate</string>
-    <string name="write_allocate_description">The block is allocated on a write miss.</string>
-    <string name="no_write_allocate_description">Write misses do not affect the cache. Instead, the block is modified only in the lower-level memory.</string>
+    <string name="write_allocate_description">Block is allocated in the cache if write access fails.</string>
+    <string name="no_write_allocate_description">Block is only updated at the next hierarchy level in the case of write miss.</string>
     <string name="no_write_allocate">No-write allocate</string>
     <string name="branch_prediction">Branch Prediction</string>
     <string name="one_bit_predictors_description">
@@ -275,7 +275,7 @@
     <string name="get_global_id_description">Returns the unique global work-item ID for the specified dimension dimindx.</string>
     <string name="spectre">Spectre</string>
     <string name="spectre_attacks">Spectre Attacks</string>
-    <string name="spectre_attacks_description">Access data from other processes or the operating system, by performing
+    <string name="spectre_attacks_description">Access data from other processes or the operating system, by executing
         otherwise illegal memory access speculatively, and then extract data via a hidden channel.
     </string>
     <string name="spectre_attacks_step_one">1.Speculative Access</string>
@@ -334,7 +334,7 @@
     <string name="triangular_matrix">Triangular Matrix</string>
     <string name="triangular_matrix_description">f [ i , j ] = 1, if access to i is older than access to j, and 0
         otherwise for row index i and column index j.</string>
-    <string name="triangular_matrix_initialization">Initialization.</string>
+    <string name="triangular_matrix_initialization">Initialization</string>
     <string name="triangular_matrix_initialization_description">All entries are set to 1.</string>
     <string name="triangular_matrix_access">Access to k</string>
     <string name="triangular_matrix_access_description"><![CDATA[k becomes the most recent entry. ∀j > k : f[k,j] = 0; ∀i < k : f[i,k] = 1]]></string>
@@ -427,7 +427,7 @@
     <string name="definition">Definition</string>
     <string name="collision_handling">Collision Handling</string>
     <string name="reduce_cache_misses">Reduce Cache Misses</string>
-    <string name="larger_cache_blocks">Larger cache blocks</string>
+    <string name="larger_cache_blocks">Larger Cache Blocks</string>
     <string name="larger_caches_disadvantages">Higher costs, longer cache access time</string>
     <string name="higher_associativity">Higher Associativity</string>
     <string name="higher_associativity_disadvantages">Increases cycle time</string>
@@ -474,4 +474,13 @@
     <string name="moore_machine">Moore Machine</string>
     <string name="butterfly_network">Butterfly Network</string>
     <string name="butterfly_network_description">Principle comparable to Omega network\nCommunication paths follow the principle of bit reversal\nRecursive structure:\n- Elementary switching element corresponds to 2x2 butterfly\nLogarithmic depth</string>
+    <string name="two_bit_predictors_description">2-bit shift register, insertion of current condition</string>
+    <string name="speculative_execution">Speculative Execution</string>
+    <string name="javascript_browser_attack">JavaScript Browser Attack</string>
+    <string-array name="speculative_execution_description">
+        <item>"1. Guess jump destination (branch predictor)"</item>
+        <item>"2. Carry out the following instructions speculatively"</item>
+        <item>"3. Discard intermediate results in case of incorrect speculation"</item>
+    </string-array>
+
 </resources>

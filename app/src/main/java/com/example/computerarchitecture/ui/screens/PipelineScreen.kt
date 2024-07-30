@@ -18,7 +18,6 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewScreenSizes
 import androidx.compose.ui.unit.dp
@@ -117,7 +116,7 @@ private fun RAWDependencies(modifier: Modifier = Modifier) {
                 if (!showExample) {
                     Text(
                         text = stringResource(R.string.example),
-                        fontWeight = FontWeight.Bold,
+                        color = MaterialTheme.colorScheme.primary,
                         modifier = Modifier.padding(8.dp)
                     )
                 } else {
@@ -159,7 +158,7 @@ private fun WARDependencies(modifier: Modifier = Modifier) {
                 if (!showExample) {
                     Text(
                         text = stringResource(R.string.example),
-                        fontWeight = FontWeight.Bold,
+                        color = MaterialTheme.colorScheme.primary,
                         modifier = Modifier.padding(8.dp)
                     )
                 } else {
@@ -201,7 +200,7 @@ private fun WAWDependencies(modifier: Modifier = Modifier) {
                 if (!showExample) {
                     Text(
                         text = stringResource(R.string.example),
-                        fontWeight = FontWeight.Bold,
+                        color = MaterialTheme.colorScheme.primary,
                         modifier = Modifier.padding(8.dp)
                     )
                 } else {

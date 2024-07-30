@@ -220,7 +220,7 @@ private fun Functions(studyMode: Boolean, modifier: Modifier = Modifier) {
                 style = MaterialTheme.typography.titleLarge,
             )
             if (expanded) {
-                ExecutingKernels(Modifier.fillMaxWidth())
+                EnqueueNDRangeKernel(Modifier.fillMaxWidth())
                 GetGlobalId(Modifier.fillMaxWidth())
                 Barrier(Modifier.fillMaxWidth())
                 MemFence(Modifier.fillMaxWidth())
@@ -237,7 +237,7 @@ private fun Functions(studyMode: Boolean, modifier: Modifier = Modifier) {
  * @param modifier The modifier for the layout
  */
 @Composable
-private fun ExecutingKernels(modifier: Modifier = Modifier) { //TODO rename
+private fun EnqueueNDRangeKernel(modifier: Modifier = Modifier) {
     Card(modifier) {
         Column(Modifier.padding(8.dp)) {
             Text(

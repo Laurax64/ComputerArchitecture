@@ -18,6 +18,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.PreviewLightDark
@@ -68,8 +69,36 @@ fun SpectreScreen(
 @Composable
 fun SpectreScreen(isStudyMode: Boolean, modifier: Modifier = Modifier) {
     Column(modifier.verticalScroll(rememberScrollState()), Arrangement.spacedBy(8.dp)) {
+        SpeculativeExecution(isStudyMode, Modifier.fillMaxWidth())
         SpectreAttacks(isStudyMode, Modifier.fillMaxWidth())
         AvoidSpectreAttacks(isStudyMode, Modifier.fillMaxWidth())
+    }
+}
+
+/**
+ * Displays a card with information about speculative execution.
+ *
+ * @param isStudyMode Whether the user is in study mode
+ * @param modifier The modifier for the layout
+ */
+@Composable
+private fun SpeculativeExecution(isStudyMode: Boolean, modifier: Modifier = Modifier) {
+    var expanded by rememberSaveable { mutableStateOf(!isStudyMode) }
+    Card({ expanded = !expanded }, modifier) {
+        Column(Modifier.padding(8.dp), Arrangement.spacedBy(8.dp)) {
+            Text(
+                text = stringResource(R.string.speculative_execution),
+                style = MaterialTheme.typography.titleLarge,
+            )
+            if (expanded) {
+                Text(
+                    text = stringArrayResource(R.array.speculative_execution_description).joinToString(
+                        "\n"
+                    ),
+                    style = MaterialTheme.typography.bodyMedium,
+                )
+            }
+        }
     }
 }
 
@@ -93,6 +122,27 @@ private fun SpectreAttacks(isStudyMode: Boolean, modifier: Modifier = Modifier) 
                     text = stringResource(R.string.spectre_attacks_description),
                     style = MaterialTheme.typography.bodyMedium,
                 )
+                JavaScriptBrowserAttack(Modifier.fillMaxWidth())
+            }
+        }
+    }
+}
+
+/**
+ * Displays a card with information about a JavaScript browser attack.
+ *
+ * @param modifier The modifier for the layout
+ */
+@Composable
+private fun JavaScriptBrowserAttack(modifier: Modifier = Modifier) {
+    var expanded by rememberSaveable { mutableStateOf(false) }
+    Card({ expanded = !expanded }, modifier) {
+        Column(Modifier.padding(8.dp), Arrangement.spacedBy(8.dp)) {
+            Text(
+                text = stringResource(R.string.javascript_browser_attack),
+                fontWeight = FontWeight.Bold,
+            )
+            if (expanded) {
                 SpectreAttacksStepOne(Modifier.fillMaxWidth())
                 SpectreAttacksStepTwo(Modifier.fillMaxWidth())
                 SpectreAttacksStepThree(Modifier.fillMaxWidth())
@@ -110,10 +160,10 @@ private fun SpectreAttacks(isStudyMode: Boolean, modifier: Modifier = Modifier) 
 private fun SpectreAttacksStepOne(modifier: Modifier = Modifier) {
     var expanded by rememberSaveable { mutableStateOf(false) }
     OutlinedCard({ expanded = !expanded }, modifier) {
-        Column(Modifier.padding(8.dp), Arrangement.spacedBy(8.dp)) {
+        Column(modifier.padding(8.dp), Arrangement.spacedBy(8.dp)) {
             Text(
                 text = stringResource(R.string.spectre_attacks_step_one),
-                fontWeight = FontWeight.Bold,
+                color = MaterialTheme.colorScheme.primary
             )
             if (expanded) {
                 Text(
@@ -138,7 +188,7 @@ private fun SpectreAttacksStepTwo(modifier: Modifier = Modifier) {
         Column(Modifier.padding(8.dp), Arrangement.spacedBy(8.dp)) {
             Text(
                 text = stringResource(R.string.spectre_attacks_step_two),
-                fontWeight = FontWeight.Bold,
+                color = MaterialTheme.colorScheme.primary
             )
             if (expanded) {
                 Text(
@@ -162,7 +212,7 @@ private fun SpectreAttacksStepThree(modifier: Modifier = Modifier) {
         Column(Modifier.padding(8.dp), Arrangement.spacedBy(8.dp)) {
             Text(
                 text = stringResource(R.string.spectre_attacks_step_three),
-                fontWeight = FontWeight.Bold,
+                color = MaterialTheme.colorScheme.primary
             )
             if (expanded) {
                 Text(
@@ -183,7 +233,7 @@ private fun SpectreAttacksStepThree(modifier: Modifier = Modifier) {
 @Composable
 private fun AvoidSpectreAttacks(isStudyMode: Boolean, modifier: Modifier = Modifier) {
     var expanded by rememberSaveable { mutableStateOf(!isStudyMode) }
-    OutlinedCard({ expanded = !expanded }, modifier) {
+    Card({ expanded = !expanded }, modifier) {
         Column(Modifier.padding(8.dp), Arrangement.spacedBy(8.dp)) {
             Text(
                 text = stringResource(R.string.avoid_spectre_attacks),

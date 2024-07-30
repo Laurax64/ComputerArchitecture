@@ -28,7 +28,6 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.window.Dialog
 import com.example.computerarchitecture.R
 import kotlin.math.PI
 import kotlin.math.atan2
@@ -42,7 +41,7 @@ import kotlin.math.sin
  */
 @Composable
 fun TwoBitPredictors(modifier: Modifier = Modifier) {
-    var showDialog by rememberSaveable { mutableStateOf(false) }
+    var showMooreMachine by rememberSaveable { mutableStateOf(false) }
     val screenWidth = LocalConfiguration.current.screenWidthDp
     val graphSize = when (screenWidth) {
         in 0..599 -> 200.dp
@@ -54,22 +53,18 @@ fun TwoBitPredictors(modifier: Modifier = Modifier) {
             Text(
                 text = stringResource(R.string.two_bit_predictors), fontWeight = FontWeight.Bold
             )
-            TextButton(onClick = { showDialog = !showDialog }) {
+            Text(stringResource(R.string.two_bit_predictors_description))
+            TextButton(onClick = { showMooreMachine = !showMooreMachine }) {
                 Text(stringResource(R.string.moore_machine))
             }
         }
-        if (showDialog) {
-            Dialog(
-                onDismissRequest = { showDialog = false }
-            ) {
-                TwoBitPredictionGraph(
-                    modifier =
-                    Modifier
-                        .size(graphSize)
-                        .background(MaterialTheme.colorScheme.surface)
-                        .align(Alignment.CenterHorizontally)
-                )
-            }
+        if (showMooreMachine) {
+            TwoBitPredictionGraph(
+                Modifier
+                    .size(graphSize)
+                    .background(MaterialTheme.colorScheme.surface)
+                    .align(Alignment.CenterHorizontally)
+            )
         }
     }
 }
