@@ -47,7 +47,7 @@ fun Routing(isStudyMode: Boolean, modifier: Modifier = Modifier) {
 private fun RoutingMechanisms(isStudyMode: Boolean, modifier: Modifier = Modifier) {
     var expanded by rememberSaveable { mutableStateOf(!isStudyMode) }
     Card({ expanded = !expanded }, modifier) {
-        Column(Modifier.padding(8.dp)) {
+        Column(Modifier.padding(8.dp), Arrangement.spacedBy(8.dp)) {
             Text(
                 stringResource(R.string.routing_mechanisms),
                 style = MaterialTheme.typography.titleLarge
