@@ -32,7 +32,6 @@ import com.example.computerarchitecture.R
 fun Topologies(isStudyMode: Boolean, modifier: Modifier = Modifier) {
     Column(modifier.verticalScroll(rememberScrollState()), Arrangement.spacedBy(8.dp)) {
         Definition(isStudyMode, Modifier.fillMaxWidth())
-        EvaluationCriteria(isStudyMode, Modifier.fillMaxWidth())
         LinearArray(isStudyMode, Modifier.fillMaxWidth())
         RingTopology(isStudyMode, Modifier.fillMaxWidth())
         Mesh(isStudyMode, Modifier.fillMaxWidth())
@@ -62,92 +61,6 @@ private fun Definition(isStudyMode: Boolean, modifier: Modifier = Modifier) {
         }
     }
 }
-
-/**
- * Displays a card with information about network evaluation criteria.
- *
- * @param isStudyMode Whether the user is in study mode
- * @param modifier The modifier for the layout.
- */
-@Composable
-private fun EvaluationCriteria(isStudyMode: Boolean, modifier: Modifier = Modifier) {
-    var expanded by rememberSaveable { mutableStateOf(!isStudyMode) }
-    Card({ expanded = !expanded }, modifier) {
-        Column(Modifier.padding(8.dp), Arrangement.spacedBy(8.dp)) {
-            Text(
-                stringResource(R.string.evaluation_criteria),
-                style = MaterialTheme.typography.titleLarge
-            )
-            if (expanded) {
-                NodeDegree(Modifier.fillMaxWidth())
-                NetworkDegree(Modifier.fillMaxWidth())
-                Diameter(Modifier.fillMaxWidth())
-                BisectionBandwidth(Modifier.fillMaxWidth())
-            }
-        }
-    }
-}
-
-/**
- * Displays a card with information about node degree.
- *
- * @param modifier The modifier for the layout.
- */
-@Composable
-private fun NodeDegree(modifier: Modifier = Modifier) {
-    Card(modifier) {
-        Column(Modifier.padding(8.dp)) {
-            Text(stringResource(R.string.node_degree), fontWeight = FontWeight.Bold)
-            Text(stringResource(R.string.node_degree_description))
-        }
-    }
-}
-
-/**
- * Displays a card with information about network degree.
- *
- * @param modifier The modifier for the layout.
- */
-@Composable
-private fun NetworkDegree(modifier: Modifier = Modifier) {
-    Card(modifier) {
-        Column(Modifier.padding(8.dp)) {
-            Text(stringResource(R.string.network_degree), fontWeight = FontWeight.Bold)
-            Text(stringResource(R.string.network_degree_description))
-        }
-    }
-}
-
-/**
- * Displays a card with information about diameter.
- *
- * @param modifier The modifier for the layout.
- */
-@Composable
-private fun Diameter(modifier: Modifier = Modifier) {
-    Card(modifier) {
-        Column(Modifier.padding(8.dp)) {
-            Text(stringResource(R.string.diameter), fontWeight = FontWeight.Bold)
-            Text(stringResource(R.string.diameter_description))
-        }
-    }
-}
-
-/**
- * Displays a card with information about bisection bandwidth.
- *
- * @param modifier The modifier for the layout.
- */
-@Composable
-private fun BisectionBandwidth(modifier: Modifier = Modifier) {
-    Card(modifier) {
-        Column(Modifier.padding(8.dp)) {
-            Text(stringResource(R.string.bisection_bandwidth), fontWeight = FontWeight.Bold)
-            Text(stringResource(R.string.bisection_bandwidth_description))
-        }
-    }
-}
-
 
 /**
  * Displays a card with information about linear arrays.

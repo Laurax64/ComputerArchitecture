@@ -1,6 +1,7 @@
 package com.example.computerarchitecture.ui.screens.network
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.ScrollableTabRow
@@ -60,7 +61,12 @@ fun NetworksScreen(
  */
 @Composable
 fun NetworksScreen(isStudyMode: Boolean, modifier: Modifier = Modifier) {
-    val titles = listOf(R.string.topologies, R.string.switches, R.string.routing)
+    val titles = listOf(
+        R.string.evaluation_criteria,
+        R.string.topologies,
+        R.string.switches,
+        R.string.routing
+    )
     var selectedTabIndex by rememberSaveable { mutableIntStateOf(0) }
     Column(modifier) {
         ScrollableTabRow(selectedTabIndex) {
@@ -73,9 +79,22 @@ fun NetworksScreen(isStudyMode: Boolean, modifier: Modifier = Modifier) {
             }
         }
         when (selectedTabIndex) {
-            0 -> Topologies(isStudyMode, Modifier.padding(8.dp))
-            1 -> Switches(isStudyMode, Modifier.padding(8.dp))
-            2 -> Routing(isStudyMode, Modifier.padding(8.dp))
+            0 -> EvaluationCriteria(isStudyMode,
+                Modifier
+                    .padding(8.dp)
+                    .fillMaxWidth())
+            1 -> Switches(isStudyMode,
+                Modifier
+                    .padding(8.dp)
+                    .fillMaxWidth())
+            2 -> Routing(isStudyMode,
+                Modifier
+                    .padding(8.dp)
+                    .fillMaxWidth())
+            3 -> Topologies(isStudyMode,
+                Modifier
+                    .padding(8.dp)
+                    .fillMaxWidth())
         }
     }
 }
