@@ -57,14 +57,14 @@ fun TwoBitPredictors(modifier: Modifier = Modifier) {
             TextButton(onClick = { showMooreMachine = !showMooreMachine }) {
                 Text(stringResource(R.string.moore_machine))
             }
-        }
-        if (showMooreMachine) {
-            TwoBitPredictionGraph(
-                Modifier
-                    .size(graphSize)
-                    .background(MaterialTheme.colorScheme.surface)
-                    .align(Alignment.CenterHorizontally)
-            )
+            if (showMooreMachine) {
+                TwoBitPredictionGraph(
+                    Modifier
+                        .size(graphSize)
+                        .background(MaterialTheme.colorScheme.surface)
+                        .align(Alignment.CenterHorizontally)
+                )
+            }
         }
     }
 }
