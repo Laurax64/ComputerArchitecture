@@ -92,8 +92,7 @@ private fun LocalPredictors(isStudyMode: Boolean, modifier: Modifier = Modifier)
         Column(Modifier.padding(8.dp), Arrangement.spacedBy(8.dp)) {
             Text(
                 text = stringResource(R.string.local_predictors),
-                style = MaterialTheme.typography.titleLarge,
-                fontWeight = FontWeight.Bold
+                style = MaterialTheme.typography.titleLarge
             )
             if (expanded) {
                 OneBitPredictors(Modifier.fillMaxWidth())
@@ -152,8 +151,7 @@ private fun CorrelatingPredictors(isStudyMode: Boolean, modifier: Modifier = Mod
         Column(Modifier.padding(8.dp), Arrangement.spacedBy(8.dp)) {
             Text(
                 text = stringResource(R.string.correlating_predictors),
-                style = MaterialTheme.typography.titleLarge,
-                fontWeight = FontWeight.Bold
+                style = MaterialTheme.typography.titleLarge
             )
             if (expanded) {
                 Text(stringResource(R.string.correlating_predictors_description))
@@ -175,8 +173,7 @@ private fun TournamentPredictors(isStudyMode: Boolean, modifier: Modifier = Modi
         Column(Modifier.padding(8.dp), Arrangement.spacedBy(8.dp)) {
             Text(
                 text = stringResource(R.string.tournament_predictors),
-                style = MaterialTheme.typography.titleLarge,
-                fontWeight = FontWeight.Bold
+                style = MaterialTheme.typography.titleLarge
             )
             if (expanded) {
                 Text(stringResource(R.string.tournament_predictors_description))
@@ -199,8 +196,7 @@ private fun BranchTargetBuffer(isStudyMode: Boolean, modifier: Modifier = Modifi
         Column(Modifier.padding(8.dp), Arrangement.spacedBy(8.dp)) {
             Text(
                 text = stringResource(R.string.branch_target_buffer),
-                style = MaterialTheme.typography.titleLarge,
-                fontWeight = FontWeight.Bold
+                style = MaterialTheme.typography.titleLarge
             )
             if (expanded) {
                 Text(stringResource(R.string.branch_target_buffer_description))
@@ -238,8 +234,7 @@ private fun ReturnAddressBuffer(isStudyMode: Boolean, modifier: Modifier = Modif
         Column(Modifier.padding(8.dp), Arrangement.spacedBy(8.dp)) {
             Text(
                 text = stringResource(R.string.return_address_buffer),
-                style = MaterialTheme.typography.titleLarge,
-                fontWeight = FontWeight.Bold
+                style = MaterialTheme.typography.titleLarge
             )
             if (expanded) {
                 Text(stringResource(R.string.return_address_buffer_description))
