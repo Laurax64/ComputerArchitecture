@@ -83,18 +83,25 @@ fun NetworksScreen(isStudyMode: Boolean, modifier: Modifier = Modifier) {
                 Modifier
                     .padding(8.dp)
                     .fillMaxWidth())
-            1 -> Switches(isStudyMode,
+            1 -> Topologies(
+                isStudyMode,
+                Modifier
+                    .padding(8.dp)
+                    .fillMaxWidth()
+            )
+
+            2 -> Switches(
+                isStudyMode,
                 Modifier
                     .padding(8.dp)
                     .fillMaxWidth())
-            2 -> Routing(isStudyMode,
+
+            3 -> Routing(
+                isStudyMode,
                 Modifier
                     .padding(8.dp)
                     .fillMaxWidth())
-            3 -> Topologies(isStudyMode,
-                Modifier
-                    .padding(8.dp)
-                    .fillMaxWidth())
+
         }
     }
 }
