@@ -44,7 +44,7 @@ fun NetworksScreen(
             )
         },
     ) {
-        NetworksScreen(
+        NetworksContent(
             networksViewModel.isStudyMode,
             Modifier
                 .padding(it)
@@ -54,13 +54,13 @@ fun NetworksScreen(
 }
 
 /**
- * Displays the flash memory screen.
+ * Displays the flash memory screen content.
  *
  * @param isStudyMode Whether the user is in study mode
  * @param modifier The modifier for the layout
  */
 @Composable
-fun NetworksScreen(isStudyMode: Boolean, modifier: Modifier = Modifier) {
+fun NetworksContent(isStudyMode: Boolean, modifier: Modifier = Modifier) {
     val titles = listOf(
         R.string.evaluation_criteria,
         R.string.topologies,
@@ -114,6 +114,6 @@ fun NetworksScreen(isStudyMode: Boolean, modifier: Modifier = Modifier) {
 @Composable
 fun NetworksScreenPreview() {
     ComputerArchitectureTheme {
-        NetworksScreen(false)
+        NetworksContent(false)
     }
 }

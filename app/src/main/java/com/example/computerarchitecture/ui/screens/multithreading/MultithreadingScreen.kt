@@ -3,8 +3,8 @@ package com.example.computerarchitecture.ui.screens.multithreading
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.ScrollableTabRow
 import androidx.compose.material3.Tab
+import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -65,7 +65,7 @@ fun MultithreadingContent(
     var state by rememberSaveable { mutableIntStateOf(0) }
     val titles = listOf(R.string.hardware_layer, R.string.software_layer)
     Column(modifier) {
-        ScrollableTabRow(selectedTabIndex = state) {
+        TabRow(selectedTabIndex = state) {
             titles.forEachIndexed { index, title ->
                 Tab(
                     selected = state == index,

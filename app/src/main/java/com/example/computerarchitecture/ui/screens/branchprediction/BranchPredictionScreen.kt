@@ -53,7 +53,7 @@ fun BranchPredictionScreen(
             )
         },
     ) { paddingValues ->
-        BranchPredictionScreen(
+        BranchPredictionContent(
             branchPredictionViewModel.isStudyMode,
             modifier
                 .padding(paddingValues)
@@ -69,7 +69,7 @@ fun BranchPredictionScreen(
  * @param modifier The modifier for the layout
  */
 @Composable
-fun BranchPredictionScreen(isStudyMode: Boolean, modifier: Modifier = Modifier) {
+fun BranchPredictionContent(isStudyMode: Boolean, modifier: Modifier = Modifier) {
     Column(modifier.verticalScroll(rememberScrollState()), Arrangement.spacedBy(8.dp)) {
         LocalPredictors(isStudyMode, Modifier.fillMaxWidth())
         CorrelatingPredictors(isStudyMode, Modifier.fillMaxWidth())
@@ -110,7 +110,7 @@ private fun LocalPredictors(isStudyMode: Boolean, modifier: Modifier = Modifier)
  */
 @Composable
 private fun OneBitPredictors(modifier: Modifier = Modifier) {
-    Card(modifier) {
+    Card(modifier = modifier) {
         Column(Modifier.padding(8.dp)) {
             Text(
                 text = stringResource(R.string.one_bit_predictors), fontWeight = FontWeight.Bold
@@ -251,6 +251,6 @@ private fun ReturnAddressBuffer(isStudyMode: Boolean, modifier: Modifier = Modif
 @Composable
 private fun BranchPredictionScreenPreview() {
     ComputerArchitectureTheme {
-        BranchPredictionScreen(false)
+        BranchPredictionContent(false)
     }
 }

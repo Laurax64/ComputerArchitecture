@@ -47,7 +47,7 @@ fun PipelineScreen(
             )
         },
     ) {
-        PipelineScreen(
+        PipelineContent(
             isStudyMode = pipelineViewModel.isStudyMode,
             Modifier
                 .padding(it)
@@ -57,13 +57,13 @@ fun PipelineScreen(
 }
 
 /**
- * Displays a screen with information about the pipeline.
+ * Displays the pipeline screen content.
  *
  * @param isStudyMode Whether the user is in study mode
  * @param modifier The modifier for the layout
  */
 @Composable
-fun PipelineScreen(isStudyMode: Boolean, modifier: Modifier = Modifier) {
+fun PipelineContent(isStudyMode: Boolean, modifier: Modifier = Modifier) {
     Column(modifier.verticalScroll(rememberScrollState()), Arrangement.spacedBy(8.dp)) {
         DataDependencies(isStudyMode, Modifier.fillMaxWidth())
     }
@@ -228,6 +228,6 @@ private fun WAWDependencies(modifier: Modifier = Modifier) {
 @Composable
 fun PipelineScreenPreview() {
     ComputerArchitectureTheme {
-        PipelineScreen(false)
+        PipelineContent(false)
     }
 }

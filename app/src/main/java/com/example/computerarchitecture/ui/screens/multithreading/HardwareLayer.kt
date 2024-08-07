@@ -50,7 +50,7 @@ fun HardwareLayer(modifier: Modifier = Modifier, isStudyMode: Boolean) {
 }
 
 /**
- * Displays a card with information about coarse grain multithreading.
+ * Displays a card with information about coarse-grained multithreading.
  *
  * @param modifier The modifier for the layout
  * @param isStudyMode Whether the user is in study mode
@@ -59,48 +59,52 @@ fun HardwareLayer(modifier: Modifier = Modifier, isStudyMode: Boolean) {
 private fun CGMT(modifier: Modifier, isStudyMode: Boolean) {
     var expanded by rememberSaveable { mutableStateOf(!isStudyMode) }
     Card({ expanded = !expanded }, modifier) {
-        Text(
-            text = stringResource(R.string.coarse_grained_multithreading),
-            modifier = Modifier.padding(start = 8.dp, end = 8.dp, top = 8.dp),
-            style = MaterialTheme.typography.titleLarge,
-        )
-        if (expanded) {
-        Row(Modifier.padding(8.dp), Arrangement.spacedBy(8.dp), Alignment.Top) {
-            Column(Modifier.weight(1f)) {
-                Text(text = stringResource(R.string.cgmt_description))
-                Text(
-                    text = stringResource(R.string.advantages),
-                    style = MaterialTheme.typography.titleMedium,
-                )
-                Text(stringResource(R.string.cgmt_advantages))
-                Text(
-                    text = stringResource(R.string.disadvantages),
-                    style = MaterialTheme.typography.titleMedium,
-                )
-                Text(stringResource(R.string.cgmt_disadvantages))
-            }
-            Column(Modifier.border(1.dp, MaterialTheme.colorScheme.onSurface)) {
-                cgmtThreads.forEach {
-                    Row {
-                        it.forEach {
-                            val color = generateBlueShade(it)
-                            Box(
-                                modifier = Modifier
-                                    .size(20.dp)
-                                    .background(color)
-                                    .border(1.dp, MaterialTheme.colorScheme.onSurface)
-                            )
+        Column(Modifier.padding(8.dp), Arrangement.spacedBy(8.dp)) {
+            Text(
+                text = stringResource(R.string.coarse_grained_multithreading),
+                style = MaterialTheme.typography.titleLarge,
+            )
+            if (expanded) {
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    verticalAlignment = Alignment.Top
+                ) {
+                    Column(Modifier.weight(1f)) {
+                        Text(text = stringResource(R.string.cgmt_description))
+                        Text(
+                            text = stringResource(R.string.advantages),
+                            style = MaterialTheme.typography.titleMedium,
+                        )
+                        Text(stringResource(R.string.cgmt_advantages))
+                        Text(
+                            text = stringResource(R.string.disadvantages),
+                            style = MaterialTheme.typography.titleMedium,
+                        )
+                        Text(stringResource(R.string.cgmt_disadvantages))
+                    }
+                    Column(Modifier.border(1.dp, MaterialTheme.colorScheme.onSurface)) {
+                        cgmtThreads.forEach {
+                            Row {
+                                it.forEach {
+                                    val color = generateBlueShade(it)
+                                    Box(
+                                        modifier = Modifier
+                                            .size(20.dp)
+                                            .background(color)
+                                            .border(1.dp, MaterialTheme.colorScheme.onSurface)
+                                    )
+                                }
+                            }
                         }
                     }
                 }
             }
         }
-        }
     }
 }
 
 /**
- * Displays a card with information about fine grain multithreading.
+ * Displays a card with information about fine-grained multithreading.
  *
  * @param modifier The modifier for the layout
  */
@@ -108,37 +112,41 @@ private fun CGMT(modifier: Modifier, isStudyMode: Boolean) {
 private fun FGMT(modifier: Modifier, isStudyMode: Boolean) {
     var expanded by rememberSaveable { mutableStateOf(!isStudyMode) }
     Card({ expanded = !expanded }, modifier) {
-        Text(
-            text = stringResource(R.string.fine_grained_multithreading),
-            modifier = Modifier.padding(start = 8.dp, end = 8.dp, top = 8.dp),
-            style = MaterialTheme.typography.titleLarge,
-        )
-        if (expanded) {
-            Row(Modifier.padding(8.dp), Arrangement.spacedBy(8.dp), Alignment.Top) {
-                Column(Modifier.weight(1f)) {
-                    Text(text = stringResource(R.string.fgmt_description))
-                    Text(
-                        text = stringResource(R.string.advantages),
-                        style = MaterialTheme.typography.titleMedium,
-                    )
-                    Text(stringResource(R.string.fgmt_advantages))
-                    Text(
-                        text = stringResource(R.string.disadvantages),
-                        style = MaterialTheme.typography.titleMedium,
-                    )
-                    Text(stringResource(R.string.fgmt_disadvantages))
-                }
-                Column(Modifier.border(1.dp, MaterialTheme.colorScheme.onSurface)) {
-                    fgmtThreads.forEach {
-                        Row {
-                            it.forEach {
-                                val color = generateBlueShade(it)
-                                Box(
-                                    modifier = Modifier
-                                        .size(20.dp)
-                                        .background(color)
-                                        .border(1.dp, MaterialTheme.colorScheme.onSurface)
-                                )
+        Column(Modifier.padding(8.dp), Arrangement.spacedBy(8.dp)) {
+            Text(
+                text = stringResource(R.string.fine_grained_multithreading),
+                style = MaterialTheme.typography.titleLarge,
+            )
+            if (expanded) {
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    verticalAlignment = Alignment.Top
+                ) {
+                    Column(Modifier.weight(1f)) {
+                        Text(text = stringResource(R.string.fgmt_description))
+                        Text(
+                            text = stringResource(R.string.advantages),
+                            style = MaterialTheme.typography.titleMedium,
+                        )
+                        Text(stringResource(R.string.fgmt_advantages))
+                        Text(
+                            text = stringResource(R.string.disadvantages),
+                            style = MaterialTheme.typography.titleMedium,
+                        )
+                        Text(stringResource(R.string.fgmt_disadvantages))
+                    }
+                    Column(Modifier.border(1.dp, MaterialTheme.colorScheme.onSurface)) {
+                        fgmtThreads.forEach {
+                            Row {
+                                it.forEach {
+                                    val color = generateBlueShade(it)
+                                    Box(
+                                        modifier = Modifier
+                                            .size(20.dp)
+                                            .background(color)
+                                            .border(1.dp, MaterialTheme.colorScheme.onSurface)
+                                    )
+                                }
                             }
                         }
                     }
@@ -158,13 +166,16 @@ private fun FGMT(modifier: Modifier, isStudyMode: Boolean) {
 private fun SMT(modifier: Modifier = Modifier, isStudyMode: Boolean) {
     var expanded by rememberSaveable { mutableStateOf(!isStudyMode) }
     Card({ expanded = !expanded }, modifier) {
+        Column(Modifier.padding(8.dp), Arrangement.spacedBy(8.dp)) {
         Text(
             text = stringResource(R.string.simultaneous_multithreading),
-            modifier = Modifier.padding(start = 8.dp, end = 8.dp, top = 8.dp),
             style = MaterialTheme.typography.titleLarge,
         )
         if (expanded) {
-            Row(Modifier.padding(8.dp), Arrangement.spacedBy(8.dp), Alignment.Top) {
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                verticalAlignment = Alignment.Top
+            ) {
                 Column(Modifier.weight(1f)) {
                     Text(text = stringResource(R.string.smt_description))
                     Text(
@@ -194,6 +205,7 @@ private fun SMT(modifier: Modifier = Modifier, isStudyMode: Boolean) {
                     }
                 }
             }
+        }
         }
     }
 }

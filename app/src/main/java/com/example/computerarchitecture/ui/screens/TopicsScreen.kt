@@ -1,6 +1,5 @@
 package com.example.computerarchitecture.ui.screens
 
-
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -45,8 +44,12 @@ import com.example.computerarchitecture.data.Topic.NETWORKS
 import com.example.computerarchitecture.data.Topic.OPENMP
 import com.example.computerarchitecture.data.Topic.PIPELINE
 import com.example.computerarchitecture.data.Topic.SPECTRE
+import com.example.computerarchitecture.ui.screens.branchprediction.BranchPredictionContent
+import com.example.computerarchitecture.ui.screens.instructionscheduling.InstructionSchedulingContent
+import com.example.computerarchitecture.ui.screens.memoryhierarchy.MemoryHierarchyContent
 import com.example.computerarchitecture.ui.screens.multiprocessorsystems.MultiprocessorSystemsContent
 import com.example.computerarchitecture.ui.screens.multithreading.MultithreadingContent
+import com.example.computerarchitecture.ui.screens.network.NetworksContent
 import com.example.computerarchitecture.ui.theme.ComputerArchitectureTheme
 import com.example.computerarchitecture.ui.viewmodels.TopicsViewModel
 
@@ -96,7 +99,6 @@ fun TopicsScreen(
                     }
                 })
         }
-
     ) {
         when (windowWidthSizeClass) {
             WindowWidthSizeClass.Compact -> {
@@ -203,16 +205,16 @@ private fun TopicsListAndDetail(
             MULTITHREADING -> MultithreadingContent(isStudyMode, Modifier.weight(1f))
             MULTIPROCESSOR_SYSTEMS -> MultiprocessorSystemsContent(isStudyMode, Modifier.weight(1f))
             GRAPHICS_PROCESSING_UNITS -> GPUsContent(isStudyMode, Modifier.weight(1f))
-            OPENMP -> TODO()
-            MPI -> TODO()
-            NETWORKS -> TODO()
-            ENERGY_EFFICIENCY -> TODO()
-            INSTRUCTION_SCHEDULING -> TODO()
-            BRANCH_PREDICTION -> TODO()
-            MEMORY_HIERARCHY -> TODO()
-            CACHING -> TODO()
-            SPECTRE -> TODO()
-            PIPELINE -> TODO()
+            OPENMP -> OpenMPContent(isStudyMode, Modifier.weight(1f))
+            MPI -> MPIContent(isStudyMode, Modifier.weight(1f))
+            NETWORKS -> NetworksContent(isStudyMode, Modifier.weight(1f))
+            ENERGY_EFFICIENCY -> EnergyEfficiencyContent(isStudyMode, Modifier.weight(1f))
+            INSTRUCTION_SCHEDULING -> InstructionSchedulingContent(isStudyMode, Modifier.weight(1f))
+            BRANCH_PREDICTION -> BranchPredictionContent(isStudyMode, Modifier.weight(1f))
+            MEMORY_HIERARCHY -> MemoryHierarchyContent(isStudyMode, Modifier.weight(1f))
+            CACHING -> CachingContent(isStudyMode, Modifier.weight(1f))
+            SPECTRE -> SpectreContent(isStudyMode, Modifier.weight(1f))
+            PIPELINE -> PipelineContent(isStudyMode, Modifier.weight(1f))
         }
     }
 }

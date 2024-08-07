@@ -54,7 +54,7 @@ fun OpenMPScreen(
             )
         },
     ) {
-        OpenMPScreen(
+        OpenMPContent(
             openMPViewModel.isStudyMode,
             modifier
                 .padding(it)
@@ -64,13 +64,13 @@ fun OpenMPScreen(
 }
 
 /**
- * Displays the OpenMP screen.
+ * Displays the OpenMP screen's content.
  *
  * @param isStudyMode Whether the user is in study mode
  * @param modifier The modifier for the layout
  */
 @Composable
-fun OpenMPScreen(isStudyMode: Boolean, modifier: Modifier = Modifier) {
+fun OpenMPContent(isStudyMode: Boolean, modifier: Modifier = Modifier) {
     Column(
         modifier = modifier.verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.spacedBy(8.dp),
@@ -612,6 +612,6 @@ private fun GetThreadNum(modifier: Modifier = Modifier) {
 @Composable
 private fun OpenMPScreenPreview() {
     ComputerArchitectureTheme {
-        OpenMPScreen(false)
+        OpenMPContent(false)
     }
 }

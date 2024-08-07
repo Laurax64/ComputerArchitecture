@@ -48,7 +48,7 @@ fun MPIScreen(
             )
         },
     ) {
-        MPIScreen(
+        MPIContent(
             mpiViewModel.isStudyMode,
             Modifier
                 .padding(it)
@@ -58,13 +58,13 @@ fun MPIScreen(
 }
 
 /**
- * Displays the MPI screen.
+ * Displays the MPI screen content.
  *
  * @param isStudyMode Whether the user is in study mode
  * @param modifier The modifier for the layout
  */
 @Composable
-fun MPIScreen(isStudyMode: Boolean, modifier: Modifier = Modifier) {
+fun MPIContent(isStudyMode: Boolean, modifier: Modifier = Modifier) {
     Column(
         modifier = modifier.verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.spacedBy(12.dp),
@@ -335,6 +335,6 @@ private fun MPIBarrier(modifier: Modifier = Modifier) {
 @Composable
 fun PreviewMPIScreen() {
     ComputerArchitectureTheme {
-        MPIScreen(false)
+        MPIContent(false)
     }
 }

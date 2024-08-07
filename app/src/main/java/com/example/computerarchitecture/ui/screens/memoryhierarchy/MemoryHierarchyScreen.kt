@@ -41,7 +41,7 @@ fun MemoryHierarchyScreen(
             )
         },
     ) {
-        MemoryHierarchyScreen(
+        MemoryHierarchyContent(
             memoryHierarchyViewModel.isStudyMode,
             Modifier
                 .padding(it)
@@ -52,13 +52,13 @@ fun MemoryHierarchyScreen(
 }
 
 /**
- * Displays the memory hierarchy screen.
+ * Displays the memory hierarchy screen content.
  *
  * @param isStudyMode Whether the user is in study mode
  * @param modifier The modifier for the layout
  */
 @Composable
-fun MemoryHierarchyScreen(isStudyMode: Boolean, modifier: Modifier = Modifier) {
+fun MemoryHierarchyContent(isStudyMode: Boolean, modifier: Modifier = Modifier) {
     Column(modifier.verticalScroll(rememberScrollState()), Arrangement.spacedBy(8.dp)) {
         HierarchyLevels(isStudyMode, Modifier.fillMaxWidth())
         MemoryAddress(isStudyMode, Modifier.fillMaxWidth())
@@ -77,6 +77,6 @@ fun MemoryHierarchyScreen(isStudyMode: Boolean, modifier: Modifier = Modifier) {
 @Composable
 fun MemoryHierarchyScreenPreview() {
     ComputerArchitectureTheme {
-        MemoryHierarchyScreen(false)
+        MemoryHierarchyContent(false)
     }
 }

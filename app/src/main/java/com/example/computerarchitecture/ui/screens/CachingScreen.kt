@@ -47,7 +47,7 @@ fun CachingScreen(
             )
         },
     ) { paddingValues ->
-        CachingScreen(
+        CachingContent(
             cachingViewModel.isStudyMode,
             Modifier
                 .padding(paddingValues)
@@ -57,13 +57,13 @@ fun CachingScreen(
 }
 
 /**
- * Displays the caching screen.
+ * Displays the caching screen content.
  *
  * @param isStudyMode Whether the user is in study mode
  * @param modifier The modifier for the layout
  */
 @Composable
-fun CachingScreen(isStudyMode: Boolean, modifier: Modifier = Modifier) {
+fun CachingContent(isStudyMode: Boolean, modifier: Modifier = Modifier) {
     Column(modifier.verticalScroll(rememberScrollState()), Arrangement.spacedBy(8.dp)) {
         ReduceCacheMisses(isStudyMode, Modifier.fillMaxWidth())
         ReduceHitTime(isStudyMode, Modifier.fillMaxWidth())
@@ -459,6 +459,6 @@ private fun Prefetching(modifier: Modifier = Modifier) {
 @Composable
 private fun CachingScreenPreview() {
     ComputerArchitectureTheme {
-        CachingScreen(false)
+        CachingContent(false)
     }
 }

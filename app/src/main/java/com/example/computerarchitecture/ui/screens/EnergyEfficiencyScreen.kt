@@ -47,7 +47,7 @@ fun EnergyEfficiencyScreen(
             )
         },
     ) {
-        EnergyEfficiencyScreen(
+        EnergyEfficiencyContent(
             energyEfficiencyViewModel.isStudyMode,
             Modifier
                 .padding(it)
@@ -64,7 +64,7 @@ fun EnergyEfficiencyScreen(
  * @param modifier The modifier for the layout
  */
 @Composable
-fun EnergyEfficiencyScreen(isStudyMode: Boolean, modifier: Modifier = Modifier) {
+fun EnergyEfficiencyContent(isStudyMode: Boolean, modifier: Modifier = Modifier) {
     var expanded by rememberSaveable { mutableStateOf(!isStudyMode) }
     Card({ expanded = !expanded }, modifier) {
         Column(Modifier.padding(8.dp), Arrangement.spacedBy(8.dp)) {
@@ -91,6 +91,6 @@ fun EnergyEfficiencyScreen(isStudyMode: Boolean, modifier: Modifier = Modifier) 
 @Composable
 fun EnergyEfficiencyScreenPreview() {
     ComputerArchitectureTheme {
-        EnergyEfficiencyScreen(false)
+        EnergyEfficiencyContent(false)
     }
 }

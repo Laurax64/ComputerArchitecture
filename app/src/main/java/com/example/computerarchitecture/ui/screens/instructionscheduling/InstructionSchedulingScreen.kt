@@ -50,7 +50,7 @@ fun InstructionSchedulingScreen(
             )
         },
     ) {
-        InstructionSchedulingScreen(
+        InstructionSchedulingContent(
             isStudyMode = instructionSchedulingViewModel.isStudyMode,
             modifier = Modifier
                 .padding(it)
@@ -60,13 +60,13 @@ fun InstructionSchedulingScreen(
 }
 
 /**
- * Displays the instruction scheduling screen.
+ * Displays the instruction scheduling screen content.
  *
  * @param isStudyMode Whether the user is in study mode
  * @param modifier The modifier for the layout
  */
 @Composable
-fun InstructionSchedulingScreen(isStudyMode: Boolean, modifier: Modifier = Modifier) {
+fun InstructionSchedulingContent(isStudyMode: Boolean, modifier: Modifier = Modifier) {
     var state by rememberSaveable { mutableIntStateOf(0) }
     val titles = listOf(R.string.static_scheduling, R.string.dynamic_scheduling)
     Column(modifier, Arrangement.spacedBy(8.dp)) {
@@ -260,6 +260,6 @@ private fun TomasulosAlgorithm(isStudyMode: Boolean, modifier: Modifier = Modifi
 @Composable
 fun InstructionSchedulingScreenPreview() {
     ComputerArchitectureTheme {
-        InstructionSchedulingScreen(isStudyMode = false)
+        InstructionSchedulingContent(isStudyMode = false)
     }
 }

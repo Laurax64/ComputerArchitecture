@@ -51,7 +51,7 @@ fun SpectreScreen(
             )
         },
     ) {
-        SpectreScreen(
+        SpectreContent(
             spectreViewModel.isStudyMode,
             Modifier
                 .padding(it)
@@ -61,13 +61,13 @@ fun SpectreScreen(
 }
 
 /**
- * Displays a screen with information about spectre.
+ * Displays the spectre screen content.
  *
  * @param isStudyMode Whether the user is in study mode
  * @param modifier The modifier for the layout
  */
 @Composable
-fun SpectreScreen(isStudyMode: Boolean, modifier: Modifier = Modifier) {
+fun SpectreContent(isStudyMode: Boolean, modifier: Modifier = Modifier) {
     Column(modifier.verticalScroll(rememberScrollState()), Arrangement.spacedBy(8.dp)) {
         SpeculativeExecution(isStudyMode, Modifier.fillMaxWidth())
         SpectreAttacks(isStudyMode, Modifier.fillMaxWidth())
@@ -257,6 +257,6 @@ private fun AvoidSpectreAttacks(isStudyMode: Boolean, modifier: Modifier = Modif
 @Composable
 fun SpectreScreenPreview() {
     ComputerArchitectureTheme {
-        SpectreScreen(false)
+        SpectreContent(false)
     }
 }
