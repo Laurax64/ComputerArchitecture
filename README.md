@@ -1,6 +1,6 @@
 # Computer Architecture App
 
-An Android app for visualising and describing computer architecture concepts.
+An Android app for visualizing and describing computer architecture concepts.
 
 <img width="108" height="240" alt="Screenshot_20250923_190436" src="https://github.com/user-attachments/assets/27945199-e24e-4773-a6d7-7191cb8d9587" />
 
